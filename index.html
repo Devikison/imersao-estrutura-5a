@@ -52,9 +52,12 @@ a:hover{color:#FFD34F}
 @media (prefers-reduced-motion:reduce){.carrossel-card::before{animation:none}}
 /* ---- Linha do tempo iluminada no scroll (secao "Seis angulos") ---- */
 .timeline{position:relative}
-.tl-rail{position:absolute;left:50%;top:0;bottom:0;width:2px;transform:translateX(-50%);background:rgba(243,242,238,.1);border-radius:2px}
+.tl-rail{position:absolute;left:50%;top:0;bottom:0;width:2px;transform:translateX(-50%);background:rgba(243,242,238,.05);border-radius:2px}
 .tl-fill{position:absolute;left:0;top:0;width:100%;height:var(--tl,0%);background:linear-gradient(180deg,#FFEFC0,#F5C328 40%,#B8830A);box-shadow:0 0 16px 3px rgba(245,195,40,.85),0 0 46px 12px rgba(245,195,40,.35);border-radius:2px;transition:height .15s linear}
-.tl-fill::after{content:'';position:absolute;left:50%;bottom:-8px;width:16px;height:16px;transform:translateX(-50%);border-radius:50%;background:radial-gradient(circle,#FFF8E2,#FFEFC0 30%,#F5C328 60%,transparent 74%);box-shadow:0 0 30px 10px rgba(245,195,40,.9),0 0 70px 26px rgba(245,195,40,.4)}
+.tl-fill::before{content:'';position:absolute;left:50%;bottom:-9px;width:19px;height:19px;transform:translateX(-50%);border-radius:50%;border:1.5px solid rgba(245,195,40,.75);pointer-events:none;animation:tl-ring 2.4s cubic-bezier(.2,.65,.35,1) infinite}
+.tl-fill::after{content:'';position:absolute;left:50%;bottom:-8px;width:17px;height:17px;transform:translateX(-50%);border-radius:50%;background:radial-gradient(circle,#FFF8E2,#FFEFC0 30%,#F5C328 60%,transparent 74%);box-shadow:0 0 30px 10px rgba(245,195,40,.9),0 0 70px 26px rgba(245,195,40,.4);animation:tl-pulse 2.4s ease-in-out infinite}
+@keyframes tl-ring{0%{transform:translateX(-50%) scale(.55);opacity:.8}75%,100%{transform:translateX(-50%) scale(2.4);opacity:0}}
+@keyframes tl-pulse{0%,100%{box-shadow:0 0 30px 10px rgba(245,195,40,.9),0 0 70px 26px rgba(245,195,40,.4)}50%{box-shadow:0 0 38px 14px rgba(245,195,40,1),0 0 92px 34px rgba(245,195,40,.55)}}
 .tl-step{position:relative;display:grid;grid-template-columns:1fr 64px 1fr;align-items:center;margin:30px 0}
 .tl-node{grid-column:2;grid-row:1;justify-self:center;width:40px;height:40px;border-radius:999px;background:#101013;border:1px solid rgba(243,242,238,.16);position:relative;z-index:2;display:flex;align-items:center;justify-content:center;transition:border-color .45s ease,background .45s ease,box-shadow .45s ease}
 .tl-step.lit .tl-node{border-color:rgba(245,195,40,.6);background:radial-gradient(circle at 50% 20%,#2a2418 0%,#141310 58%,#0a0a0c 100%);box-shadow:inset 0 1.5px 1.5px rgba(255,239,192,.4),inset 0 -4px 8px -4px rgba(245,195,40,.5),0 0 24px 4px rgba(245,195,40,.5)}
@@ -70,7 +73,7 @@ a:hover{color:#FFD34F}
 .tl-node{grid-column:1;width:36px;height:36px}
 .tl-card,.tl-step:nth-child(even) .tl-card{grid-column:2;text-align:left}
 }
-@media (prefers-reduced-motion:reduce){.tl-card,.tl-node,.tl-node::before{transition:none}}
+@media (prefers-reduced-motion:reduce){.tl-card,.tl-node,.tl-node::before{transition:none}.tl-fill::before,.tl-fill::after{animation:none}}
 /* ---- Botoes: mesmo motor/estilo de referencia (isolate + skew-sheen no hover) ---- */
 .btn-chique{position:relative;overflow:hidden;isolation:isolate;transition:transform .25s ease,box-shadow .25s ease}
 .btn-chique:hover{transform:translateY(-2px)}
@@ -112,8 +115,7 @@ a:hover{color:#FFD34F}
 </div>
 
 <section ref="{{ heroRef }}" style="position:relative;min-height:100dvh;display:flex;align-items:center;padding:clamp(88px,12vh,128px) clamp(18px,5vw,72px) clamp(36px,6vh,72px);background:#0A0A0C">
-<div style="position:absolute;top:-10%;right:-8%;width:60%;height:70%;background:radial-gradient(circle,rgba(90,140,255,.07),transparent 68%);pointer-events:none"></div>
-<div style="position:absolute;bottom:-20%;left:-10%;width:55%;height:60%;background:radial-gradient(circle,rgba(245,195,40,.045),transparent 70%);pointer-events:none"></div>
+<div style="position:absolute;bottom:-20%;left:-10%;width:55%;height:60%;background:radial-gradient(circle,rgba(245,195,40,.05),transparent 70%);pointer-events:none"></div>
 <div style="position:relative;width:100%;max-width:1240px;margin:0 auto;display:flex;flex-wrap:wrap-reverse;align-items:center;gap:clamp(26px,3.6vw,60px)">
 
 <div data-mobile-center style="flex:1 1 330px;min-width:min(100%,320px);display:flex;flex-direction:column;align-items:flex-start;gap:clamp(14px,1.7vw,22px)">
@@ -129,7 +131,7 @@ a:hover{color:#FFD34F}
 </section>
 
 <section style="position:relative;padding:clamp(64px,9vw,130px) clamp(18px,5vw,72px);background:#16161A">
-<div style="position:absolute;top:0;left:-6%;width:48%;height:80%;background:radial-gradient(circle,rgba(90,140,255,.05),transparent 70%);pointer-events:none"></div>
+<div style="position:absolute;top:0;left:-6%;width:48%;height:80%;background:radial-gradient(circle,rgba(245,195,40,.04),transparent 70%);pointer-events:none"></div>
 <div style="position:relative;max-width:1240px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;gap:clamp(32px,5vw,80px)">
 <div data-mobile-center style="flex:1 1 380px;min-width:min(100%,320px);display:flex;flex-direction:column;gap:clamp(18px,2vw,28px)">
 <blockquote data-reveal data-mobile-quote style="position:relative;font:500 clamp(21px,2.5vw,35px)/1.28 'General Sans',Inter,system-ui;letter-spacing:-.022em;color:#F3F2EE;text-wrap:pretty;padding-left:clamp(16px,2vw,26px);border-left:2px solid rgba(245,195,40,.5)">Mais tráfego não corrige uma estrutura quebrada. Antes de investir mais para atrair novos leads, o empresário precisa entender se oferta, atendimento, comercial, dados e margem estão preparados para transformar aquisição em vendas.</blockquote>
@@ -265,7 +267,7 @@ Arraste para ver mais
 </section>
 
 <section id="diagnostico" style="position:relative;padding:clamp(64px,9vw,130px) 0;background:#101013">
-<div style="position:absolute;bottom:0;left:0;width:100%;height:50%;background:radial-gradient(60% 100% at 50% 100%,rgba(79,209,139,.04),transparent 70%);pointer-events:none"></div>
+<div style="position:absolute;bottom:0;left:0;width:100%;height:50%;background:radial-gradient(60% 100% at 50% 100%,rgba(245,195,40,.04),transparent 70%);pointer-events:none"></div>
 <div style="position:relative;max-width:1240px;margin:0 auto;padding:0 clamp(18px,5vw,72px);display:flex;flex-wrap:wrap;align-items:center;gap:clamp(32px,5vw,70px)">
 <div data-reveal data-mobile-center style="flex:1 1 340px;min-width:min(100%,300px);display:flex;flex-direction:column;gap:16px;align-items:flex-start;text-align:left">
 <h2 style="font:600 clamp(27px,2.9vw,40px)/1.14 'General Sans',Inter,system-ui;letter-spacing:-.026em;color:#F3F2EE;text-wrap:pretty;max-width:18ch">O caminho completo que a imersão ensina a enxergar: da primeira etapa até o dinheiro entrar de verdade.</h2>
@@ -315,7 +317,7 @@ Arraste para ver mais
 </section>
 
 <section style="position:relative;padding:clamp(64px,9vw,130px) 0 clamp(40px,5vw,70px);background:#1B1B20">
-<div style="position:absolute;top:0;right:-8%;width:50%;height:70%;background:radial-gradient(circle,rgba(79,209,139,.035),transparent 70%);pointer-events:none"></div>
+<div style="position:absolute;top:0;right:-8%;width:50%;height:70%;background:radial-gradient(circle,rgba(245,195,40,.035),transparent 70%);pointer-events:none"></div>
 <div style="position:relative;max-width:1240px;margin:0 auto;padding:0 clamp(18px,5vw,72px);display:flex;flex-direction:column;gap:clamp(24px,3vw,40px)">
 <div data-reveal style="display:flex;flex-direction:column;gap:14px;max-width:56ch;align-items:center;text-align:center;align-self:center">
 <h2 style="font:600 clamp(27px,2.9vw,40px)/1.14 'General Sans',Inter,system-ui;letter-spacing:-.026em;color:#F3F2EE;text-wrap:pretty">Seis ângulos que mudam a leitura da sua operação</h2>
@@ -343,7 +345,7 @@ Arraste para ver mais
 </section>
 
 <section style="position:relative;padding:clamp(56px,7.5vw,110px) 0;background:#16161A;overflow:hidden">
-<div style="position:absolute;top:10%;left:-6%;width:46%;height:70%;background:radial-gradient(circle,rgba(90,140,255,.05),transparent 70%);pointer-events:none"></div>
+<div style="position:absolute;top:10%;left:-6%;width:46%;height:70%;background:radial-gradient(circle,rgba(245,195,40,.04),transparent 70%);pointer-events:none"></div>
 <div data-reveal style="position:relative;padding:0 clamp(18px,5vw,72px);max-width:1240px;margin:0 auto clamp(30px,3.6vw,50px);text-align:center">
 <h2 style="font:600 clamp(30px,3.6vw,48px)/1.16 'General Sans',Inter,system-ui;letter-spacing:-.026em;color:#F3F2EE;text-wrap:pretty">Frases que você já deveria estar se fazendo</h2>
 </div>
@@ -351,14 +353,14 @@ Arraste para ver mais
 <div style="position:absolute;inset:0;background:linear-gradient(90deg,#16161A 0%,transparent 10%,transparent 90%,#16161A 100%);z-index:2;pointer-events:none"></div>
 <div style="display:flex;width:max-content;animation:mqA 46s linear infinite">
 <div style="display:flex;gap:clamp(12px,1.4vw,18px);padding-right:clamp(12px,1.4vw,18px)">
-<p style="flex:none;padding:18px 26px;border-radius:16px;border:1px solid rgba(123,167,255,.22);background:linear-gradient(165deg,rgba(123,167,255,.06),rgba(243,242,238,.02));font:500 clamp(15px,1.3vw,20px)/1.3 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE">Seu problema pode não estar no tráfego.</p>
+<p style="flex:none;padding:18px 26px;border-radius:16px;border:1px solid rgba(243,242,238,.12);background:rgba(243,242,238,.03);font:500 clamp(15px,1.3vw,20px)/1.3 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE">Seu problema pode não estar no tráfego.</p>
 <p style="flex:none;padding:18px 26px;border-radius:16px;border:1px solid rgba(243,242,238,.12);background:rgba(243,242,238,.03);font:500 clamp(15px,1.3vw,20px)/1.3 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE">Mais tráfego não corrige uma estrutura quebrada.</p>
 <p style="flex:none;padding:18px 26px;border-radius:16px;border:1px solid rgba(243,242,238,.12);background:rgba(243,242,238,.03);font:500 clamp(15px,1.3vw,20px)/1.3 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE">Você sabe onde sua empresa perde vendas depois que o lead chega?</p>
 <p style="flex:none;padding:18px 26px;border-radius:16px;border:1px solid rgba(243,242,238,.12);background:rgba(243,242,238,.03);font:500 clamp(15px,1.3vw,20px)/1.3 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE">Marketing gera lead. Mas quem garante que ele vira venda?</p>
 <p style="flex:none;padding:18px 26px;border-radius:16px;border:1px solid rgba(245,195,40,.28);background:linear-gradient(165deg,rgba(245,195,40,.08),rgba(243,242,238,.02));font:500 clamp(15px,1.3vw,20px)/1.3 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#FFD34F">Antes de escalar, descubra onde o dinheiro está vazando.</p>
 </div>
 <div style="display:flex;gap:clamp(12px,1.4vw,18px);padding-right:clamp(12px,1.4vw,18px)">
-<p style="flex:none;padding:18px 26px;border-radius:16px;border:1px solid rgba(123,167,255,.22);background:linear-gradient(165deg,rgba(123,167,255,.06),rgba(243,242,238,.02));font:500 clamp(15px,1.3vw,20px)/1.3 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE">Seu problema pode não estar no tráfego.</p>
+<p style="flex:none;padding:18px 26px;border-radius:16px;border:1px solid rgba(243,242,238,.12);background:rgba(243,242,238,.03);font:500 clamp(15px,1.3vw,20px)/1.3 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE">Seu problema pode não estar no tráfego.</p>
 <p style="flex:none;padding:18px 26px;border-radius:16px;border:1px solid rgba(243,242,238,.12);background:rgba(243,242,238,.03);font:500 clamp(15px,1.3vw,20px)/1.3 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE">Mais tráfego não corrige uma estrutura quebrada.</p>
 <p style="flex:none;padding:18px 26px;border-radius:16px;border:1px solid rgba(243,242,238,.12);background:rgba(243,242,238,.03);font:500 clamp(15px,1.3vw,20px)/1.3 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE">Você sabe onde sua empresa perde vendas depois que o lead chega?</p>
 <p style="flex:none;padding:18px 26px;border-radius:16px;border:1px solid rgba(243,242,238,.12);background:rgba(243,242,238,.03);font:500 clamp(15px,1.3vw,20px)/1.3 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE">Marketing gera lead. Mas quem garante que ele vira venda?</p>
@@ -368,14 +370,14 @@ Arraste para ver mais
 <div style="display:flex;width:max-content;animation:mqB 52s linear infinite">
 <div style="display:flex;gap:clamp(12px,1.4vw,18px);padding-right:clamp(12px,1.4vw,18px)">
 <p style="flex:none;padding:18px 26px;border-radius:16px;border:1px solid rgba(243,242,238,.12);background:rgba(243,242,238,.03);font:500 clamp(15px,1.3vw,20px)/1.3 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE">Seu CPL caiu. Mas sua empresa ganhou mais dinheiro?</p>
-<p style="flex:none;padding:18px 26px;border-radius:16px;border:1px solid rgba(79,209,139,.22);background:linear-gradient(165deg,rgba(79,209,139,.05),rgba(243,242,238,.02));font:500 clamp(15px,1.3vw,20px)/1.3 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE">Marketing culpa vendas. Vendas culpa marketing. Quem está certo?</p>
+<p style="flex:none;padding:18px 26px;border-radius:16px;border:1px solid rgba(245,195,40,.28);background:linear-gradient(165deg,rgba(245,195,40,.08),rgba(243,242,238,.02));font:500 clamp(15px,1.3vw,20px)/1.3 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#FFD34F">Marketing culpa vendas. Vendas culpa marketing. Quem está certo?</p>
 <p style="flex:none;padding:18px 26px;border-radius:16px;border:1px solid rgba(243,242,238,.12);background:rgba(243,242,238,.03);font:500 clamp(15px,1.3vw,20px)/1.3 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE">Você sabe quanto pode pagar para adquirir um cliente?</p>
 <p style="flex:none;padding:18px 26px;border-radius:16px;border:1px solid rgba(243,242,238,.12);background:rgba(243,242,238,.03);font:500 clamp(15px,1.3vw,20px)/1.3 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE">Pare de trocar campanha antes de descobrir o verdadeiro gargalo.</p>
 <p style="flex:none;padding:18px 26px;border-radius:16px;border:1px solid rgba(243,242,238,.12);background:rgba(243,242,238,.03);font:500 clamp(15px,1.3vw,20px)/1.3 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE">Antes de colocar mais dinheiro no tráfego, olhe para isso.</p>
 </div>
 <div style="display:flex;gap:clamp(12px,1.4vw,18px);padding-right:clamp(12px,1.4vw,18px)">
 <p style="flex:none;padding:18px 26px;border-radius:16px;border:1px solid rgba(243,242,238,.12);background:rgba(243,242,238,.03);font:500 clamp(15px,1.3vw,20px)/1.3 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE">Seu CPL caiu. Mas sua empresa ganhou mais dinheiro?</p>
-<p style="flex:none;padding:18px 26px;border-radius:16px;border:1px solid rgba(79,209,139,.22);background:linear-gradient(165deg,rgba(79,209,139,.05),rgba(243,242,238,.02));font:500 clamp(15px,1.3vw,20px)/1.3 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE">Marketing culpa vendas. Vendas culpa marketing. Quem está certo?</p>
+<p style="flex:none;padding:18px 26px;border-radius:16px;border:1px solid rgba(245,195,40,.28);background:linear-gradient(165deg,rgba(245,195,40,.08),rgba(243,242,238,.02));font:500 clamp(15px,1.3vw,20px)/1.3 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#FFD34F">Marketing culpa vendas. Vendas culpa marketing. Quem está certo?</p>
 <p style="flex:none;padding:18px 26px;border-radius:16px;border:1px solid rgba(243,242,238,.12);background:rgba(243,242,238,.03);font:500 clamp(15px,1.3vw,20px)/1.3 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE">Você sabe quanto pode pagar para adquirir um cliente?</p>
 <p style="flex:none;padding:18px 26px;border-radius:16px;border:1px solid rgba(243,242,238,.12);background:rgba(243,242,238,.03);font:500 clamp(15px,1.3vw,20px)/1.3 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE">Pare de trocar campanha antes de descobrir o verdadeiro gargalo.</p>
 <p style="flex:none;padding:18px 26px;border-radius:16px;border:1px solid rgba(243,242,238,.12);background:rgba(243,242,238,.03);font:500 clamp(15px,1.3vw,20px)/1.3 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE">Antes de colocar mais dinheiro no tráfego, olhe para isso.</p>
