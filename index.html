@@ -31,6 +31,11 @@ a:hover{color:#FFD34F}
 @media (max-width:480px){
 .hero-emph{white-space:normal!important}
 }
+.hero-creative-bg,.hero-creative-scrim{display:none}
+@media (min-width:901px){
+.hero-creative-bg{display:block;position:absolute;inset:0;background-image:url(assets/hero-creative.png);background-size:cover;background-position:right center;z-index:0;pointer-events:none}
+.hero-creative-scrim{display:block;position:absolute;inset:0;background:linear-gradient(90deg,#0A0A0C 0%,rgba(10,10,12,.94) 32%,rgba(10,10,12,.62) 52%,rgba(10,10,12,.18) 72%,transparent 92%);z-index:0;pointer-events:none}
+}
 @media (max-width:760px){
 [data-mobile-center]{align-items:center!important;text-align:center!important}
 [data-mobile-row-center]{justify-content:center!important;align-items:center!important}
@@ -115,9 +120,11 @@ a:hover{color:#FFD34F}
 <span id="hero-capsule-text" ref="{{ capsuleTextRef }}" style="display:inline-flex;align-items:center;justify-content:center;gap:7px;font:600 12.5px/1 Inter,sans-serif;letter-spacing:.03em;color:#F3F2EE;white-space:nowrap;transition:opacity .35s cubic-bezier(.22,.9,.3,1),transform .35s cubic-bezier(.22,.9,.3,1)"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="#F5C328" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"></rect><path d="M16 2v4M8 2v4M3 10h18"></path></svg>10 de outubro</span>
 </div>
 
-<section ref="{{ heroRef }}" style="position:relative;min-height:100dvh;display:flex;align-items:center;padding:clamp(88px,12vh,128px) clamp(18px,5vw,72px) clamp(36px,6vh,72px);background:#0A0A0C">
+<section ref="{{ heroRef }}" style="position:relative;min-height:100dvh;display:flex;align-items:center;padding:clamp(88px,12vh,128px) clamp(18px,5vw,72px) clamp(36px,6vh,72px);background:#0A0A0C;overflow:hidden">
+<div class="hero-creative-bg"></div>
+<div class="hero-creative-scrim"></div>
 <div style="position:absolute;bottom:-20%;left:-10%;width:55%;height:60%;background:radial-gradient(circle,rgba(245,195,40,.05),transparent 70%);pointer-events:none"></div>
-<div style="position:relative;width:100%;max-width:1240px;margin:0 auto;display:flex;flex-wrap:wrap-reverse;align-items:center;gap:clamp(26px,3.6vw,60px)">
+<div style="position:relative;z-index:1;width:100%;max-width:1240px;margin:0 auto;display:flex;flex-wrap:wrap-reverse;align-items:center;gap:clamp(26px,3.6vw,60px)">
 
 <div data-mobile-center style="flex:1 1 330px;min-width:min(100%,320px);display:flex;flex-direction:column;align-items:flex-start;gap:clamp(14px,1.7vw,22px)">
 <h1 data-reveal style="font:600 clamp(32px,4.3vw,58px)/1.05 'General Sans',Inter,system-ui;letter-spacing:-.028em;color:#F3F2EE;text-wrap:pretty;max-width:27ch">Antes de investir mais em tráfego, descubra onde sua <span class="hero-emph" style="position:relative;white-space:nowrap"><span style="position:relative;z-index:1;background:linear-gradient(180deg,#FFEFC0,#F5C328 55%,#B8830A);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">empresa está perdendo vendas.</span><span style="position:absolute;left:0;right:0;bottom:.06em;height:2px;background:linear-gradient(90deg,transparent,rgba(245,195,40,.7),transparent)"></span></span></h1>
