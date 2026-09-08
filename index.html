@@ -101,7 +101,8 @@ a:hover{color:#FFD34F}
 .sec-h2{font:600 clamp(30px,4.4vw,56px)/1.08 'General Sans',Inter,system-ui;letter-spacing:-.024em;text-wrap:pretty}
 .gh-pill{position:relative;display:inline-flex;align-items:center;gap:8px;padding:8px 16px;border-radius:999px;background:linear-gradient(160deg,rgba(243,242,238,.09),rgba(243,242,238,.02));border:1px solid rgba(243,242,238,.16);backdrop-filter:blur(14px) saturate(150%);-webkit-backdrop-filter:blur(14px) saturate(150%);box-shadow:inset 0 1px 0 rgba(255,255,255,.08)}
 .gh-pill-dark{position:relative;display:inline-flex;align-items:center;gap:8px;padding:7px 14px;border-radius:999px;background:linear-gradient(160deg,rgba(20,20,20,.07),rgba(20,20,20,.02));border:1px solid rgba(20,20,20,.16);backdrop-filter:blur(10px) saturate(140%);-webkit-backdrop-filter:blur(10px) saturate(140%);box-shadow:inset 0 1px 0 rgba(255,255,255,.5)}
-.cx-arrow{position:fixed;top:0;left:0;width:32px;height:32px;pointer-events:none;z-index:9999;opacity:0;filter:drop-shadow(0 2px 4px rgba(0,0,0,.45));transition:opacity .25s ease,transform .16s cubic-bezier(.2,.8,.2,1)}
+.cx-arrow{position:fixed;top:0;left:0;width:32px;height:32px;pointer-events:none;z-index:9999;opacity:0;filter:drop-shadow(0 2px 4px rgba(0,0,0,.45));transition:opacity .25s ease}
+.cx-arrow-inner{transition:transform .16s cubic-bezier(.2,.8,.2,1)}
 .cx-arrow.is-on{opacity:1}
 @media (hover:hover) and (pointer:fine){*{cursor:none!important}}
 @media (hover:none),(pointer:coarse),(prefers-reduced-motion:reduce){.cx-arrow{display:none!important}}
@@ -832,27 +833,25 @@ class Component extends DCLogic {
     if (window.matchMedia("(prefers-reduced-motion:reduce)").matches) return;
     const arrow = document.createElement("div");
     arrow.className = "cx-arrow";
-    arrow.innerHTML = '<svg viewBox="0 0 24 24" width="32" height="32">' +
+    arrow.innerHTML = '<div class="cx-arrow-inner"><svg viewBox="0 0 24 24" width="32" height="32">' +
       '<path d="M3,3 L10.07,19.97 L12.58,12.58 Z" fill="#FFEFC0"></path>' +
       '<path d="M3,3 L12.58,12.58 L19.97,10.07 Z" fill="#B8830A"></path>' +
       '<path d="M3,3 L10.07,19.97 L12.58,12.58 L19.97,10.07 Z" fill="none" stroke="#0A0A0C" stroke-width="1.3" stroke-linejoin="round"></path>' +
-      "</svg>";
+      "</svg></div>";
     document.body.appendChild(arrow);
+    const inner = arrow.firstElementChild;
     let on = false, hover = false;
-    const paint = (x, y) => {
-      arrow.style.transform = "translate(" + (x - 4) + "px," + (y - 4) + "px) scale(" + (hover ? 1.2 : 1) + ")";
-    };
     const onMove = e => {
-      paint(e.clientX, e.clientY);
+      arrow.style.transform = "translate(" + (e.clientX - 4) + "px," + (e.clientY - 4) + "px)";
       if (!on) { on = true; arrow.classList.add("is-on"); }
     };
     window.addEventListener("mousemove", onMove, { passive: true });
     const hoverSel = "a,button,[role='button'],.carrossel-dot,.carrossel-nav,input,textarea,[onclick]";
     document.addEventListener("mouseover", e => {
-      if (e.target.closest && e.target.closest(hoverSel)) { hover = true; paint(e.clientX, e.clientY); }
+      if (e.target.closest && e.target.closest(hoverSel)) { hover = true; inner.style.transform = "scale(1.2)"; }
     });
     document.addEventListener("mouseout", e => {
-      if (e.target.closest && e.target.closest(hoverSel)) { hover = false; paint(e.clientX, e.clientY); }
+      if (e.target.closest && e.target.closest(hoverSel)) { hover = false; inner.style.transform = "scale(1)"; }
     });
     document.addEventListener("mouseleave", () => { arrow.classList.remove("is-on"); on = false; });
     this._cursorArrow = arrow;
