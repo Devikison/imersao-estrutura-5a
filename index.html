@@ -100,6 +100,13 @@ a:hover{color:#FFD34F}
 .sec-h2{font:600 clamp(30px,4.4vw,56px)/1.08 'General Sans',Inter,system-ui;letter-spacing:-.024em;text-wrap:pretty}
 .gh-pill{position:relative;display:inline-flex;align-items:center;gap:8px;padding:8px 16px;border-radius:999px;background:linear-gradient(160deg,rgba(243,242,238,.09),rgba(243,242,238,.02));border:1px solid rgba(243,242,238,.16);backdrop-filter:blur(14px) saturate(150%);-webkit-backdrop-filter:blur(14px) saturate(150%);box-shadow:inset 0 1px 0 rgba(255,255,255,.08)}
 .gh-pill-dark{position:relative;display:inline-flex;align-items:center;gap:8px;padding:7px 14px;border-radius:999px;background:linear-gradient(160deg,rgba(20,20,20,.07),rgba(20,20,20,.02));border:1px solid rgba(20,20,20,.16);backdrop-filter:blur(10px) saturate(140%);-webkit-backdrop-filter:blur(10px) saturate(140%);box-shadow:inset 0 1px 0 rgba(255,255,255,.5)}
+.cx-dot{position:fixed;top:0;left:0;width:7px;height:7px;margin:-3.5px 0 0 -3.5px;border-radius:50%;background:#F5C328;border:1px solid rgba(10,10,12,.5);pointer-events:none;z-index:9999;opacity:0;box-shadow:0 0 6px rgba(245,195,40,.65);transition:opacity .3s ease,transform .12s ease}
+.cx-ring{position:fixed;top:0;left:0;width:26px;height:26px;margin:-13px 0 0 -13px;border-radius:50%;border:1.4px solid rgba(245,195,40,.85);pointer-events:none;z-index:9998;opacity:0;box-shadow:0 0 10px rgba(245,195,40,.3),0 1px 4px rgba(0,0,0,.3);transition:opacity .3s ease,width .28s cubic-bezier(.2,.8,.2,1),height .28s cubic-bezier(.2,.8,.2,1),margin .28s cubic-bezier(.2,.8,.2,1),border-color .28s ease,background .28s ease}
+.cx-dot.is-on,.cx-ring.is-on{opacity:1}
+.cx-ring.is-hover{width:42px;height:42px;margin:-21px 0 0 -21px;border-color:rgba(245,195,40,1);background:rgba(245,195,40,.14)}
+.cx-dot.is-hover{opacity:0}
+@media (hover:hover) and (pointer:fine){body,a,button,[role="button"],.carrossel-dot,.carrossel-nav,input,textarea{cursor:none!important}}
+@media (hover:none),(pointer:coarse),(prefers-reduced-motion:reduce){.cx-dot,.cx-ring{display:none!important}}
 .carrossel-dots{flex:none;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;width:10px}
 .carrossel-dot{display:block;width:6px;height:6px;border-radius:999px;background:rgba(243,242,238,.18);border:none;padding:0;cursor:pointer;transition:background .25s,height .25s}
 .carrossel-dot.is-active{background:#F5C328;height:22px}
@@ -752,6 +759,7 @@ class Component extends DCLogic {
     this.setupFunnel();
     this.setupBar();
     this.setupCapsule();
+    this.setupCursor();
     initCarrossel({ track: "crencas-track", dots: "crencas-dots", hint: "crencas-hint", navPrev: "crencas-nav-prev", navNext: "crencas-nav-next" });
     initCarrossel({ track: "diagnostico-track", dots: "diagnostico-dots", hint: "diagnostico-hint", navPrev: "diagnostico-nav-prev", navNext: "diagnostico-nav-next" });
     initTimeline();
@@ -775,6 +783,9 @@ class Component extends DCLogic {
     cancelAnimationFrame(this._raf);
     this._io && this._io.disconnect();
     clearInterval(this._capsuleTimer);
+    cancelAnimationFrame(this._cursorRaf);
+    this._cursorDot && this._cursorDot.remove();
+    this._cursorRing && this._cursorRing.remove();
   }
 
   /* ---------- capsula central fixa: alterna as informacoes-chave ---------- */
@@ -812,6 +823,42 @@ class Component extends DCLogic {
     }, 2600);
   }
 
+  /* ---------- cursor personalizado (ponto + anel dourados) ---------- */
+  setupCursor() {
+    if (!window.matchMedia("(hover:hover) and (pointer:fine)").matches) return;
+    if (window.matchMedia("(prefers-reduced-motion:reduce)").matches) return;
+    const dot = document.createElement("div");
+    dot.className = "cx-dot";
+    const ring = document.createElement("div");
+    ring.className = "cx-ring";
+    document.body.appendChild(dot);
+    document.body.appendChild(ring);
+    let mx = -100, my = -100, rx = -100, ry = -100, on = false;
+    const onMove = e => {
+      mx = e.clientX; my = e.clientY;
+      dot.style.transform = "translate(" + mx + "px," + my + "px)";
+      if (!on) { on = true; rx = mx; ry = my; dot.classList.add("is-on"); ring.classList.add("is-on"); }
+    };
+    window.addEventListener("mousemove", onMove, { passive: true });
+    const tick = () => {
+      rx += (mx - rx) * 0.18;
+      ry += (my - ry) * 0.18;
+      ring.style.transform = "translate(" + rx + "px," + ry + "px)";
+      this._cursorRaf = requestAnimationFrame(tick);
+    };
+    tick();
+    const hoverSel = "a,button,[role='button'],.carrossel-dot,.carrossel-nav,input,textarea,[onclick]";
+    document.addEventListener("mouseover", e => {
+      if (e.target.closest && e.target.closest(hoverSel)) { ring.classList.add("is-hover"); dot.classList.add("is-hover"); }
+    });
+    document.addEventListener("mouseout", e => {
+      if (e.target.closest && e.target.closest(hoverSel)) { ring.classList.remove("is-hover"); dot.classList.remove("is-hover"); }
+    });
+    document.addEventListener("mouseleave", () => { dot.classList.remove("is-on"); ring.classList.remove("is-on"); on = false; });
+    this._cursorDot = dot;
+    this._cursorRing = ring;
+  }
+
   /* ---------- entrada progressiva + contadores ---------- */
   setupReveal() {
     const els = [...document.querySelectorAll("[data-reveal]")];
@@ -819,26 +866,29 @@ class Component extends DCLogic {
     counters.forEach(el => { el.dataset.target = el.textContent.trim(); });
     if (!("IntersectionObserver" in window)) { counters.forEach(el => this.countUp(el)); return; }
     const vh = window.innerHeight;
-    els.forEach(el => {
-      const r = el.getBoundingClientRect();
-      if (r.top < vh * 0.92) return;
+    const hide = el => {
       el.style.opacity = "0";
       el.style.transform = "translateY(20px)";
       el.style.filter = "blur(6px)";
+    };
+    const show = el => {
+      el.style.opacity = "1";
+      el.style.transform = "none";
+      el.style.filter = "none";
+    };
+    els.forEach(el => {
       el.style.transition = "opacity .56s " + this._ease + ", transform .56s " + this._ease + ", filter .56s " + this._ease;
-      el.dataset.hidden = "1";
+      const r = el.getBoundingClientRect();
+      if (r.top >= vh * 0.92) hide(el);
     });
     this._io = new IntersectionObserver(entries => {
       entries.forEach(e => {
-        if (!e.isIntersecting) return;
         const el = e.target;
-        if (el.hasAttribute("data-count")) this.countUp(el);
-        else {
-          el.style.opacity = "1";
-          el.style.transform = "none";
-          el.style.filter = "none";
+        if (el.hasAttribute("data-count")) {
+          if (e.isIntersecting) this.countUp(el);
+          return;
         }
-        this._io.unobserve(el);
+        if (e.isIntersecting) show(el); else hide(el);
       });
     }, { rootMargin: "0px 0px -8% 0px", threshold: 0.12 });
     els.forEach(el => this._io.observe(el));
