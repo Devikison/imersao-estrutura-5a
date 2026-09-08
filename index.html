@@ -50,7 +50,7 @@ a:hover{color:#FFD34F}
 @media (min-width:860px){
 .carrossel-wrap{gap:20px;max-width:720px}
 .carrossel-dots{width:34px;gap:10px}
-.carrossel-nav{display:flex;align-items:center;justify-content:center;flex:none;width:30px;height:30px;border-radius:999px;background:rgba(243,242,238,.05);border:1.5px solid rgba(243,242,238,.16);color:#F5C328;cursor:pointer;transition:background .2s,border-color .2s,transform .2s,opacity .2s}
+.carrossel-nav{display:flex;align-items:center;justify-content:center;flex:none;width:32px;height:32px;border-radius:999px;background:radial-gradient(circle at 50% 20%,#2a2418 0%,#141310 58%,#0a0a0c 100%);border:1.5px solid rgba(245,195,40,.4);box-shadow:inset 0 1.5px 1.5px rgba(255,239,192,.35),inset 0 -4px 8px -4px rgba(245,195,40,.4),0 4px 10px -4px rgba(0,0,0,.6);color:#F5C328;cursor:pointer;transition:background .2s,border-color .2s,transform .2s,opacity .2s,box-shadow .2s}
 .carrossel-nav svg{width:14px;height:14px}
 .carrossel-nav:hover{border-color:rgba(245,195,40,.55);background:rgba(245,195,40,.08);transform:translateY(-1px)}
 .carrossel-prev{margin-bottom:4px}
@@ -69,9 +69,10 @@ a:hover{color:#FFD34F}
 
 <div style="position:relative;width:100%;overflow:hidden;background:#0A0A0C">
 
-<header style="position:absolute;top:0;left:0;width:100%;z-index:20;display:flex;align-items:center;padding:clamp(16px,2.2vw,28px) clamp(18px,5vw,72px)">
-<img src="assets/logo-2h.png" alt="Grupo 2!H" style="height:clamp(30px,3vw,42px);width:auto;display:block">
-</header>
+<div style="position:fixed;top:16px;left:50%;transform:translateX(-50%);z-index:45;width:clamp(196px,58vw,240px);display:flex;align-items:center;justify-content:center;gap:9px;padding:10px 18px;border-radius:999px;border:1px solid rgba(245,195,40,.35);background:rgba(10,10,12,.72);backdrop-filter:blur(16px) saturate(160%);box-shadow:0 14px 34px -12px rgba(0,0,0,.75),inset 0 1px 0 rgba(255,255,255,.06);box-sizing:border-box">
+<span style="width:7px;height:7px;border-radius:99px;background:#F5C328;box-shadow:0 0 8px rgba(245,195,40,.9);flex:none;animation:breathe 2.6s cubic-bezier(.22,.9,.3,1) infinite"></span>
+<span id="hero-capsule-text" ref="{{ capsuleTextRef }}" style="display:inline-flex;align-items:center;justify-content:center;gap:7px;font:600 12.5px/1 Inter,sans-serif;letter-spacing:.03em;color:#F3F2EE;white-space:nowrap;transition:opacity .35s cubic-bezier(.22,.9,.3,1),transform .35s cubic-bezier(.22,.9,.3,1)"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="#F5C328" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"></rect><path d="M16 2v4M8 2v4M3 10h18"></path></svg>10 de outubro</span>
+</div>
 
 <section ref="{{ heroRef }}" style="position:relative;min-height:100dvh;display:flex;align-items:center;padding:clamp(88px,12vh,128px) clamp(18px,5vw,72px) clamp(36px,6vh,72px);background:#0A0A0C">
 <div style="position:absolute;top:-10%;right:-8%;width:60%;height:70%;background:radial-gradient(circle,rgba(90,140,255,.07),transparent 68%);pointer-events:none"></div>
@@ -79,18 +80,12 @@ a:hover{color:#FFD34F}
 <div style="position:relative;width:100%;max-width:1240px;margin:0 auto;display:flex;flex-wrap:wrap-reverse;align-items:center;gap:clamp(26px,3.6vw,60px)">
 
 <div data-mobile-center style="flex:1 1 330px;min-width:min(100%,320px);display:flex;flex-direction:column;align-items:flex-start;gap:clamp(14px,1.7vw,22px)">
-<h1 data-reveal style="font:600 clamp(27px,4.3vw,58px)/1.05 'General Sans',Inter,system-ui;letter-spacing:-.028em;color:#F3F2EE;text-wrap:pretty;max-width:15ch">Antes de investir mais em tráfego, descubra onde sua empresa está <span style="position:relative;white-space:nowrap"><span style="position:relative;z-index:1;background:linear-gradient(180deg,#FFEFC0,#F5C328 55%,#B8830A);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">perdendo vendas</span><span style="position:absolute;left:0;right:0;bottom:.06em;height:2px;background:linear-gradient(90deg,transparent,rgba(245,195,40,.7),transparent)"></span></span>.</h1>
+<h1 data-reveal style="font:600 clamp(27px,4.3vw,58px)/1.05 'General Sans',Inter,system-ui;letter-spacing:-.028em;color:#F3F2EE;text-wrap:pretty;max-width:100%">Antes de investir mais em tráfego, descubra onde sua <span style="position:relative"><span style="position:relative;z-index:1;background:linear-gradient(180deg,#FFEFC0,#F5C328 55%,#B8830A);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">empresa está perdendo vendas.</span><span style="position:absolute;left:0;right:0;bottom:.06em;height:2px;background:linear-gradient(90deg,transparent,rgba(245,195,40,.7),transparent)"></span></span></h1>
 <p data-reveal style="font:400 clamp(13.5px,1.05vw,17px)/1.62 Inter,sans-serif;color:#C7C5BC;max-width:52ch;text-wrap:pretty">Em uma imersão online e ao vivo de <strong style="color:#F3F2EE;font-weight:500">4 horas</strong>, você vai aprender a analisar a estrutura entre marketing, atendimento e comercial para identificar gargalos, entender seus números e descobrir o que precisa ser corrigido antes de tentar escalar.</p>
-<div data-reveal data-mobile-row-center style="display:flex;flex-wrap:wrap;gap:8px">
-<span style="display:inline-flex;align-items:center;gap:7px;padding:8px 14px;border-radius:999px;border:1px solid rgba(243,242,238,.14);background:rgba(243,242,238,.04);font:500 12.5px/1 Inter,sans-serif;color:#E4E2DB"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="#F5C328" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"></rect><path d="M16 2v4M8 2v4M3 10h18"></path></svg>10 de outubro</span>
-<span style="display:inline-flex;align-items:center;gap:7px;padding:8px 14px;border-radius:999px;border:1px solid rgba(243,242,238,.14);background:rgba(243,242,238,.04);font:500 12.5px/1 Inter,sans-serif;color:#E4E2DB"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="#F5C328" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4.1 13.4a.9.9 0 0 0 .7 1.5H11l-1 7.1 8.9-11.4a.9.9 0 0 0-.7-1.5H12l1-6.1Z"></path></svg>Online e ao vivo</span>
-<span style="display:inline-flex;align-items:center;gap:7px;padding:8px 14px;border-radius:999px;border:1px solid rgba(243,242,238,.14);background:rgba(243,242,238,.04);font:500 12.5px/1 Inter,sans-serif;color:#E4E2DB"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="#F5C328" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3.5 2"></path></svg>4 horas</span>
-<span style="display:inline-flex;align-items:center;gap:7px;padding:8px 14px;border-radius:999px;border:1px solid rgba(245,195,40,.42);background:linear-gradient(180deg,rgba(245,195,40,.14),rgba(245,195,40,.03));font:700 13px/1 Inter,sans-serif;font-variant-numeric:tabular-nums;color:#FFD34F">R$ <span data-count="27">27</span></span>
-</div>
 <div data-reveal data-mobile-row-center style="display:flex;flex-wrap:wrap;align-items:center;gap:clamp(12px,1.6vw,22px);margin-top:clamp(2px,.6vw,8px)">
-<a href="#inscricao" style="position:relative;overflow:hidden;display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:clamp(15px,1.5vw,19px) clamp(24px,2.6vw,38px);border-radius:999px;background:linear-gradient(180deg,#FFEFC0 0%,#F5C328 42%,#B8830A 100%);color:#121215;font:700 clamp(14px,1.05vw,16.5px)/1 'General Sans',Inter,system-ui;letter-spacing:-.01em;box-shadow:inset 0 1.5px 0 rgba(255,255,255,.55),inset 0 -4px 8px -3px rgba(120,80,0,.4),0 2px 0 rgba(0,0,0,.4),0 12px 26px rgba(0,0,0,.5),0 0 34px rgba(245,195,40,.32);transition:transform .3s cubic-bezier(.22,.9,.3,1),box-shadow .3s cubic-bezier(.22,.9,.3,1)" style-hover="transform:translateY(-3px);color:#121215;box-shadow:inset 0 1.5px 0 rgba(255,255,255,.6),inset 0 -4px 8px -3px rgba(120,80,0,.35),0 2px 0 rgba(0,0,0,.4),0 16px 34px rgba(0,0,0,.55),0 0 56px rgba(245,195,40,.55)" style-active="transform:scale(.98)" style-after="content:'';position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(115deg,transparent 32%,rgba(255,255,255,.5) 50%,transparent 68%);transform:translateX(-130%);animation:sheen 5.4s cubic-bezier(.22,.9,.3,1) infinite;pointer-events:none">Quero garantir minha vaga</a>
+<a href="#inscricao" style="position:relative;overflow:hidden;display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:clamp(15px,1.5vw,19px) clamp(24px,2.6vw,38px);border-radius:999px;background:linear-gradient(180deg,#FFEFC0 0%,#F5C328 42%,#B8830A 100%);color:#121215;font:700 clamp(14px,1.05vw,16.5px)/1 'General Sans',Inter,system-ui;letter-spacing:-.01em;box-shadow:inset 0 1.5px 0 rgba(255,255,255,.6),inset 0 -4px 8px -3px rgba(120,80,0,.4),0 4px 0 rgba(0,0,0,.35),0 24px 48px -14px rgba(0,0,0,.6),0 0 50px rgba(245,195,40,.4);transition:transform .3s cubic-bezier(.22,.9,.3,1),box-shadow .3s cubic-bezier(.22,.9,.3,1)" style-hover="transform:translateY(-3px);color:#121215;box-shadow:inset 0 1.5px 0 rgba(255,255,255,.7),inset 0 -4px 8px -3px rgba(120,80,0,.3),0 4px 0 rgba(0,0,0,.35),0 30px 60px -14px rgba(0,0,0,.65),0 0 70px rgba(245,195,40,.6)" style-active="transform:scale(.98)" style-before="content:'';position:absolute;top:8%;left:8%;right:8%;height:42%;border-radius:999px;background:linear-gradient(180deg,rgba(255,255,255,.65),rgba(255,255,255,0));pointer-events:none;filter:blur(.5px)" style-after="content:'';position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(115deg,transparent 32%,rgba(255,255,255,.5) 50%,transparent 68%);transform:translateX(-130%);animation:sheen 5.4s cubic-bezier(.22,.9,.3,1) infinite;pointer-events:none">Quero garantir minha vaga</a>
 <a href="#diagnostico" style="display:inline-flex;align-items:center;gap:12px;font:500 13.5px/1 Inter,sans-serif;color:#BEBCB3" style-hover="color:#F3F2EE">o que você vai enxergar
-<span style="display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:999px;border:1px solid rgba(243,242,238,.18);background:rgba(243,242,238,.05)"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#F5C328" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"></path></svg></span></a>
+<span style="display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:999px;border:1px solid rgba(245,195,40,.4);background:radial-gradient(circle at 50% 20%,#2a2418 0%,#141310 58%,#0a0a0c 100%);box-shadow:inset 0 1.5px 1.5px rgba(255,239,192,.35),inset 0 -4px 8px -4px rgba(245,195,40,.4),0 6px 14px -6px rgba(0,0,0,.65);"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#F5C328" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"></path></svg></span></a>
 </div>
 </div>
 
@@ -422,26 +417,26 @@ Arraste para ver mais
 <h2 style="font:600 clamp(23px,2.9vw,40px)/1.14 'General Sans',Inter,system-ui;letter-spacing:-.026em;color:#141414;text-wrap:pretty">O tamanho exato da transformação que a imersão entrega hoje</h2>
 <p style="font:400 clamp(13.5px,1vw,16px)/1.6 Inter,sans-serif;color:rgba(20,20,20,.62)">Duas coisas diferentes, e é importante que fique claro qual delas está à venda nesta página.</p>
 </div>
-<div style="width:100%;background:rgba(20,20,20,.035);border:1px solid rgba(20,20,20,.08);border-radius:34px;padding:clamp(18px,2.2vw,30px)">
+<div style="width:100%;background:rgba(20,20,20,.035);border:1px solid rgba(20,20,20,.08);border-radius:42px;padding:clamp(18px,2.2vw,30px)">
 <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,290px),1fr));gap:clamp(16px,2vw,26px);align-items:stretch">
 <article data-reveal style="display:flex;flex-direction:column;gap:18px;padding:clamp(24px,2.6vw,38px);border-radius:28px;background:#FFFDF9;border:1px solid rgba(20,20,20,.1);box-shadow:0 6px 0 rgba(20,20,20,.04),0 34px 64px -34px rgba(20,20,20,.55);transition:transform .4s cubic-bezier(.16,1,.3,1),box-shadow .4s cubic-bezier(.16,1,.3,1)" style-hover="transform:translateY(-8px);box-shadow:0 6px 0 rgba(20,20,20,.04),0 44px 80px -30px rgba(20,20,20,.4),0 10px 24px rgba(20,20,20,.12)">
-<div style="display:flex;align-items:center;justify-content:space-between;gap:12px">
-<span style="display:inline-flex;align-items:center;gap:8px;padding:7px 13px;border-radius:999px;background:linear-gradient(180deg,#FFEFC0,#F5C328 55%,#E0A80D);font:700 11px/1 Inter,sans-serif;letter-spacing:.14em;color:#141414">À VENDA HOJE</span>
-<span style="font:600 clamp(19px,1.7vw,24px)/1 'General Sans',Inter,system-ui;font-variant-numeric:tabular-nums;color:#141414">R$ <span data-count="27">27</span></span>
-</div>
+<span style="display:inline-flex;align-items:center;gap:8px;padding:7px 13px;border-radius:999px;background:linear-gradient(180deg,#FFEFC0,#F5C328 55%,#E0A80D);font:700 11px/1 Inter,sans-serif;letter-spacing:.14em;color:#141414;align-self:flex-start">À VENDA HOJE</span>
 <h3 style="font:600 clamp(20px,1.9vw,27px)/1.16 'General Sans',Inter,system-ui;letter-spacing:-.024em;color:#141414">Imersão Estrutura 5A</h3>
 <p style="font:500 clamp(14.5px,1.15vw,18px)/1.5 Inter,sans-serif;color:rgba(20,20,20,.78);text-wrap:pretty">Eu vou ensinar você a enxergar o sistema e identificar os principais gargalos.</p>
+<div style="display:flex;align-items:center;flex-wrap:wrap;justify-content:space-between;gap:14px">
+<span style="font:700 clamp(24px,6vw,38px)/1 'General Sans',Inter,system-ui;font-variant-numeric:tabular-nums;color:#141414;white-space:nowrap">R$ <span data-count="27">27</span></span>
+<a href="#inscricao" style="position:relative;overflow:hidden;flex:none;white-space:nowrap;display:inline-flex;align-items:center;justify-content:center;padding:14px 26px;border-radius:999px;background:linear-gradient(180deg,#FFEFC0 0%,#F5C328 42%,#B8830A 100%);color:#121215;font:700 14px/1 'General Sans',Inter,system-ui;box-shadow:inset 0 1.5px 0 rgba(255,255,255,.6),inset 0 -4px 8px -3px rgba(120,80,0,.4),0 2px 0 rgba(0,0,0,.2),0 14px 28px -8px rgba(184,131,10,.75);transition:transform .3s cubic-bezier(.22,.9,.3,1),box-shadow .3s cubic-bezier(.22,.9,.3,1)" style-hover="transform:translateY(-3px);color:#121215;box-shadow:inset 0 1.5px 0 rgba(255,255,255,.7),inset 0 -4px 8px -3px rgba(120,80,0,.3),0 2px 0 rgba(0,0,0,.2),0 18px 34px -8px rgba(184,131,10,.85)" style-active="transform:scale(.96)" style-before="content:'';position:absolute;top:8%;left:8%;right:8%;height:42%;border-radius:999px;background:linear-gradient(180deg,rgba(255,255,255,.65),rgba(255,255,255,0));pointer-events:none;filter:blur(.5px)" style-after="content:'';position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(115deg,transparent 32%,rgba(255,255,255,.55) 50%,transparent 68%);transform:translateX(-130%);animation:sheen 5.4s cubic-bezier(.22,.9,.3,1) infinite;pointer-events:none">Garantir vaga</a>
+</div>
 <div style="display:flex;flex-direction:column;gap:11px;padding-top:6px;border-top:1px solid rgba(20,20,20,.08)">
 <span style="display:flex;align-items:flex-start;gap:10px;font:400 13.5px/1.5 Inter,sans-serif;color:rgba(20,20,20,.7)"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#B8830A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="flex:none;margin-top:2px"><path d="m5 13 4 4L19 7"></path></svg>4 horas ao vivo, com você fazendo perguntas</span>
 <span style="display:flex;align-items:flex-start;gap:10px;font:400 13.5px/1.5 Inter,sans-serif;color:rgba(20,20,20,.7)"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#B8830A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="flex:none;margin-top:2px"><path d="m5 13 4 4L19 7"></path></svg>As 10 etapas do diagnóstico, do negócio até a margem</span>
 <span style="display:flex;align-items:flex-start;gap:10px;font:400 13.5px/1.5 Inter,sans-serif;color:rgba(20,20,20,.7)"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#B8830A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="flex:none;margin-top:2px"><path d="m5 13 4 4L19 7"></path></svg>Como ler seus números sem se enganar com CPL</span>
 </div>
-<a href="#inscricao" style="position:relative;overflow:hidden;margin-top:auto;display:inline-flex;align-items:center;justify-content:center;padding:17px 30px;border-radius:999px;background:linear-gradient(180deg,#FFEFC0 0%,#F5C328 42%,#B8830A 100%);color:#121215;font:700 15.5px/1 'General Sans',Inter,system-ui;box-shadow:inset 0 1.5px 0 rgba(255,255,255,.55),inset 0 -4px 8px -3px rgba(120,80,0,.4),0 2px 0 rgba(0,0,0,.2),0 10px 22px -8px rgba(184,131,10,.7);transition:transform .3s cubic-bezier(.22,.9,.3,1),box-shadow .3s cubic-bezier(.22,.9,.3,1)" style-hover="transform:translateY(-3px);color:#121215;box-shadow:inset 0 1.5px 0 rgba(255,255,255,.6),inset 0 -4px 8px -3px rgba(120,80,0,.35),0 2px 0 rgba(0,0,0,.2),0 16px 30px -8px rgba(184,131,10,.8)" style-active="transform:scale(.98)" style-after="content:'';position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(115deg,transparent 32%,rgba(255,255,255,.55) 50%,transparent 68%);transform:translateX(-130%);animation:sheen 5.4s cubic-bezier(.22,.9,.3,1) infinite;pointer-events:none">Garantir minha vaga por R$ 27</a>
 </article>
-<article data-reveal style="display:flex;flex-direction:column;gap:18px;padding:clamp(24px,2.6vw,38px);border-radius:28px;background:#EDE4D3;border:1px solid rgba(20,20,20,.14);box-shadow:0 4px 0 rgba(20,20,20,.03),0 26px 54px -32px rgba(20,20,20,.45);transition:transform .4s cubic-bezier(.16,1,.3,1),box-shadow .4s cubic-bezier(.16,1,.3,1)" style-hover="transform:translateY(-6px);box-shadow:0 4px 0 rgba(20,20,20,.03),0 34px 64px -28px rgba(20,20,20,.35)">
+<article data-reveal style="display:flex;flex-direction:column;gap:18px;padding:clamp(24px,2.6vw,38px);border-radius:36px;background:#EDE4D3;border:1px solid rgba(20,20,20,.14);box-shadow:0 6px 0 rgba(20,20,20,.04),0 34px 64px -30px rgba(20,20,20,.5);transition:transform .4s cubic-bezier(.16,1,.3,1),box-shadow .4s cubic-bezier(.16,1,.3,1)" style-hover="transform:translateY(-6px);box-shadow:0 6px 0 rgba(20,20,20,.04),0 44px 76px -26px rgba(20,20,20,.4)">
 <div style="display:flex;align-items:center;justify-content:space-between;gap:12px">
 <span style="display:inline-flex;align-items:center;gap:8px;padding:7px 13px;border-radius:999px;border:1px solid rgba(20,20,20,.2);font:600 11px/1 Inter,sans-serif;letter-spacing:.14em;color:rgba(20,20,20,.55)">PRÓXIMO PASSO</span>
-<span style="display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:999px;background:rgba(20,20,20,.08)"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="rgba(20,20,20,.55)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"></path></svg></span>
+<span style="display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:999px;background:radial-gradient(circle at 50% 20%,#fff 0%,#eee 60%,#ddd 100%);box-shadow:inset 0 1.5px 1.5px rgba(255,255,255,.9),inset 0 -3px 6px -3px rgba(20,20,20,.15),0 4px 10px -4px rgba(20,20,20,.35)"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="rgba(20,20,20,.6)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"></path></svg></span>
 </div>
 <h3 style="font:600 clamp(20px,1.9vw,27px)/1.16 'General Sans',Inter,system-ui;letter-spacing:-.024em;color:rgba(20,20,20,.8)">Mentoria 5A</h3>
 <p style="font:500 clamp(14.5px,1.15vw,18px)/1.5 Inter,sans-serif;color:rgba(20,20,20,.62);text-wrap:pretty">Eu vou acompanhar você na construção e aplicação desse sistema.</p>
@@ -459,10 +454,10 @@ Arraste para ver mais
 </div>
 <div data-reveal style="display:flex;flex-direction:column;gap:10px">
 <sc-for list="{{ faqs }}" as="f" hint-placeholder-count="5">
-<div style="border-radius:24px;border:1px solid rgba(243,242,238,.1);background:linear-gradient(165deg,rgba(30,25,21,.75),rgba(16,16,19,.75));backdrop-filter:blur(18px) saturate(140%);box-shadow:0 20px 44px -30px rgba(0,0,0,.8);overflow:hidden;transition:border-color .3s cubic-bezier(.22,.9,.3,1),box-shadow .3s cubic-bezier(.22,.9,.3,1),transform .3s cubic-bezier(.22,.9,.3,1)" style-hover="border-color:rgba(245,195,40,.4);box-shadow:0 26px 54px -28px rgba(0,0,0,.85);transform:translateY(-2px)">
+<div style="border-radius:32px;border:1px solid rgba(243,242,238,.1);background:linear-gradient(165deg,rgba(30,25,21,.75),rgba(16,16,19,.75));backdrop-filter:blur(18px) saturate(140%);box-shadow:0 8px 0 rgba(0,0,0,.12),0 34px 64px -26px rgba(0,0,0,.8);overflow:hidden;transition:border-color .3s cubic-bezier(.22,.9,.3,1),box-shadow .3s cubic-bezier(.22,.9,.3,1),transform .3s cubic-bezier(.22,.9,.3,1)" style-hover="border-color:rgba(245,195,40,.4);box-shadow:0 8px 0 rgba(0,0,0,.12),0 44px 80px -24px rgba(0,0,0,.85);transform:translateY(-3px)">
 <div onClick="{{ f.toggle }}" style="display:flex;align-items:center;justify-content:space-between;gap:16px;padding:clamp(16px,1.7vw,22px) clamp(18px,2vw,26px);cursor:pointer;user-select:none">
 <span style="font:500 clamp(14.5px,1.15vw,17px)/1.36 'General Sans',Inter,system-ui;letter-spacing:-.014em;color:#F3F2EE">{{ f.q }}</span>
-<span style="flex:none;display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:999px;border:1px solid rgba(245,195,40,.4);background:radial-gradient(circle at 50% 20%,#2a2418 0%,#141310 58%,#0a0a0c 100%);box-shadow:inset 0 1.5px 1.5px rgba(255,239,192,.35),inset 0 -4px 8px -4px rgba(245,195,40,.4),0 4px 10px -4px rgba(0,0,0,.6);font:600 16px/1 Inter,sans-serif;color:#F5C328;transition:transform .34s cubic-bezier(.22,.9,.3,1);transform:rotate({{ f.rot }})">+</span>
+<span style="flex:none;display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:999px;border:1px solid rgba(245,195,40,.5);background:radial-gradient(circle at 50% 20%,#332c1c 0%,#171510 58%,#0a0a0c 100%);box-shadow:inset 0 2px 2px rgba(255,239,192,.45),inset 0 -5px 10px -4px rgba(245,195,40,.5),0 6px 14px -5px rgba(0,0,0,.7);font:600 16px/1 Inter,sans-serif;color:#F5C328;transition:transform .34s cubic-bezier(.22,.9,.3,1);transform:rotate({{ f.rot }})">+</span>
 </div>
 <div style="overflow:hidden;transition:max-height .42s cubic-bezier(.22,.9,.3,1),opacity .34s ease;max-height:{{ f.max }};opacity:{{ f.op }}">
 <p style="padding:0 clamp(18px,2vw,26px) clamp(18px,2vw,24px);font:400 14px/1.65 Inter,sans-serif;color:#C2C0B7;max-width:70ch;border-top:1px solid rgba(243,242,238,.08);padding-top:14px;margin-top:2px">{{ f.a }}</p>
@@ -540,7 +535,7 @@ Arraste para ver mais
 <span style="padding:8px 15px;border-radius:999px;border:1px solid rgba(243,242,238,.14);font:500 12.5px/1 Inter,sans-serif;color:#D9D7CE">4 horas</span>
 <span style="padding:8px 15px;border-radius:999px;border:1px solid rgba(245,195,40,.45);font:700 12.5px/1 Inter,sans-serif;font-variant-numeric:tabular-nums;color:#FFD34F">R$ 27</span>
 </div>
-<a data-reveal href="#inscricao" style="position:relative;overflow:hidden;display:inline-flex;align-items:center;justify-content:center;gap:12px;padding:clamp(19px,2vw,25px) clamp(30px,3.6vw,54px);border-radius:999px;background:linear-gradient(180deg,#FFEFC0 0%,#F5C328 42%,#B8830A 100%);color:#0A0A0C;font:700 clamp(15px,1.3vw,19px)/1 'General Sans',Inter,system-ui;letter-spacing:-.015em;box-shadow:inset 0 1.5px 0 rgba(255,255,255,.55),inset 0 -4px 8px -3px rgba(120,80,0,.4),0 3px 0 rgba(0,0,0,.5),0 18px 40px -12px rgba(0,0,0,.9),0 0 46px rgba(245,195,40,.4);transition:transform .3s cubic-bezier(.22,.9,.3,1),box-shadow .3s cubic-bezier(.22,.9,.3,1)" style-hover="transform:translateY(-3px);color:#0A0A0C;box-shadow:inset 0 1.5px 0 rgba(255,255,255,.6),inset 0 -4px 8px -3px rgba(120,80,0,.35),0 3px 0 rgba(0,0,0,.5),0 22px 50px -12px rgba(0,0,0,.9),0 0 80px rgba(245,195,40,.6)" style-active="transform:scale(.98)" style-after="content:'';position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(115deg,transparent 32%,rgba(255,255,255,.5) 50%,transparent 68%);transform:translateX(-130%);animation:sheen 4.6s cubic-bezier(.22,.9,.3,1) infinite;pointer-events:none">Quero garantir minha vaga</a>
+<a data-reveal href="#inscricao" style="position:relative;overflow:hidden;display:inline-flex;align-items:center;justify-content:center;gap:12px;padding:clamp(19px,2vw,25px) clamp(30px,3.6vw,54px);border-radius:999px;background:linear-gradient(180deg,#FFEFC0 0%,#F5C328 42%,#B8830A 100%);color:#0A0A0C;font:700 clamp(15px,1.3vw,19px)/1 'General Sans',Inter,system-ui;letter-spacing:-.015em;box-shadow:inset 0 1.5px 0 rgba(255,255,255,.6),inset 0 -4px 8px -3px rgba(120,80,0,.4),0 5px 0 rgba(0,0,0,.45),0 28px 56px -16px rgba(0,0,0,.75),0 0 60px rgba(245,195,40,.45);transition:transform .3s cubic-bezier(.22,.9,.3,1),box-shadow .3s cubic-bezier(.22,.9,.3,1)" style-hover="transform:translateY(-3px);color:#0A0A0C;box-shadow:inset 0 1.5px 0 rgba(255,255,255,.7),inset 0 -4px 8px -3px rgba(120,80,0,.3),0 5px 0 rgba(0,0,0,.45),0 34px 68px -16px rgba(0,0,0,.8),0 0 90px rgba(245,195,40,.65)" style-active="transform:scale(.98)" style-before="content:'';position:absolute;top:8%;left:8%;right:8%;height:42%;border-radius:999px;background:linear-gradient(180deg,rgba(255,255,255,.65),rgba(255,255,255,0));pointer-events:none;filter:blur(.5px)" style-after="content:'';position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(115deg,transparent 32%,rgba(255,255,255,.5) 50%,transparent 68%);transform:translateX(-130%);animation:sheen 4.6s cubic-bezier(.22,.9,.3,1) infinite;pointer-events:none">Quero garantir minha vaga</a>
 <p data-reveal style="font:400 12.5px/1.6 Inter,sans-serif;color:#BEBCB3;max-width:44ch">Vagas limitadas para manter a imersão aberta a perguntas. Após a confirmação, você recebe o acesso no e-mail cadastrado.</p>
 </div>
 </section>
@@ -555,8 +550,8 @@ Arraste para ver mais
 </div>
 </div>
 <div style="display:flex;align-items:center;gap:12px">
-<a href="#inscricao" aria-label="Instagram" style="display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:999px;border:1px solid rgba(243,242,238,.12);transition:border-color .3s,transform .3s cubic-bezier(.22,.9,.3,1)" style-hover="border-color:rgba(245,195,40,.6);transform:translateY(-2px)"><img src="assets/instagram.svg" alt="" style="width:18px;height:18px"></a>
-<a href="#inscricao" aria-label="WhatsApp" style="display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:999px;border:1px solid rgba(243,242,238,.12);transition:border-color .3s,transform .3s cubic-bezier(.22,.9,.3,1)" style-hover="border-color:rgba(245,195,40,.6);transform:translateY(-2px)"><img src="assets/whatsapp.png" alt="" style="width:18px;height:18px"></a>
+<a href="#inscricao" aria-label="Instagram" style="display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:999px;border:1px solid rgba(245,195,40,.3);background:radial-gradient(circle at 50% 20%,#2a2418 0%,#141310 58%,#0a0a0c 100%);box-shadow:inset 0 1.5px 1.5px rgba(255,239,192,.35),inset 0 -4px 8px -4px rgba(245,195,40,.4),0 6px 14px -6px rgba(0,0,0,.65);transition:border-color .3s,transform .3s cubic-bezier(.22,.9,.3,1),box-shadow .3s" style-hover="border-color:rgba(245,195,40,.7);transform:translateY(-2px)"><img src="assets/instagram.svg" alt="" style="width:18px;height:18px"></a>
+<a href="#inscricao" aria-label="WhatsApp" style="display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:999px;border:1px solid rgba(245,195,40,.3);background:radial-gradient(circle at 50% 20%,#2a2418 0%,#141310 58%,#0a0a0c 100%);box-shadow:inset 0 1.5px 1.5px rgba(255,239,192,.35),inset 0 -4px 8px -4px rgba(245,195,40,.4),0 6px 14px -6px rgba(0,0,0,.65);transition:border-color .3s,transform .3s cubic-bezier(.22,.9,.3,1),box-shadow .3s" style-hover="border-color:rgba(245,195,40,.7);transform:translateY(-2px)"><img src="assets/whatsapp.png" alt="" style="width:18px;height:18px"></a>
 </div>
 <span style="font:400 11.5px/1.5 Inter,sans-serif;color:#B9B7AE">© 2026 Grupo 2!H · Imersão Estrutura 5A</span>
 </div>
@@ -568,7 +563,7 @@ Arraste para ver mais
 <span style="font:500 12px/1.2 Inter,sans-serif;color:#F3F2EE;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Imersão Estrutura 5A · 10 de outubro</span>
 <span style="font:400 11px/1.2 Inter,sans-serif;color:#A5A39A;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Online e ao vivo · 4 horas · <span style="color:#FFD34F;font-weight:700">R$ 27</span></span>
 </div>
-<a href="#inscricao" style="position:relative;overflow:hidden;flex:0 0 auto;white-space:nowrap;display:inline-flex;align-items:center;justify-content:center;padding:14px clamp(16px,2.2vw,30px);border-radius:999px;background:linear-gradient(180deg,#FFEFC0 0%,#F5C328 42%,#B8830A 100%);color:#121215;font:700 13.5px/1 'General Sans',Inter,system-ui;box-shadow:inset 0 1.5px 0 rgba(255,255,255,.55),inset 0 -3px 6px -2px rgba(120,80,0,.4),0 0 26px rgba(245,195,40,.3);transition:transform .3s cubic-bezier(.22,.9,.3,1),box-shadow .3s cubic-bezier(.22,.9,.3,1)" style-hover="transform:translateY(-2px);color:#121215;box-shadow:inset 0 1.5px 0 rgba(255,255,255,.6),inset 0 -3px 6px -2px rgba(120,80,0,.35),0 0 44px rgba(245,195,40,.5)" style-active="transform:scale(.98)" style-after="content:'';position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(115deg,transparent 32%,rgba(255,255,255,.5) 50%,transparent 68%);transform:translateX(-130%);animation:sheen 6s cubic-bezier(.22,.9,.3,1) infinite;pointer-events:none">Garantir vaga</a>
+<a href="#inscricao" style="position:relative;overflow:hidden;flex:0 0 auto;white-space:nowrap;display:inline-flex;align-items:center;justify-content:center;padding:14px clamp(16px,2.2vw,30px);border-radius:999px;background:linear-gradient(180deg,#FFEFC0 0%,#F5C328 42%,#B8830A 100%);color:#121215;font:700 13.5px/1 'General Sans',Inter,system-ui;box-shadow:inset 0 1.5px 0 rgba(255,255,255,.6),inset 0 -3px 6px -2px rgba(120,80,0,.4),0 10px 24px -8px rgba(0,0,0,.5),0 0 30px rgba(245,195,40,.35);transition:transform .3s cubic-bezier(.22,.9,.3,1),box-shadow .3s cubic-bezier(.22,.9,.3,1)" style-hover="transform:translateY(-2px);color:#121215;box-shadow:inset 0 1.5px 0 rgba(255,255,255,.7),inset 0 -3px 6px -2px rgba(120,80,0,.3),0 14px 30px -8px rgba(0,0,0,.55),0 0 50px rgba(245,195,40,.55)" style-active="transform:scale(.98)" style-before="content:'';position:absolute;top:8%;left:8%;right:8%;height:42%;border-radius:999px;background:linear-gradient(180deg,rgba(255,255,255,.65),rgba(255,255,255,0));pointer-events:none;filter:blur(.5px)" style-after="content:'';position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(115deg,transparent 32%,rgba(255,255,255,.5) 50%,transparent 68%);transform:translateX(-130%);animation:sheen 6s cubic-bezier(.22,.9,.3,1) infinite;pointer-events:none">Garantir vaga</a>
 </div>
 </div>
 
@@ -721,12 +716,14 @@ class Component extends DCLogic {
   svgGlowRef = React.createRef();
   flashRef = React.createRef();
   barRef = React.createRef();
+  capsuleTextRef = React.createRef();
 
   componentDidMount() {
     this._ease = "cubic-bezier(.22,.9,.3,1)";
     this.setupReveal();
     this.setupFunnel();
     this.setupBar();
+    this.setupCapsule();
     initCarrossel({ track: "crencas-track", dots: "crencas-dots", hint: "crencas-hint", navPrev: "crencas-nav-prev", navNext: "crencas-nav-next" });
     initCarrossel({ track: "diagnostico-track", dots: "diagnostico-dots", hint: "diagnostico-hint", navPrev: "diagnostico-nav-prev", navNext: "diagnostico-nav-next" });
     initCarrossel({ track: "angulos-track", dots: "angulos-dots", hint: "angulos-hint", navPrev: "angulos-nav-prev", navNext: "angulos-nav-next" });
@@ -749,6 +746,41 @@ class Component extends DCLogic {
     window.removeEventListener("resize", this._onResize);
     cancelAnimationFrame(this._raf);
     this._io && this._io.disconnect();
+    clearInterval(this._capsuleTimer);
+  }
+
+  /* ---------- capsula central fixa: alterna as informacoes-chave ---------- */
+  setupCapsule() {
+    const el = this.capsuleTextRef.current;
+    if (!el) return;
+    const items = [
+      { icon: '<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="#F5C328" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"></rect><path d="M16 2v4M8 2v4M3 10h18"></path></svg>', text: "10 de outubro" },
+      { icon: '<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="#F5C328" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4.1 13.4a.9.9 0 0 0 .7 1.5H11l-1 7.1 8.9-11.4a.9.9 0 0 0-.7-1.5H12l1-6.1Z"></path></svg>', text: "Online e ao vivo" },
+      { icon: '<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="#F5C328" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3.5 2"></path></svg>', text: "4 horas" },
+      { icon: '', text: "R$ 27", gold: true }
+    ];
+    let i = 0;
+    const render = () => {
+      el.innerHTML = items[i].icon + items[i].text;
+      el.style.color = items[i].gold ? "#FFD34F" : "#F3F2EE";
+      el.style.fontWeight = items[i].gold ? "700" : "600";
+    };
+    render();
+    this._capsuleTimer = setInterval(() => {
+      el.style.opacity = "0";
+      el.style.transform = "translateY(5px)";
+      setTimeout(() => {
+        i = (i + 1) % items.length;
+        render();
+        el.style.transition = "none";
+        el.style.transform = "translateY(-5px)";
+        requestAnimationFrame(() => {
+          el.style.transition = "opacity .35s " + this._ease + ", transform .35s " + this._ease;
+          el.style.opacity = "1";
+          el.style.transform = "translateY(0)";
+        });
+      }, 320);
+    }, 2600);
   }
 
   /* ---------- entrada progressiva + contadores ---------- */
@@ -892,7 +924,7 @@ class Component extends DCLogic {
     return {
       heroRef: this.heroRef, photoRef: this.photoRef, stageRef: this.stageRef,
       glowRef: this.glowRef, svgGlowRef: this.svgGlowRef, flashRef: this.flashRef,
-      barRef: this.barRef,
+      barRef: this.barRef, capsuleTextRef: this.capsuleTextRef,
       seals: [0, 1, 2, 3, 4, 5, 6, 7],
       funnelOn: () => this.funnelHeat(true),
       funnelOff: () => this.funnelHeat(false),
