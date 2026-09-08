@@ -7,7 +7,7 @@
 </head>
 <body>
 <x-dc>
-<helmet data-dc-atomics><meta name="viewport" content="width=device-width, initial-scale=1"><title>Imersão Estrutura 5A · Grupo 2!H</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="preconnect" href="https://api.fontshare.com"><link rel="preconnect" href="https://cdn.fontshare.com" crossorigin><link href="https://api.fontshare.com/v2/css?f%5B%5D=general-sans@400,500,600,700&display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"><script src="./image-slot.js"></script><style>
+<helmet data-dc-atomics><meta name="viewport" content="width=device-width, initial-scale=1"><title>Imersão Estrutura 5A · Grupo 2!H</title><link rel="icon" type="image/png" href="assets/favicon.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="preconnect" href="https://api.fontshare.com"><link rel="preconnect" href="https://cdn.fontshare.com" crossorigin><link href="https://api.fontshare.com/v2/css?f%5B%5D=general-sans@400,500,600,700&display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"><script src="./image-slot.js"></script><style>
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;scrollbar-width:none;background:#0A0A0C}
 html::-webkit-scrollbar{display:none}
@@ -35,11 +35,14 @@ a:hover{color:#FFD34F}
 .hero-h1{max-width:26ch}
 .hero-sub{max-width:46ch}
 .hero-br{display:none}
+.hero-float-icon{display:none}
+@keyframes float-bob{0%,100%{transform:translate(50%,-50%) translateY(0)}50%{transform:translate(50%,-50%) translateY(-9px)}}
 @media (min-width:901px){
 .hero-creative-bg{display:block;position:absolute;inset:0;background-image:url(assets/hero-creative.png);background-size:cover;background-position:right center;z-index:0;pointer-events:none}
 .hero-h1{max-width:36ch}
 .hero-sub{max-width:64ch}
 .hero-br{display:block}
+.hero-float-icon{display:block;position:absolute;z-index:1;pointer-events:none;animation:float-bob 4s ease-in-out infinite}
 }
 @media (max-width:760px){
 [data-mobile-center]{align-items:center!important;text-align:center!important}
@@ -98,9 +101,9 @@ a:hover{color:#FFD34F}
 .sec-h2{font:600 clamp(30px,4.4vw,56px)/1.08 'General Sans',Inter,system-ui;letter-spacing:-.024em;text-wrap:pretty}
 .gh-pill{position:relative;display:inline-flex;align-items:center;gap:8px;padding:8px 16px;border-radius:999px;background:linear-gradient(160deg,rgba(243,242,238,.09),rgba(243,242,238,.02));border:1px solid rgba(243,242,238,.16);backdrop-filter:blur(14px) saturate(150%);-webkit-backdrop-filter:blur(14px) saturate(150%);box-shadow:inset 0 1px 0 rgba(255,255,255,.08)}
 .gh-pill-dark{position:relative;display:inline-flex;align-items:center;gap:8px;padding:7px 14px;border-radius:999px;background:linear-gradient(160deg,rgba(20,20,20,.07),rgba(20,20,20,.02));border:1px solid rgba(20,20,20,.16);backdrop-filter:blur(10px) saturate(140%);-webkit-backdrop-filter:blur(10px) saturate(140%);box-shadow:inset 0 1px 0 rgba(255,255,255,.5)}
-.cx-arrow{position:fixed;top:0;left:0;width:22px;height:22px;pointer-events:none;z-index:9999;opacity:0;filter:drop-shadow(0 2px 4px rgba(0,0,0,.45));transition:opacity .25s ease,transform .16s cubic-bezier(.2,.8,.2,1)}
+.cx-arrow{position:fixed;top:0;left:0;width:32px;height:32px;pointer-events:none;z-index:9999;opacity:0;filter:drop-shadow(0 2px 4px rgba(0,0,0,.45));transition:opacity .25s ease,transform .16s cubic-bezier(.2,.8,.2,1)}
 .cx-arrow.is-on{opacity:1}
-@media (hover:hover) and (pointer:fine){body,a,button,[role="button"],.carrossel-dot,.carrossel-nav,input,textarea{cursor:none!important}}
+@media (hover:hover) and (pointer:fine){*{cursor:none!important}}
 @media (hover:none),(pointer:coarse),(prefers-reduced-motion:reduce){.cx-arrow{display:none!important}}
 .carrossel-dots{flex:none;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;width:10px}
 .carrossel-dot{display:block;width:6px;height:6px;border-radius:999px;background:rgba(243,242,238,.18);border:none;padding:0;cursor:pointer;transition:background .25s,height .25s}
@@ -137,6 +140,9 @@ a:hover{color:#FFD34F}
 
 <section ref="{{ heroRef }}" style="position:relative;min-height:100dvh;display:flex;align-items:center;padding:clamp(88px,12vh,128px) clamp(18px,5vw,72px) clamp(36px,6vh,72px);background:#0A0A0C;overflow:hidden">
 <div class="hero-creative-bg"></div>
+<img class="hero-float-icon" src="assets/google-ads-hero.png" alt="" style="top:37.4%;right:38.5%;width:54px;animation-delay:0s">
+<img class="hero-float-icon" src="assets/facebook-hero.png" alt="" style="top:81.3%;right:9%;width:46px;animation-delay:1.3s">
+<img class="hero-float-icon" src="assets/seta-hero.png" alt="" style="top:85.2%;right:48.3%;width:60px;animation-delay:.6s">
 <div style="position:absolute;bottom:-20%;left:-10%;width:55%;height:60%;background:radial-gradient(circle,rgba(245,195,40,.05),transparent 70%);pointer-events:none"></div>
 <div style="position:relative;z-index:1;width:100%;max-width:1240px;margin:0 auto;display:flex;flex-wrap:wrap-reverse;align-items:center;gap:clamp(26px,3.6vw,60px)">
 
@@ -826,7 +832,7 @@ class Component extends DCLogic {
     if (window.matchMedia("(prefers-reduced-motion:reduce)").matches) return;
     const arrow = document.createElement("div");
     arrow.className = "cx-arrow";
-    arrow.innerHTML = '<svg viewBox="0 0 24 24" width="22" height="22">' +
+    arrow.innerHTML = '<svg viewBox="0 0 24 24" width="32" height="32">' +
       '<path d="M3,3 L10.07,19.97 L12.58,12.58 Z" fill="#FFEFC0"></path>' +
       '<path d="M3,3 L12.58,12.58 L19.97,10.07 Z" fill="#B8830A"></path>' +
       '<path d="M3,3 L10.07,19.97 L12.58,12.58 L19.97,10.07 Z" fill="none" stroke="#0A0A0C" stroke-width="1.3" stroke-linejoin="round"></path>' +
@@ -834,7 +840,7 @@ class Component extends DCLogic {
     document.body.appendChild(arrow);
     let on = false, hover = false;
     const paint = (x, y) => {
-      arrow.style.transform = "translate(" + (x - 3) + "px," + (y - 3) + "px) scale(" + (hover ? 1.2 : 1) + ")";
+      arrow.style.transform = "translate(" + (x - 4) + "px," + (y - 4) + "px) scale(" + (hover ? 1.2 : 1) + ")";
     };
     const onMove = e => {
       paint(e.clientX, e.clientY);
