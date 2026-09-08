@@ -44,6 +44,9 @@ a:hover{color:#FFD34F}
 .hero-br{display:block}
 .hero-float-icon{display:block;position:absolute;z-index:1;pointer-events:none;animation:float-bob 4s ease-in-out infinite}
 }
+@media (max-width:900px){
+.hero-sec{align-items:flex-end!important}
+}
 @media (max-width:760px){
 [data-mobile-center]{align-items:center!important;text-align:center!important}
 [data-mobile-row-center]{justify-content:center!important;align-items:center!important}
@@ -139,7 +142,7 @@ a:hover{color:#FFD34F}
 <span id="hero-capsule-text" ref="{{ capsuleTextRef }}" style="display:inline-flex;align-items:center;justify-content:center;gap:7px;font:600 12.5px/1 Inter,sans-serif;letter-spacing:.03em;color:#F3F2EE;white-space:nowrap;transition:opacity .35s cubic-bezier(.22,.9,.3,1),transform .35s cubic-bezier(.22,.9,.3,1)"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="#F5C328" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3.5 2"></path></svg>4 horas</span>
 </div>
 
-<section ref="{{ heroRef }}" style="position:relative;min-height:100dvh;display:flex;align-items:center;padding:clamp(88px,12vh,128px) clamp(18px,5vw,72px) clamp(36px,6vh,72px);background:#0A0A0C;overflow:hidden">
+<section ref="{{ heroRef }}" class="hero-sec" style="position:relative;min-height:100dvh;display:flex;align-items:center;padding:clamp(88px,12vh,128px) clamp(18px,5vw,72px) clamp(36px,6vh,72px);background:#0A0A0C;overflow:hidden">
 <div class="hero-creative-bg"></div>
 <img class="hero-float-icon" src="assets/google-ads-hero.png" alt="" style="top:37.4%;right:35.5%;width:65px;animation-delay:0s">
 <img class="hero-float-icon" src="assets/facebook-hero.png" alt="" style="top:81.3%;right:9%;width:57px;animation-delay:1.3s">
