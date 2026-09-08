@@ -56,11 +56,11 @@ a:hover{color:#FFD34F}
 .tl-fill{position:absolute;left:0;top:0;width:100%;height:var(--tl,0%);background:linear-gradient(180deg,#FFEFC0,#F5C328 40%,#B8830A);box-shadow:0 0 16px 3px rgba(245,195,40,.85),0 0 46px 12px rgba(245,195,40,.35);border-radius:2px;transition:height .15s linear}
 .tl-fill::after{content:'';position:absolute;left:50%;bottom:-8px;width:16px;height:16px;transform:translateX(-50%);border-radius:50%;background:radial-gradient(circle,#FFF8E2,#FFEFC0 30%,#F5C328 60%,transparent 74%);box-shadow:0 0 30px 10px rgba(245,195,40,.9),0 0 70px 26px rgba(245,195,40,.4)}
 .tl-step{position:relative;display:grid;grid-template-columns:1fr 64px 1fr;align-items:center;margin:30px 0}
-.tl-node{grid-column:2;justify-self:center;width:40px;height:40px;border-radius:999px;background:#101013;border:1px solid rgba(243,242,238,.16);position:relative;z-index:2;display:flex;align-items:center;justify-content:center;transition:border-color .45s ease,background .45s ease,box-shadow .45s ease}
+.tl-node{grid-column:2;grid-row:1;justify-self:center;width:40px;height:40px;border-radius:999px;background:#101013;border:1px solid rgba(243,242,238,.16);position:relative;z-index:2;display:flex;align-items:center;justify-content:center;transition:border-color .45s ease,background .45s ease,box-shadow .45s ease}
 .tl-step.lit .tl-node{border-color:rgba(245,195,40,.6);background:radial-gradient(circle at 50% 20%,#2a2418 0%,#141310 58%,#0a0a0c 100%);box-shadow:inset 0 1.5px 1.5px rgba(255,239,192,.4),inset 0 -4px 8px -4px rgba(245,195,40,.5),0 0 24px 4px rgba(245,195,40,.5)}
 .tl-node::before{content:'';position:absolute;inset:-8px;border-radius:50%;border:1.5px solid rgba(245,195,40,0);transition:border-color .45s ease,box-shadow .45s ease}
 .tl-step.lit .tl-node::before{border-color:rgba(245,195,40,.4);box-shadow:0 0 18px rgba(245,195,40,.4)}
-.tl-card{grid-column:1;text-align:right;padding:20px 24px;border-radius:18px;border:1px solid rgba(243,242,238,.1);background:linear-gradient(165deg,rgba(243,242,238,.055),rgba(243,242,238,.02));backdrop-filter:blur(18px) saturate(140%);opacity:.4;transform:translateY(14px) scale(.98);transition:opacity .5s ease,transform .5s ease,box-shadow .5s ease,border-color .5s ease}
+.tl-card{grid-column:1;grid-row:1;text-align:right;padding:20px 24px;border-radius:18px;border:1px solid rgba(243,242,238,.1);background:linear-gradient(165deg,rgba(243,242,238,.055),rgba(243,242,238,.02));backdrop-filter:blur(18px) saturate(140%);opacity:.4;transform:translateY(14px) scale(.98);transition:opacity .5s ease,transform .5s ease,box-shadow .5s ease,border-color .5s ease}
 .tl-step:nth-child(even) .tl-card{grid-column:3;text-align:left}
 .tl-step.lit .tl-card{opacity:1;transform:none;border-color:rgba(245,195,40,.4);box-shadow:0 24px 50px -28px rgba(245,195,40,.35),inset 0 1px 0 rgba(255,255,255,.06)}
 .tl-num{font:700 12px/1 Inter,sans-serif;letter-spacing:.1em;color:#F5C328;display:block;margin-bottom:6px}
@@ -77,6 +77,8 @@ a:hover{color:#FFD34F}
 .btn-chique:active{transform:translateY(-1px) scale(.97)}
 .btn-chique::after{content:'';position:absolute;top:0;left:-90%;width:55%;height:100%;background:linear-gradient(115deg,transparent,rgba(255,255,255,.5),transparent);transform:skewX(-18deg);transition:left .9s cubic-bezier(.2,.7,.2,1);pointer-events:none;z-index:1}
 .btn-chique:hover::after{left:150%}
+.btn-ghost{background:rgba(243,242,238,.05);color:#F3F2EE;border:1px solid rgba(243,242,238,.16);backdrop-filter:blur(12px) saturate(140%);-webkit-backdrop-filter:blur(12px) saturate(140%)}
+.btn-ghost:hover{color:#F3F2EE;border-color:rgba(245,195,40,.45);background:rgba(245,195,40,.1)}
 @media (prefers-reduced-motion:reduce){.btn-chique,.btn-chique::after{transition:none}}
 .carrossel-dots{flex:none;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;width:10px}
 .carrossel-dot{display:block;width:6px;height:6px;border-radius:999px;background:rgba(243,242,238,.18);border:none;padding:0;cursor:pointer;transition:background .25s,height .25s}
@@ -119,8 +121,7 @@ a:hover{color:#FFD34F}
 <p data-reveal style="font:400 clamp(13.5px,1.05vw,17px)/1.62 Inter,sans-serif;color:#C7C5BC;max-width:52ch;text-wrap:pretty">Em uma imersão online e ao vivo de <strong style="color:#F3F2EE;font-weight:500">4 horas</strong>, você vai aprender a analisar a estrutura entre marketing, atendimento e comercial para identificar gargalos, entender seus números e descobrir o que precisa ser corrigido antes de tentar escalar.</p>
 <div data-reveal data-mobile-row-center style="display:flex;flex-wrap:wrap;align-items:center;gap:clamp(12px,1.6vw,22px);margin-top:clamp(2px,.6vw,8px)">
 <a href="#inscricao" class="btn-chique" style="display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:clamp(15px,1.5vw,19px) clamp(24px,2.6vw,38px);border-radius:14px;background:linear-gradient(180deg,#FFEFC0 0%,#F5C328 42%,#B8830A 100%);color:#121215;font:700 clamp(14px,1.05vw,16.5px)/1 'General Sans',Inter,system-ui;letter-spacing:-.01em;box-shadow:0 14px 36px -10px rgba(245,195,40,.55),inset 0 1px 0 rgba(255,255,255,.3)" style-hover="color:#121215;box-shadow:0 20px 46px -10px rgba(245,195,40,.7),inset 0 1px 0 rgba(255,255,255,.35)">Quero garantir minha vaga</a>
-<a href="#diagnostico" style="display:inline-flex;align-items:center;gap:12px;font:500 13.5px/1 Inter,sans-serif;color:#BEBCB3" style-hover="color:#F3F2EE">o que você vai enxergar
-<span style="display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:999px;border:1px solid rgba(245,195,40,.4);background:radial-gradient(circle at 50% 20%,#2a2418 0%,#141310 58%,#0a0a0c 100%);box-shadow:inset 0 1.5px 1.5px rgba(255,239,192,.35),inset 0 -4px 8px -4px rgba(245,195,40,.4),0 6px 14px -6px rgba(0,0,0,.65);"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#F5C328" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"></path></svg></span></a>
+<a href="#diagnostico" class="btn-chique btn-ghost" style="display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:clamp(15px,1.5vw,19px) clamp(22px,2.4vw,34px);border-radius:14px;font:600 clamp(13.5px,1vw,15.5px)/1 'General Sans',Inter,system-ui">o que você vai enxergar <span aria-hidden="true">→</span></a>
 </div>
 </div>
 
@@ -189,7 +190,7 @@ a:hover{color:#FFD34F}
 </div>
 </section>
 
-<section style="position:relative;padding:clamp(64px,9vw,130px) clamp(18px,5vw,72px);background:#1A1613;overflow:hidden">
+<section style="position:relative;padding:clamp(64px,9vw,130px) clamp(18px,5vw,72px);background:#101013;overflow:hidden">
 <div style="position:absolute;top:-15%;right:-5%;width:45%;height:60%;background:radial-gradient(circle,rgba(245,195,40,.05),transparent 70%);pointer-events:none"></div>
 <div style="position:relative;max-width:1240px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;gap:clamp(32px,5vw,70px)">
 <div data-reveal data-mobile-center style="flex:1 1 340px;min-width:min(100%,300px);display:flex;flex-direction:column;gap:16px;align-items:flex-start;text-align:left">
@@ -285,6 +286,7 @@ Arraste para ver mais
 <div data-step-card class="carrossel-card" style="width:100%;box-sizing:border-box;border-radius:22px;padding:clamp(22px,2.4vw,34px);border:1px solid rgba(243,242,238,.12);background:linear-gradient(165deg,rgba(30,25,21,.92),rgba(16,16,19,.92));backdrop-filter:blur(22px) saturate(140%);box-shadow:0 24px 50px -24px rgba(0,0,0,.9);display:flex;flex-direction:column;gap:16px;position:relative"><div style="position:absolute;inset:0;border-radius:inherit;opacity:.05;pointer-events:none;background-image:url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E&quot;)"></div><div style="position:relative;display:flex;align-items:center;justify-content:space-between"><span style="font:700 clamp(30px,3vw,46px)/1 'General Sans',Inter,system-ui;letter-spacing:-.04em;background:linear-gradient(180deg,#FFEFC0,#F5C328 50%,#B8830A);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">09</span><span style="display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:999px;border:1px solid rgba(245,195,40,.3);background:radial-gradient(circle at 50% 20%,rgba(245,195,40,.14),transparent 70%)"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="#F5C328" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"></path></svg></span></div><p style="position:relative;font:600 clamp(17px,1.5vw,23px)/1.3 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE">Receita</p></div>
 <div data-step-card class="carrossel-card" style="width:100%;box-sizing:border-box;border-radius:22px;padding:clamp(22px,2.4vw,34px);border:1px solid rgba(245,195,40,.34);background:linear-gradient(165deg,rgba(38,31,20,.94),rgba(16,16,19,.94));backdrop-filter:blur(22px) saturate(140%);box-shadow:0 24px 50px -24px rgba(0,0,0,.9);display:flex;flex-direction:column;gap:16px;position:relative"><div style="position:absolute;inset:0;border-radius:inherit;opacity:.05;pointer-events:none;background-image:url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E&quot;)"></div><div style="position:relative;display:flex;align-items:center;justify-content:space-between"><span style="font:700 clamp(30px,3vw,46px)/1 'General Sans',Inter,system-ui;letter-spacing:-.04em;background:linear-gradient(180deg,#FFEFC0,#F5C328 50%,#B8830A);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">10</span><span style="display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:999px;border:1px solid rgba(245,195,40,.55);background:radial-gradient(circle at 50% 20%,rgba(245,195,40,.22),transparent 70%)"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="#F5C328" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"></path></svg></span></div><p style="position:relative;font:600 clamp(17px,1.5vw,23px)/1.3 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#FFD34F">Margem</p></div>
 <div data-step-card class="carrossel-card carrossel-clone is-dimmed" aria-hidden="true" tabindex="-1" style="width:100%;box-sizing:border-box;border-radius:22px;padding:clamp(22px,2.4vw,34px);border:1px solid rgba(243,242,238,.12);background:linear-gradient(165deg,rgba(30,25,21,.92),rgba(16,16,19,.92));backdrop-filter:blur(22px) saturate(140%);box-shadow:0 24px 50px -24px rgba(0,0,0,.9);display:flex;flex-direction:column;gap:16px;position:relative"><div style="position:absolute;inset:0;border-radius:inherit;opacity:.05;pointer-events:none;background-image:url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E&quot;)"></div><div style="position:relative;display:flex;align-items:center;justify-content:space-between"><span style="font:700 clamp(30px,3vw,46px)/1 'General Sans',Inter,system-ui;letter-spacing:-.04em;background:linear-gradient(180deg,#FFEFC0,#F5C328 50%,#B8830A);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">01</span><span style="display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:999px;border:1px solid rgba(245,195,40,.3);background:radial-gradient(circle at 50% 20%,rgba(245,195,40,.14),transparent 70%)"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="#F5C328" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"></path></svg></span></div><p style="position:relative;font:600 clamp(17px,1.5vw,23px)/1.3 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE">Negócio</p></div>
+</div>
 <div class="carrossel-dots" id="diagnostico-dots">
 <span class="carrossel-nav carrossel-prev" id="diagnostico-nav-prev" role="button" tabindex="0" aria-label="Etapa anterior">
 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 15 7-7 7 7"/></svg>
@@ -308,7 +310,6 @@ Arraste para ver mais
 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"/></svg>
 Arraste para ver mais
 </p>
-</div>
 </div>
 </div>
 </section>
@@ -341,13 +342,13 @@ Arraste para ver mais
 </div>
 </section>
 
-<section style="position:relative;padding:clamp(56px,7.5vw,110px) 0;background:#1A1613;overflow:hidden">
+<section style="position:relative;padding:clamp(56px,7.5vw,110px) 0;background:#16161A;overflow:hidden">
 <div style="position:absolute;top:10%;left:-6%;width:46%;height:70%;background:radial-gradient(circle,rgba(90,140,255,.05),transparent 70%);pointer-events:none"></div>
 <div data-reveal style="position:relative;padding:0 clamp(18px,5vw,72px);max-width:1240px;margin:0 auto clamp(30px,3.6vw,50px);text-align:center">
 <h2 style="font:600 clamp(30px,3.6vw,48px)/1.16 'General Sans',Inter,system-ui;letter-spacing:-.026em;color:#F3F2EE;text-wrap:pretty">Frases que você já deveria estar se fazendo</h2>
 </div>
 <div style="position:relative;display:flex;flex-direction:column;gap:clamp(12px,1.4vw,18px)">
-<div style="position:absolute;inset:0;background:linear-gradient(90deg,#1A1613 0%,transparent 10%,transparent 90%,#1A1613 100%);z-index:2;pointer-events:none"></div>
+<div style="position:absolute;inset:0;background:linear-gradient(90deg,#16161A 0%,transparent 10%,transparent 90%,#16161A 100%);z-index:2;pointer-events:none"></div>
 <div style="display:flex;width:max-content;animation:mqA 46s linear infinite">
 <div style="display:flex;gap:clamp(12px,1.4vw,18px);padding-right:clamp(12px,1.4vw,18px)">
 <p style="flex:none;padding:18px 26px;border-radius:16px;border:1px solid rgba(123,167,255,.22);background:linear-gradient(165deg,rgba(123,167,255,.06),rgba(243,242,238,.02));font:500 clamp(15px,1.3vw,20px)/1.3 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE">Seu problema pode não estar no tráfego.</p>
@@ -440,10 +441,10 @@ Arraste para ver mais
 </div>
 </section>
 
-<section style="position:relative;padding:clamp(64px,9vw,120px) clamp(18px,5vw,72px);background:#101013">
+<section style="position:relative;padding:clamp(64px,9vw,120px) clamp(18px,5vw,72px);background:#F3EDE2">
 <div style="max-width:1240px;margin:0 auto;display:flex;flex-direction:column;gap:clamp(30px,4vw,54px)">
 <div data-reveal style="display:flex;flex-direction:column;gap:12px;align-items:center;text-align:center">
-<h2 style="font:600 clamp(26px,2.6vw,34px)/1.16 'General Sans',Inter,system-ui;letter-spacing:-.026em;color:#F3F2EE">Os quatro números que importam</h2>
+<h2 style="font:600 clamp(26px,2.6vw,34px)/1.16 'General Sans',Inter,system-ui;letter-spacing:-.026em;color:#141414">Os quatro números que importam</h2>
 </div>
 <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr));gap:clamp(18px,2.4vw,32px)">
 <div data-reveal style="display:flex;flex-direction:column;align-items:center;gap:16px;text-align:center">
@@ -454,8 +455,8 @@ Arraste para ver mais
 </div>
 </div>
 <div style="display:flex;flex-direction:column;gap:5px">
-<span style="font:600 clamp(19px,1.8vw,26px)/1.1 'General Sans',Inter,system-ui;letter-spacing:-.026em;color:#F3F2EE;font-variant-numeric:tabular-nums"><span data-count="10">10</span> de outubro</span>
-<span style="font:500 12px/1 Inter,sans-serif;letter-spacing:.16em;color:#C7C5BC">DATA</span>
+<span style="font:600 clamp(19px,1.8vw,26px)/1.1 'General Sans',Inter,system-ui;letter-spacing:-.026em;color:#141414;font-variant-numeric:tabular-nums"><span data-count="10">10</span> de outubro</span>
+<span style="font:500 12px/1 Inter,sans-serif;letter-spacing:.16em;color:rgba(20,20,20,.55)">DATA</span>
 </div>
 </div>
 <div data-reveal style="display:flex;flex-direction:column;align-items:center;gap:16px;text-align:center">
@@ -466,8 +467,8 @@ Arraste para ver mais
 </div>
 </div>
 <div style="display:flex;flex-direction:column;gap:5px">
-<span style="font:600 clamp(19px,1.8vw,26px)/1.1 'General Sans',Inter,system-ui;letter-spacing:-.026em;color:#F3F2EE">Online e ao vivo</span>
-<span style="font:500 12px/1 Inter,sans-serif;letter-spacing:.16em;color:#C7C5BC">FORMATO</span>
+<span style="font:600 clamp(19px,1.8vw,26px)/1.1 'General Sans',Inter,system-ui;letter-spacing:-.026em;color:#141414">Online e ao vivo</span>
+<span style="font:500 12px/1 Inter,sans-serif;letter-spacing:.16em;color:rgba(20,20,20,.55)">FORMATO</span>
 </div>
 </div>
 <div data-reveal style="display:flex;flex-direction:column;align-items:center;gap:16px;text-align:center">
@@ -478,8 +479,8 @@ Arraste para ver mais
 </div>
 </div>
 <div style="display:flex;flex-direction:column;gap:5px">
-<span style="font:600 clamp(19px,1.8vw,26px)/1.1 'General Sans',Inter,system-ui;letter-spacing:-.026em;color:#F3F2EE;font-variant-numeric:tabular-nums"><span data-count="4">4</span> horas</span>
-<span style="font:500 12px/1 Inter,sans-serif;letter-spacing:.16em;color:#C7C5BC">DURAÇÃO</span>
+<span style="font:600 clamp(19px,1.8vw,26px)/1.1 'General Sans',Inter,system-ui;letter-spacing:-.026em;color:#141414;font-variant-numeric:tabular-nums"><span data-count="4">4</span> horas</span>
+<span style="font:500 12px/1 Inter,sans-serif;letter-spacing:.16em;color:rgba(20,20,20,.55)">DURAÇÃO</span>
 </div>
 </div>
 <div data-reveal style="display:flex;flex-direction:column;align-items:center;gap:16px;text-align:center">
@@ -491,7 +492,7 @@ Arraste para ver mais
 </div>
 <div style="display:flex;flex-direction:column;gap:5px">
 <span style="font:700 clamp(19px,1.8vw,26px)/1.1 'General Sans',Inter,system-ui;letter-spacing:-.026em;font-variant-numeric:tabular-nums;background:linear-gradient(180deg,#FFEFC0,#F5C328 55%,#B8830A);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">R$ <span data-count="27">27</span></span>
-<span style="font:500 12px/1 Inter,sans-serif;letter-spacing:.16em;color:#C7C5BC">INVESTIMENTO</span>
+<span style="font:500 12px/1 Inter,sans-serif;letter-spacing:.16em;color:rgba(20,20,20,.55)">INVESTIMENTO</span>
 </div>
 </div>
 </div>
