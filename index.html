@@ -33,10 +33,12 @@ a:hover{color:#FFD34F}
 }
 .hero-creative-bg{display:none}
 .hero-h1{max-width:26ch}
+.hero-sub{max-width:46ch}
 .hero-br{display:none}
 @media (min-width:901px){
 .hero-creative-bg{display:block;position:absolute;inset:0;background-image:url(assets/hero-creative.png);background-size:cover;background-position:right center;z-index:0;pointer-events:none}
 .hero-h1{max-width:36ch}
+.hero-sub{max-width:64ch}
 .hero-br{display:block}
 }
 @media (max-width:760px){
@@ -130,7 +132,7 @@ a:hover{color:#FFD34F}
 
 <div data-mobile-center style="flex:1 1 330px;min-width:min(100%,320px);display:flex;flex-direction:column;align-items:flex-start;gap:clamp(14px,1.7vw,22px)">
 <h1 data-reveal class="hero-h1" style="font:600 clamp(32px,3.7vw,50px)/1.16 'General Sans',Inter,system-ui;letter-spacing:-.028em;color:#F3F2EE;text-wrap:pretty">Antes de investir mais em tráfego<br class="hero-br"> descubra onde sua empresa<br class="hero-br"> <span class="hero-emph" style="position:relative;white-space:nowrap"><span style="position:relative;z-index:1;background:linear-gradient(180deg,#FFEFC0,#F5C328 55%,#B8830A);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">está perdendo vendas.</span><span style="position:absolute;left:0;right:0;bottom:.06em;height:2px;background:linear-gradient(90deg,transparent,rgba(245,195,40,.7),transparent)"></span></span></h1>
-<p data-reveal style="font:500 clamp(14px,1.1vw,17.5px)/1.62 Inter,sans-serif;color:#EDEBE2;max-width:46ch;text-wrap:pretty">Em uma imersão online e ao vivo de <strong style="color:#FFFFFF;font-weight:700">4 horas</strong>, você vai aprender a analisar a estrutura entre marketing, atendimento e comercial para identificar gargalos, entender seus números e descobrir o que precisa ser corrigido antes de tentar escalar.</p>
+<p data-reveal class="hero-sub" style="font:500 clamp(14.5px,1.25vw,19px)/1.55 Inter,sans-serif;color:#EDEBE2;text-wrap:pretty">Em uma imersão online e ao vivo de <strong style="color:#FFFFFF;font-weight:700">4 horas</strong>, você vai aprender<br class="hero-br"> a analisar a estrutura entre marketing, atendimento e comercial<br class="hero-br"> para identificar gargalos, entender seus números e descobrir<br class="hero-br"> o que precisa ser corrigido antes de tentar escalar.</p>
 <div data-reveal data-mobile-row-center style="display:flex;flex-wrap:wrap;align-items:center;gap:clamp(12px,1.6vw,22px);margin-top:clamp(2px,.6vw,8px)">
 <a href="#inscricao" class="btn-chique" style="display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:clamp(15px,1.5vw,19px) clamp(24px,2.6vw,38px);border-radius:14px;background:linear-gradient(135deg,#F5C328 0%,#C9930F 100%);color:#121215;font:600 clamp(14px,1.05vw,16.5px)/1 'General Sans',Inter,system-ui;letter-spacing:-.01em;box-shadow:0 14px 36px -10px rgba(245,195,40,.55),inset 0 1px 0 rgba(255,255,255,.3)" style-hover="color:#121215;box-shadow:0 20px 46px -10px rgba(245,195,40,.7),inset 0 1px 0 rgba(255,255,255,.35)">Quero garantir minha vaga</a>
 <a href="#diagnostico" class="btn-chique btn-ghost" style="display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:clamp(15px,1.5vw,19px) clamp(22px,2.4vw,34px);border-radius:14px;font:600 clamp(13.5px,1vw,15.5px)/1 'General Sans',Inter,system-ui">o que você vai enxergar <span aria-hidden="true">→</span></a>
