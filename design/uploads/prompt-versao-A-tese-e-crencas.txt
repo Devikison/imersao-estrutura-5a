@@ -1,0 +1,549 @@
+PROMPT PARA O CLAUDE DESIGN — LANDING PAGE "IMERSÃO ESTRUTURA 5A"
+VERSÃO A — TESE E CRENÇAS
+===================================================================
+
+Construa uma landing page de vendas completa, em uma única página (HTML/CSS/JS
+autocontido, sem dependência de build), para o evento "Imersão Estrutura 5A".
+O objetivo desta página é UM SÓ: vender ingresso. Cada seção existe para
+manter a pessoa lendo até o botão final. Não é uma página institucional, é
+página de lançamento.
+
+Este é o prompt de uma de DUAS landing pages do mesmo lançamento (a outra,
+"Versão B", tem uma copy mais narrativa e vai ao ar junto, num teste A/B) -
+mas você só vai construir a que está descrita neste arquivo. As duas
+compartilham a mesma identidade visual (este arquivo já contém tudo o que
+precisa, é autossuficiente).
+
+Você vai atuar como um designer de UX/UI sênior que entende profundamente
+psicologia das cores e de conversão. Onde eu não detalhar um valor exato
+(um espaçamento, uma curva de easing, uma proporção), decida você com esse
+critério - mas sem nunca abandonar a identidade descrita abaixo.
+
+
+-------------------------------------------------------------------
+1. IDENTIDADE VISUAL — herdada de um painel já existente (Obsidian Glass)
+-------------------------------------------------------------------
+
+Esta landing page precisa parecer prima direta de um painel de dashboard que
+já existe hoje pra essa marca (2!H) - mesma família visual, mesma sensação de
+"software caro e sério", não um site de "curso online" genérico. Mas ATENÇÃO:
+diferente de um dashboard (tela de trabalho, vista o dia inteiro por quem já
+é cliente), esta é uma página de VENDA, vista uma única vez por gente fria.
+Por isso ela NÃO PODE ser preto do topo ao rodapé - isso cansa o olho num
+scroll longo e mata a conversão antes da metade da página. Resolva isso assim:
+
+  A. Varie o TOM dentro da família escura, nunca repita o mesmo fundo em
+     duas seções seguidas. Tenha pelo menos 3 variações de "preto":
+       - Grafite quase preto (o mais escuro - hero, seção de prova/dados do
+         evento, CTA final): #0A0A0C a #101013
+       - Grafite médio, levemente azulado (seções de meio de página, onde
+         a leitura é mais longa): algo como #16161A a #1B1B20
+       - Um tom com leve calor (marrom-carvão, não cinza frio) pra alternar
+         com o azulado acima e evitar monotonia: algo como #1A1613 a #1E1915
+  B. Reserve UMA seção clara ("respiro") no meio da página - a que compara
+     Imersão x Mentoria (ver estrutura de seções abaixo). Fundo em bege/
+     marfim quente e bem sóbrio (não branco puro, não frio) - algo como
+     #F3EDE2 a #F7F2E8, com texto quase preto. Psicologia por trás disso:
+     as seções escuras vendem desejo/exclusividade/urgência; esse respiro
+     claro no meio muda o tom pra "agora vamos ser claros e diretos com
+     você" - é onde a pessoa compara e decide com a cabeça fria, não com a
+     emoção. Depois dessa seção, volte ao escuro pra reconstruir tensão até
+     o CTA final.
+  C. Além da variação de tom, use halos de luz coloridos e discretos em
+     cada seção escura pra dar identidade própria a cada trecho sem sair
+     da paleta: um halo azul sutil (~rgba(90,140,255,.05)) numa seção, um
+     halo verde sutil (~rgba(79,209,139,.03)) noutra, sempre nos cantos,
+     nunca no centro de leitura. Ouro (ver abaixo) fica de fora desses
+     halos ambiente - ele é reservado pra outra coisa.
+  D. Textura: aplique um grão fractal sutilíssimo (ruído SVG, opacidade
+     ~5%) sobre as superfícies de cartão/painel - não sobre o fundo da
+     página inteira. É o que faz o material parecer "vidro fosco premium"
+     em vez de plástico liso. Cartões/painéis têm um blur de fundo forte
+     (backdrop-filter: blur(18-28px) saturate(135-150%)) e uma base sólida
+     por trás do blur (nunca um véu translúcido puro) - senão o conteúdo
+     atrás vaza e o cartão parece "buraco", não objeto com corpo.
+
+  Paleta de marca (usar exatamente):
+    --ouro:        #F5C328   (a cor de marca principal)
+    --ouro-claro:  #FFD34F
+    --ouro-alto:   #FFEFC0   (ponta clara do degradê dourado)
+    --ouro-baixo:  #B8830A   (ponta escura do degradê dourado)
+    --texto:       #F3F2EE   (quase branco, nunca branco puro, sobre fundo escuro)
+    --texto-2:     rgba(243,242,238,.66)   (texto de apoio sobre fundo escuro)
+    --verde:       #4FD18B   (usar só p/ prova social/número positivo, nunca decorativo)
+    --azul:        #7BA7FF  (idem, só p/ dado/gráfico, nunca decorativo)
+
+  REGRA DE OURO (literal): ouro é joia, não tinta. Nunca usar ouro como cor
+  de fundo de área grande. Ouro é: botão de CTA, número que importa (preço,
+  data, "4 horas"), aresta viva de cartão em hover, ícone de destaque. Se
+  cada seção tivesse um "brilho dourado ambiente" ele deixaria de significar
+  algo - o efeito de luxo vem justamente da escassez dele.
+
+  Tipografia: títulos em "General Sans" (peso 600/700, letter-spacing
+  levemente negativo, ~-0.02em) - se não tiver a fonte, usar Inter/system-ui
+  como fallback com o mesmo peso. Corpo de texto em "Inter". Números que
+  precisam de destaque (preço, "4 horas", "10 de outubro") podem usar
+  variação tabular e peso 700.
+
+  Botões e cartões sempre com cantos arredondados generosos (14-24px),
+  nunca quadrados vivos - isso é parte da identidade "software premium".
+
+
+-------------------------------------------------------------------
+2. BARRA DE ROLAGEM DOURADA (replicar exatamente do painel original)
+-------------------------------------------------------------------
+
+Em telas com mouse (@media (pointer:fine)), estilize a scrollbar assim:
+
+  ::-webkit-scrollbar { width: 9px; height: 9px; }
+  ::-webkit-scrollbar-track {
+    background: rgba(243,242,238,.05);
+    border-radius: 99px;
+    box-shadow: inset 0 0 4px rgba(0,0,0,.28);
+  }
+  ::-webkit-scrollbar-thumb {
+    border-radius: 99px;
+    background: linear-gradient(180deg, #FFEFC0 0%, #F5C328 42%, #B8830A 100%);
+    box-shadow:
+      inset 0 0 0 1px rgba(255,255,255,.4),
+      inset 0 1px 1px rgba(255,255,255,.65),
+      0 0 6px rgba(245,195,40,.6),
+      0 0 15px rgba(245,195,40,.32);
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #FFF8E2 0%, #FFD34F 42%, #D19A0C 100%);
+  }
+  /* Firefox: */
+  html { scrollbar-width: thin; scrollbar-color: #F5C328 transparent; }
+
+Em touch (mobile/tablet), a barra pode ficar oculta (comportamento nativo),
+igual qualquer app premium mobile.
+
+
+-------------------------------------------------------------------
+3. HERO (primeira dobra)
+-------------------------------------------------------------------
+
+Desktop: a seção inteira do Hero usa uma FOTO como background full-bleed
+(cobre 100% da largura e da altura da primeira dobra), com um overlay em
+degradê escuro por cima (de transparente no topo até quase opaco no fim
+da seção, tom grafite quase preto) só o suficiente pra manter o texto
+perfeitamente legível sobre qualquer foto. Sobre essa foto: selo pequeno
+do evento no topo, headline grande, subheadline, os dados-chave em
+destaque (data · formato · duração · preço) e o botão de CTA - tudo
+ancorado na metade inferior da dobra, alinhado à esquerda ou centralizado
+(sua escolha de composição, mas sempre com contraste máximo garantido
+pelo overlay). Prepare o CSS de background para uma imagem que o usuário
+vai fornecer depois, num tamanho recomendado de 1920x1080px (ou maior,
+mesma proporção 16:9) para boa nitidez em qualquer monitor - use
+background-size:cover e background-position central, com um ponto focal
+ajustável (uma variável CSS ou classe) para o rosto/elemento principal da
+foto nunca ficar cortado em telas muito largas ou muito estreitas.
+
+Mobile: a foto NÃO cobre a tela inteira - ela ocupa a METADE SUPERIOR do
+primeiro viewport (algo como 48-55% da altura da tela, ajuste até o
+headline caber com folga), e imediatamente abaixo dela (sem precisar
+rolar) vem: headline (menor que no desktop, mas ainda com peso forte),
+os dados-chave em linha ou em chips, e o botão de CTA. A regra inegociável
+aqui é: no celular, ao abrir a página, a pessoa tem que ver a FOTO, ler a
+HEADLINE e enxergar o BOTÃO DE CTA, tudo dentro da primeira tela, sem
+precisar arrastar o dedo nem uma vez. Teste mentalmente em 100dvh de
+altura de tela e ajuste os tamanhos de fonte/padding até isso caber.
+
+
+-------------------------------------------------------------------
+4. CARTÕES QUE "PASSAM" CONFORME A ROLAGEM (aplica-se às seções: As 6
+   crenças, Os 6 ângulos de comunicação, Hooks/frases de impacto)
+-------------------------------------------------------------------
+
+Cada uma dessas seções é um TÍTULO DE SEÇÃO FIXO + uma TRILHA HORIZONTAL
+de cartões que se movem conforme o usuário rola a página (desktop) ou
+arrasta o dedo (mobile) - nunca uma lista vertical longa empilhada.
+Comportamento exato:
+
+  - A seção tem um título fixo no topo que não se move.
+  - Abaixo dele, os cartões ficam dispostos em fileira horizontal, com
+    scroll-snap por cartão (scroll-snap-type: x mandatory; cada cartão
+    com scroll-snap-align: center ou start). Espaço entre cartões visível,
+    cartão atual sempre levemente maior/mais nítido que os vizinhos
+    parcialmente visíveis nas bordas (dá a entender que "tem mais pra ver
+    dos dois lados" ou "tem mais à direita").
+  - No desktop, o avanço entre cartões acontece ao rolar o mouse dentro
+    da área da seção (scroll vertical da página é convertido em
+    deslocamento horizontal da trilha enquanto a seção estiver em foco -
+    técnica de "seção presa" (position: sticky) que só libera o scroll
+    vertical da página de novo depois que o último cartão aparecer).
+  - No mobile, o gesto é arrastar o dedo NA HORIZONTAL sobre a trilha de
+    cartões (touch swipe nativo, com snap suave) - o scroll vertical da
+    página continua normal, só a trilha de cartões daquela seção que
+    responde ao arrasto lateral.
+  - Adicione indicadores discretos (pontinhos ou uma barra de progresso
+    fininha em dourado) mostrando quantos cartões existem e em qual o
+    usuário está.
+  - Esse comportamento é EXATAMENTE o que evita que a versão mobile da
+    página fique comprida e cansativa: em vez de 6 cartões empilhados
+    (6 rolagens verticais), viram 1 seção com navegação lateral curta.
+
+
+-------------------------------------------------------------------
+5. REVELAÇÃO PROGRESSIVA DO RESTO DA PÁGINA
+-------------------------------------------------------------------
+
+Fora dos carrosséis de cartão acima, todo o resto do conteúdo (blocos de
+texto, imagens, seções inteiras) entra em cena com uma animação de
+entrada ao cruzar o viewport (Intersection Observer): opacidade 0 → 1,
+leve translação de baixo pra cima (~16-24px), e leve desfoque de saída
+(blur(6px) → blur(0)) - dá exatamente a sensação de "foco puxando",
+luxuosa e suave. Duração generosa (400-600ms), curva suave tipo
+cubic-bezier(.22,.9,.3,1), nunca "linear" e nunca instantâneo. Cada
+elemento anima uma vez só (não repete toda vez que volta a aparecer).
+
+
+-------------------------------------------------------------------
+6. BOTÃO DE CTA — tem que parecer joia, não botão de formulário
+-------------------------------------------------------------------
+
+  - Fundo em degradê dourado (mesmo degradê da scrollbar:
+    linear-gradient(180deg, #FFEFC0 0%, #F5C328 42%, #B8830A 100%)),
+    texto em grafite bem escuro (nunca branco sobre ouro - contraste
+    melhor e é o padrão que a marca já usa nos botões primários).
+  - Sombra dupla: uma sombra de contato curta e escura por baixo (ancora
+    o botão no fundo) + um brilho difuso dourado ao redor (0 0 30-40px
+    rgba(245,195,40,.35) por exemplo) que aumenta no hover.
+  - No hover: leve elevação (translateY(-2px) a -3px), o brilho dourado
+    cresce, e um efeito de "brilho passando" (um reflexo diagonal de luz
+    que atravessa o botão da esquerda pra direita, tipo shimmer/sheen -
+    via ::after com gradiente e animação de translação, disparado no
+    hover ou em loop lento e discreto mesmo sem hover, pra chamar atenção
+    sutilmente ao longo da leitura).
+  - No active/click: leve compressão (scale ~0.98).
+  - Cantos bem arredondados (pill/999px ou 14-18px, sua escolha, mas
+    consistente em todos os CTAs da página).
+  - Nunca usar o botão em tamanho pequeno - ele é sempre um dos elementos
+    de maior peso visual da seção onde aparece.
+
+
+-------------------------------------------------------------------
+7. MICROINTERAÇÕES GERAIS (efeito "luxo" no resto da página)
+-------------------------------------------------------------------
+
+  - Cartões: no hover (desktop), leve elevação + a borda de cima ganha um
+    fio de luz mais vivo + o fundo de vidro fica um pouco mais opaco/nítido
+    (sensação de "acender"). Transição sempre suave (~220-300ms).
+  - Links e textos com sublinhado dourado que "desenha" da esquerda pra
+    direita no hover, em vez de aparecer instantâneo.
+  - Números importantes (preço, "4 horas", contadores) podem ter uma
+    pequena animação de contagem quando entram no viewport.
+  - Nada de easing linear em lugar nenhum da página - tudo com curva
+    suave (recomendo cubic-bezier(.22,.9,.3,1) como curva única do
+    sistema, igual ao painel original).
+
+  ÍCONE COM SELO CIRCULAR E BRILHO EM ARCO POR TRÁS: cada ícone de
+  destaque (ex: dados do evento - calendário, relógio, moeda) fica dentro
+  de um selo circular (círculo com borda dourada fina, fundo grafite com
+  leve gradiente radial), e atrás/ao redor desse círculo existe um brilho
+  em forma de arco - um resplendor sutil, meio-círculo de luz dourada
+  desfocada, como um "halo" parcial que emoldura o ícone sem ser um
+  círculo perfeito de luz (mais orgânico, tipo uma auréola cortada). Pode
+  ser feito com um pseudo-elemento (::before) com border-radius:50%,
+  background: conic-gradient(...) ou radial-gradient posicionado atrás do
+  selo e com blur (filter: blur(20-30px)), girando devagar ou pulsando
+  muito sutilmente em loop (opcional). Use sempre que um ícone precisar de
+  destaque de "elemento premiado" - a ficha técnica do evento é o lugar
+  perfeito, um selo por dado (data, formato, duração, preço).
+
+
+-------------------------------------------------------------------
+8. ELEMENTO VISUAL ASSINATURA — O FUNIL DE LEADS
+-------------------------------------------------------------------
+
+Este é a peça-assinatura da página, pedida explicitamente pelo dono depois
+de ver uma referência (um funil dourado brilhante, com ícones de pessoa em
+círculo entrando por cima e descendo afunilando até virar só um ou dois no
+bico). A versão aqui precisa ser MUITO mais bonita que a referência, no
+nosso material (vidro + ouro raro + brilho, nunca o amarelo chapado da
+referência original), sempre "viva" (looping infinito) e com um hover
+incrível. Onde ela entra, tem que parar o scroll da pessoa por um segundo.
+
+  CONCEITO: um funil (contorno, não sólido - linha fina dourada com
+  brilho, preenchimento em vidro semitransparente com leve grão, igual ao
+  resto do sistema), desenhado em SVG, boca larga em cima, bico estreito
+  embaixo. Por cima da boca larga, pequenos selos circulares (mesmo
+  padrão "ícone com selo circular e brilho em arco" da seção 7) contendo
+  um ícone de usuário aparecem em posições espalhadas, um pouco acima da
+  boca do funil.
+
+  ANIMAÇÃO (looping infinito, nunca para):
+    - Cada selo "nasce" (fade-in + leve escala de 0.6 → 1) numa posição
+      horizontal aleatória acima da boca do funil, num instante aleatório
+      (não sincronizado - vários selos em fases diferentes da animação ao
+      mesmo tempo, pra nunca parecer repetitivo/mecânico).
+    - Ele desce em curva suave até o centro do funil, ENCOLHENDO
+      gradualmente (escala 1 → ~0.15) e o brilho ao redor dele
+      intensifica levemente conforme afunila (reforça a leitura de
+      "entrando, sendo qualificado/filtrado") - use transform (translate +
+      scale) animado via CSS @keyframes ou requestAnimationFrame, curva
+      cubic-bezier(.22,.9,.3,1) na entrada e uma aceleração leve
+      (ease-in) na reta final perto do bico, como se fosse "sugado".
+    - Ao chegar perto do bico estreito, o selo desaparece (fade-out
+      rápido) - pode deixar um lampejo/flash dourado breve no bico
+      exatamente no instante em que cada um "sai" por baixo, reforçando
+      a ideia de conversão.
+    - Rode vários selos em paralelo, com atraso (delay) escalonado entre
+      eles, formando um fluxo contínuo e nunca sincronizado - o efeito
+      final é de um funil vivo, recebendo gente o tempo todo.
+    - Performance: use transform e opacity apenas (nunca left/top/width
+      animados quadro a quadro) pra manter 60fps tranquilo mesmo com
+      vários selos simultâneos: 6-10 em voo ao mesmo tempo é suficiente,
+      não exagere na quantidade.
+
+  HOVER (desktop) / toque (mobile) no funil inteiro:
+    - O contorno do funil intensifica o brilho (glow maior, mais
+      saturado), a velocidade de queda dos selos acelera sutilmente, e um
+      brilho radial cresce por trás do funil inteiro (halo dourado maior
+      que o normal, com transição suave ~300-400ms). No touch, dispare o
+      mesmo efeito por alguns segundos ao tocar (já que não existe hover
+      de verdade em touch), voltando ao estado normal depois.
+    - Esse é o "efeito hover incrível" pedido: não é só brilho estático -
+      é o funil inteiro "acordando" e trabalhando mais rápido por um
+      instante, como se reagisse à atenção do visitante.
+
+  TAMANHO E RESPONSIVIDADE:
+    - Desktop: elemento grande e centralizado, ocupando boa largura da
+      seção (ex: max-width de 480-560px, altura proporcional - o funil é
+      mais alto que largo), com espaço suficiente ao redor pra caber os
+      selos "voando" antes de entrar na boca sem cortar nas bordas do
+      contêiner.
+    - Mobile: mesma proporção, só menor (ex: max-width de 220-280px) -
+      NUNCA corte o topo onde os selos nascem nem o bico onde eles saem;
+      se precisar, reduza a quantidade de selos simultâneos no mobile (3-5
+      em vez de 6-10) pra manter performance suave em aparelho mais fraco.
+    - Use SVG com viewBox (nunca pixels fixos) pra escalar perfeitamente
+      em qualquer tamanho de tela sem perder nitidez do contorno.
+
+  ONDE COLOCAR: ver seção 10 (Estrutura de seções) abaixo - logo depois
+  da Mensagem central e antes das 6 crenças.
+
+
+-------------------------------------------------------------------
+9. RESPONSIVIDADE
+-------------------------------------------------------------------
+
+  Breakpoints sugeridos: mobile até 600px, tablet 601-1024px, desktop
+  acima disso. Teste especificamente:
+    - Hero mobile: foto + headline + CTA sem scroll (ver seção 3).
+    - Carrosséis de cartão: 1 cartão principal visível por vez no
+      celular (com fatia dos vizinhos nas bordas), 2-3 cartões visíveis
+      por vez no desktop.
+    - Linha do diagnóstico (10 etapas): vira scroll horizontal também no
+      mobile se não couber, nunca quebra em várias linhas empilhadas de
+      forma confusa.
+    - Tipografia fluida (usar clamp() para headline e números-chave, não
+      tamanhos fixos por breakpoint).
+
+
+-------------------------------------------------------------------
+10. ESTRUTURA DE SEÇÕES (nessa ordem, com a copy abaixo)
+-------------------------------------------------------------------
+
+  1. HERO
+     Selo pequeno: "IMERSÃO ESTRUTURA 5A"
+     Headline: "Antes de investir mais em tráfego, descubra onde sua
+       empresa está perdendo vendas."
+     Subheadline: "Em uma imersão online e ao vivo de 4 horas, você vai
+       aprender a analisar a estrutura entre marketing, atendimento e
+       comercial para identificar gargalos, entender seus números e
+       descobrir o que precisa ser corrigido antes de tentar escalar."
+     Dados-chave (chips ou linha com separador •): "10 de outubro" ·
+       "Online e ao vivo" · "4 horas" · "R$ 27"
+     Botão CTA: algo como "Quero garantir minha vaga" (headline do botão
+       fica a seu critério - curta, direta, sem soar genérica)
+
+  2. A MENSAGEM CENTRAL (seção escura, tom grafite médio - respiro logo
+     após o hero denso)
+     Texto em destaque, tratado quase como uma citação editorial:
+       "Mais tráfego não corrige uma estrutura quebrada. Antes de
+       investir mais para atrair novos leads, o empresário precisa
+       entender se oferta, atendimento, comercial, dados e margem estão
+       preparados para transformar aquisição em vendas."
+     Frase de sustentação, menor, abaixo: "Antes de escalar o tráfego,
+       estruture o caminho até a venda."
+
+  → ELEMENTO-ASSINATURA: funil de leads animado (seção 8 acima) - a
+     mensagem central já plantou a ideia de "estrutura quebrada", o
+     funil entra como a imagem que resume visualmente o problema (muita
+     gente entrando, pouca saindo como venda de verdade) antes de
+     começar a detalhar as crenças.
+
+  3. AS 6 CRENÇAS (carrossel de cartão, ver seção 4)
+     Título de seção: algo como "O que você precisa entender antes de
+       colocar mais dinheiro em tráfego"
+     Um cartão por crença:
+       1. "O problema da empresa pode estar depois do anúncio, e não
+          necessariamente no anúncio."
+       2. "Não é possível diagnosticar uma operação olhando apenas para
+          CPL, CTR, CPC ou quantidade de leads."
+       3. "Marketing e comercial precisam ser analisados como partes do
+          mesmo sistema."
+       4. "Antes de aumentar o investimento, a empresa precisa saber se
+          possui estrutura para converter a nova demanda."
+       5. "Margem, CAC, atendimento, follow-up e rastreamento também
+          fazem parte da aquisição."
+       6. "Antes de escalar, é preciso identificar o verdadeiro gargalo."
+
+  4. A LINHA DO DIAGNÓSTICO (seção visual, não é carrossel - é uma
+     "esteira"/timeline horizontal com 10 etapas conectadas por seta,
+     que pode ela também rolar lateralmente em telas pequenas se não
+     couber, mas sem esconder nenhuma etapa)
+     Negócio → Oferta → Público → Comunicação → Aquisição → Atendimento →
+     Comercial → Venda → Receita → Margem
+     Frase de apoio acima ou abaixo: deixe claro que esse é o caminho
+     completo que a Imersão ensina a enxergar - da primeira etapa até o
+     dinheiro entrar de verdade.
+
+  5. OS 6 ÂNGULOS / O QUE VOCÊ VAI ENXERGAR (carrossel de cartão)
+     Um cartão por ângulo, com título curto + a mensagem:
+       1. "O problema não é necessariamente o tráfego" — "Sua empresa
+          pode estar trocando anúncio, criativo ou gestor quando o
+          verdadeiro gargalo está em outra etapa."
+       2. "Marketing x Comercial" — "O marketing diz que o lead é bom. O
+          comercial diz que é ruim. Sem rastrear o funil completo,
+          ninguém sabe quem está certo."
+       3. "Onde o dinheiro desaparece" — "Você investe em marketing. Mas
+          consegue mostrar exatamente o que acontece entre o dinheiro
+          investido e o dinheiro que volta para o caixa?"
+       4. "Antes de escalar" — "Não aumente o orçamento antes de saber se
+          oferta, atendimento, vendas, rastreamento e margem estão
+          preparados."
+       5. "Estrutura" — "Ter Meta Ads, site, Instagram, WhatsApp e CRM não
+          significa ter uma operação estruturada."
+       6. "Métricas isoladas enganam" — "CPL barato não significa
+          operação lucrativa. O lead pode ser barato e não qualificar,
+          não responder, não comprar, gerar CAC ruim e destruir margem."
+
+  6. FRASES DE IMPACTO / HOOKS (carrossel de cartão mais rápido, tipo
+     citação, pode ter fundo com leve halo azul ou verde pra variar da
+     seção anterior)
+     Passe entre estas (pode escolher 6-8 das mais fortes, não precisa
+     usar todas):
+       "Seu problema pode não estar no tráfego."
+       "Mais tráfego não corrige uma estrutura quebrada."
+       "Você sabe onde sua empresa perde vendas depois que o lead chega?"
+       "Marketing gera lead. Mas quem garante que ele vira venda?"
+       "Antes de escalar, descubra onde o dinheiro está vazando."
+       "Seu CPL caiu. Mas sua empresa ganhou mais dinheiro?"
+       "Marketing culpa vendas. Vendas culpa marketing. Quem está certo?"
+       "Você sabe quanto pode pagar para adquirir um cliente?"
+       "Pare de trocar campanha antes de descobrir o verdadeiro gargalo."
+       "Antes de colocar mais dinheiro no tráfego, olhe para isso."
+
+  7. IMERSÃO x MENTORIA (a seção CLARA/respiro - bege/marfim, ver
+     seção 1.B)
+     Um comparativo simples de 2 colunas (ou 2 cartões lado a lado):
+       Coluna "Imersão Estrutura 5A": "Eu vou ensinar você a enxergar o
+         sistema e identificar os principais gargalos."
+       Coluna "Mentoria 5A" (tratada como próximo passo, não à venda
+         aqui, sem preço nem CTA de compra - só contexto): "Eu vou
+         acompanhar você na construção e aplicação desse sistema."
+     Isso deixa claro o tamanho exato da transformação que a Imersão
+     entrega hoje, sem prometer o que só a Mentoria resolve depois.
+
+  8. DADOS DO EVENTO / FICHA TÉCNICA (volta ao escuro dramático)
+     Bloco com ícones + dado: data (10 de outubro), formato (online e ao
+     vivo), duração (4 horas), investimento (R$ 27). Use os selos com
+     brilho em arco (seção 7) - calendário, relógio, moeda.
+
+  9. CTA FINAL (a seção mais escura de todas - grafite quase preto puro,
+     sem halo colorido nenhum, só o dourado do botão brilhando - o único
+     ponto de luz forte da seção inteira, de propósito, pra puxar o olho
+     direto pra ele)
+     Repita a headline (pode ser uma variação mais curta e direta),
+     repita os dados-chave, e o botão de CTA em destaque máximo (ver
+     seção 6).
+
+  10. RODAPÉ
+     Nome da marca/agência, e-mail ou canal de contato, e os selos de
+     rede social (ver assets) se fizer sentido.
+
+
+-------------------------------------------------------------------
+11. ASSETS INCLUÍDOS NESTE ZIP
+-------------------------------------------------------------------
+
+  Pasta /assets deste zip contém ícones e marcas já usados no painel
+  original, prontos para reaproveitar nesta landing page sem precisar
+  desenhar do zero (mesmo estilo = mesma identidade):
+
+    marcas/instagram.svg   - marca oficial do Instagram, colorida
+    marcas/whatsapp.png    - marca oficial do WhatsApp
+    marcas/meta.png        - marca oficial da Meta
+    marcas/google-ads.svg  - marca oficial do Google Ads
+
+    icones/funil.svg       - funil (linha, cor ouro) - ótimo pra seção 4
+    icones/chart.svg       - gráfico/crescimento (linha, cor ouro)
+    icones/check.svg       - check/aprovado (linha, cor ouro)
+    icones/calendario.svg  - calendário (linha, cor ouro) - pra "10 de out"
+    icones/relogio.svg     - relógio (linha, cor ouro) - pra "4 horas"
+    icones/moeda.svg       - cifrão/moeda (linha, cor ouro) - pra "R$ 27"
+    icones/raio.svg        - raio (linha, cor ouro) - pra ênfase/urgência
+    icones/alvo.svg        - alvo (linha, cor ouro) - pra "gargalo"
+    icones/usuario.svg     - pessoa/usuário (linha, cor ouro) - pro
+                             elemento assinatura do funil de leads (seção 8)
+
+  Use as marcas de redes sociais só se fizer sentido no rodapé ou numa
+  seção de "canais que analisamos" (a copy cita Meta Ads, site, Instagram,
+  WhatsApp e CRM) - nunca como decoração solta sem contexto.
+
+
+-------------------------------------------------------------------
+12. O QUE NÃO FAZER
+-------------------------------------------------------------------
+
+  - Não deixar a página inteira preta/sem variação (ver seção 1).
+  - Não usar ouro como cor de fundo de bloco grande.
+  - Não empilhar os 6 cartões de crença/ângulo verticalmente no mobile -
+    tem que ser o carrossel horizontal descrito em 4.
+  - Não deixar o hero mobile exigir scroll pra ver o CTA.
+  - Não usar fontes ou paleta genéricas de "template de curso online" -
+    a régua é o painel de dashboard 2!H, não um Canva de infoproduto.
+  - Não esconder o preço (R$ 27) - ele é parte da prova de acessibilidade
+    da oferta, deve aparecer com destaque, não escondido em letra miúda.
+
+-------------------------------------------------------------------
+13. REFERÊNCIA VISUAL ADICIONAL — o que já foi incorporado acima de um
+    material de inspiração (outra marca, só o WIREFRAME/EFEITO, nunca a
+    copy, a cor de marca ou o nicho dela)
+-------------------------------------------------------------------
+
+  Os padrões abaixo vieram de uma landing page de referência de outro
+  produto/nicho (pagamentos), traduzidos pra nossa paleta (o amarelo/
+  laranja maciço dela virou o nosso ouro raro e escasso, nunca cor de
+  fundo de área grande) - e já estão descritos nas seções acima:
+
+  - Ícone com selo circular e brilho em arco por trás (seção 7) e o
+    próprio funil de leads (seção 8) - o pattern mais importante.
+  - CTA em duas partes como variação pros CTAs secundários/repetidos
+    (rótulo de texto com seta ao lado de um botão em pílula escura) - o
+    CTA do Hero e o CTA final continuam sendo o botão dourado cheio
+    (seção 6), que é o de maior peso da página.
+  - Passos numerados conectados por um arco de linha fina, se alguma
+    seção descrever um processo em etapas.
+  - Acordeão de perguntas frequentes: se quiser adicionar uma seção de
+    FAQ nesta versão (não obrigatório - a copy original não trouxe
+    perguntas prontas), use um item aberto por padrão e os demais
+    fechados, ícone +/− que gira ao abrir. Escreva 5-6 perguntas
+    plausíveis e objetivas sobre uma imersão online ao vivo paga (ex: "é
+    gravado?", "preciso ter uma empresa grande?", "funciona pra qualquer
+    nicho?"), sempre coerentes com os fatos já dados (10 de outubro,
+    online e ao vivo, 4 horas, R$ 27).
+  - Faixa de marcas/canais (Instagram, WhatsApp, Meta, Google Ads) com
+    leve movimento tipo esteira/marquee, se fizer sentido perto da
+    seção "Estrutura" dos 6 ângulos.
+
+  Ignorado do material de referência: a cor de marca dela, o texto/copy
+  inteiro, a seção de indicação/comissão e a seção de "placas de
+  reconhecimento por volume vendido" - nada disso pertence a uma landing
+  page de evento único.
+
+
+Construa a página inteira agora, seguindo tudo acima.
