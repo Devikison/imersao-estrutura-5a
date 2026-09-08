@@ -33,6 +33,37 @@ a:hover{color:#FFD34F}
 [data-mobile-row-center]{justify-content:center!important;align-items:center!important}
 [data-mobile-quote]{border-left:none!important;padding-left:0!important;text-align:center!important}
 [data-mobile-footer]{flex-direction:column!important;text-align:center!important}
+[data-desktop-only]{display:none!important}
+[data-mobile-only]{display:flex!important}
+}
+/* ---- Carrossel vertical: motor (comportamento), cores adaptadas ao tema desta pagina ---- */
+.carrossel-wrap{display:flex;align-items:stretch;gap:16px;max-width:640px;margin:0 auto}
+.carrossel-track{flex:1;min-width:0;min-height:0;height:clamp(500px,80vw,620px);padding:clamp(56px,7vw,68px) 0;box-sizing:border-box;overflow-y:auto;overflow-x:hidden;overscroll-behavior-y:contain;scroll-snap-type:y mandatory;scroll-behavior:smooth;touch-action:pan-y;scrollbar-width:none;-ms-overflow-style:none;-webkit-overflow-scrolling:touch;-webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 clamp(40px,5vw,52px),#000 calc(100% - clamp(40px,5vw,52px)),transparent 100%);mask-image:linear-gradient(to bottom,transparent 0,#000 clamp(40px,5vw,52px),#000 calc(100% - clamp(40px,5vw,52px)),transparent 100%)}
+.carrossel-track::-webkit-scrollbar{display:none}
+.carrossel-card{scroll-snap-align:center;scroll-snap-stop:always;box-sizing:border-box;opacity:1;filter:blur(0);transform:scale(1);transition:opacity .22s ease,filter .22s ease,transform .22s ease}
+.carrossel-card+.carrossel-card{margin-top:14px}
+.carrossel-card.is-dimmed{opacity:.4;filter:blur(2.5px);transform:scale(.92)}
+.carrossel-dots{flex:none;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;width:10px}
+.carrossel-dot{display:block;width:6px;height:6px;border-radius:999px;background:rgba(243,242,238,.18);border:none;padding:0;cursor:pointer;transition:background .25s,height .25s}
+.carrossel-dot.is-active{background:#F5C328;height:22px}
+.carrossel-nav{display:none}
+@media (min-width:860px){
+.carrossel-wrap{gap:20px;max-width:720px}
+.carrossel-dots{width:34px;gap:10px}
+.carrossel-nav{display:flex;align-items:center;justify-content:center;flex:none;width:30px;height:30px;border-radius:999px;background:rgba(243,242,238,.05);border:1.5px solid rgba(243,242,238,.16);color:#F5C328;cursor:pointer;transition:background .2s,border-color .2s,transform .2s,opacity .2s}
+.carrossel-nav svg{width:14px;height:14px}
+.carrossel-nav:hover{border-color:rgba(245,195,40,.55);background:rgba(245,195,40,.08);transform:translateY(-1px)}
+.carrossel-prev{margin-bottom:4px}
+.carrossel-next{margin-top:4px}
+}
+.carrossel-hint{display:flex;align-items:center;justify-content:center;gap:8px;margin:18px 0 0;font:600 13px/1 Inter,sans-serif;color:#F5C328;filter:blur(0);transition:opacity .6s cubic-bezier(.16,1,.3,1),filter .6s cubic-bezier(.16,1,.3,1)}
+.carrossel-hint svg{animation:carrossel-hint-bob 1.4s ease-in-out infinite}
+.carrossel-hint.is-hidden{opacity:0;filter:blur(4px);pointer-events:none}
+@keyframes carrossel-hint-bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+@media (prefers-reduced-motion:reduce){
+.carrossel-hint svg{animation:none}
+.carrossel-hint{transition:opacity .4s ease;filter:none!important}
+.carrossel-card{transition:none}
 }
 </style></helmet>
 
@@ -136,49 +167,75 @@ a:hover{color:#FFD34F}
 </div>
 </section>
 
-<section ref="{{ railSpacerRef }}" style="position:relative;background:#1A1613">
-<div ref="{{ railStickyRef }}" style="position:sticky;top:0;height:100dvh;display:flex;flex-direction:column;justify-content:center;gap:clamp(20px,3vh,40px);overflow:hidden;padding:clamp(48px,7vh,90px) 0">
+<section style="position:relative;padding:clamp(64px,9vw,130px) clamp(18px,5vw,72px);background:#1A1613;overflow:hidden">
 <div style="position:absolute;top:-15%;right:-5%;width:45%;height:60%;background:radial-gradient(circle,rgba(245,195,40,.05),transparent 70%);pointer-events:none"></div>
-<div data-mobile-row-center style="position:relative;padding:0 clamp(18px,5vw,72px);display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px;max-width:1400px;margin:0 auto;width:100%">
-<div data-mobile-center style="display:flex;flex-direction:column;gap:12px;max-width:46ch">
-<h2 style="font:600 clamp(23px,2.9vw,40px)/1.14 'General Sans',Inter,system-ui;letter-spacing:-.026em;color:#F3F2EE;text-wrap:pretty">O que você precisa entender antes de colocar mais dinheiro em tráfego</h2>
+<div style="position:relative;max-width:1240px;margin:0 auto;display:flex;flex-direction:column;gap:clamp(30px,4vw,54px)">
+<div data-reveal data-mobile-center style="display:flex;flex-direction:column;gap:14px;align-items:center;text-align:center">
+<h2 style="font:600 clamp(23px,2.9vw,40px)/1.14 'General Sans',Inter,system-ui;letter-spacing:-.026em;color:#F3F2EE;text-wrap:pretty;max-width:34ch">O que você precisa entender antes de colocar mais dinheiro em tráfego</h2>
 </div>
-<div style="display:flex;align-items:center;gap:12px;font:500 12px/1 Inter,sans-serif;color:#918F86"><span ref="{{ railCountRef }}" style="font-variant-numeric:tabular-nums;color:#F5C328;font-weight:700">01</span> / 06 <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="rgba(243,242,238,.45)" stroke-width="2" stroke-linecap="round" style="animation:hint 2.4s cubic-bezier(.22,.9,.3,1) infinite"><path d="M5 12h13M13 6l6 6-6 6"></path></svg></div>
-</div>
-<div ref="{{ railTrackRef }}" style="position:relative;display:flex;gap:clamp(16px,2vw,30px);padding:8px clamp(18px,5vw,72px) 8px;will-change:transform;-webkit-overflow-scrolling:touch">
-<article data-belief style="flex:0 0 auto;width:min(78vw,470px);border-radius:22px;padding:clamp(22px,2.4vw,34px);border:1px solid rgba(243,242,238,.12);background:linear-gradient(165deg,rgba(30,25,21,.92),rgba(16,16,19,.92));backdrop-filter:blur(22px) saturate(140%);box-shadow:0 24px 50px -24px rgba(0,0,0,.9);display:flex;flex-direction:column;gap:16px;position:relative;overflow:hidden;transition:opacity .4s cubic-bezier(.22,.9,.3,1),transform .4s cubic-bezier(.22,.9,.3,1),border-color .3s">
-<div style="position:absolute;inset:0;opacity:.05;pointer-events:none;background-image:url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E&quot;)"></div>
-<div style="position:relative;display:flex;align-items:center;justify-content:space-between"><span style="font:700 clamp(30px,3vw,46px)/1 'General Sans',Inter,system-ui;letter-spacing:-.04em;background:linear-gradient(180deg,#FFEFC0,#F5C328 50%,#B8830A);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">01</span><span style="display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:999px;border:1px solid rgba(245,195,40,.3);background:radial-gradient(circle at 50% 20%,rgba(245,195,40,.14),transparent 70%)"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="#F5C328" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"></circle><circle cx="12" cy="12" r="4.5"></circle><circle cx="12" cy="12" r="1"></circle></svg></span></div>
-<p style="position:relative;font:500 clamp(17px,1.5vw,23px)/1.36 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE;text-wrap:pretty">O problema da empresa pode estar depois do anúncio, e não necessariamente no anúncio.</p>
-</article>
-<article data-belief style="flex:0 0 auto;width:min(78vw,470px);border-radius:22px;padding:clamp(22px,2.4vw,34px);border:1px solid rgba(243,242,238,.12);background:linear-gradient(165deg,rgba(30,25,21,.92),rgba(16,16,19,.92));backdrop-filter:blur(22px) saturate(140%);box-shadow:0 24px 50px -24px rgba(0,0,0,.9);display:flex;flex-direction:column;gap:16px;position:relative;overflow:hidden;transition:opacity .4s cubic-bezier(.22,.9,.3,1),transform .4s cubic-bezier(.22,.9,.3,1),border-color .3s">
-<div style="position:absolute;inset:0;opacity:.05;pointer-events:none;background-image:url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E&quot;)"></div>
-<div style="position:relative;display:flex;align-items:center;justify-content:space-between"><span style="font:700 clamp(30px,3vw,46px)/1 'General Sans',Inter,system-ui;letter-spacing:-.04em;background:linear-gradient(180deg,#FFEFC0,#F5C328 50%,#B8830A);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">02</span><span style="display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:999px;border:1px solid rgba(245,195,40,.3);background:radial-gradient(circle at 50% 20%,rgba(245,195,40,.14),transparent 70%)"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="#F5C328" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"></path><path d="m19 9-5 5-4-4-4 4"></path></svg></span></div>
-<p style="position:relative;font:500 clamp(17px,1.5vw,23px)/1.36 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE;text-wrap:pretty">Não é possível diagnosticar uma operação olhando apenas para CPL, CTR, CPC ou quantidade de leads.</p>
-</article>
-<article data-belief style="flex:0 0 auto;width:min(78vw,470px);border-radius:22px;padding:clamp(22px,2.4vw,34px);border:1px solid rgba(243,242,238,.12);background:linear-gradient(165deg,rgba(30,25,21,.92),rgba(16,16,19,.92));backdrop-filter:blur(22px) saturate(140%);box-shadow:0 24px 50px -24px rgba(0,0,0,.9);display:flex;flex-direction:column;gap:16px;position:relative;overflow:hidden;transition:opacity .4s cubic-bezier(.22,.9,.3,1),transform .4s cubic-bezier(.22,.9,.3,1),border-color .3s">
-<div style="position:absolute;inset:0;opacity:.05;pointer-events:none;background-image:url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E&quot;)"></div>
-<div style="position:relative;display:flex;align-items:center;justify-content:space-between"><span style="font:700 clamp(30px,3vw,46px)/1 'General Sans',Inter,system-ui;letter-spacing:-.04em;background:linear-gradient(180deg,#FFEFC0,#F5C328 50%,#B8830A);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">03</span><span style="display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:999px;border:1px solid rgba(245,195,40,.3);background:radial-gradient(circle at 50% 20%,rgba(245,195,40,.14),transparent 70%)"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="#F5C328" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5h18l-7 8.5V20l-4 2v-8.5L3 5Z"></path></svg></span></div>
-<p style="position:relative;font:500 clamp(17px,1.5vw,23px)/1.36 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE;text-wrap:pretty">Marketing e comercial precisam ser analisados como partes do mesmo sistema.</p>
-</article>
-<article data-belief style="flex:0 0 auto;width:min(78vw,470px);border-radius:22px;padding:clamp(22px,2.4vw,34px);border:1px solid rgba(243,242,238,.12);background:linear-gradient(165deg,rgba(30,25,21,.92),rgba(16,16,19,.92));backdrop-filter:blur(22px) saturate(140%);box-shadow:0 24px 50px -24px rgba(0,0,0,.9);display:flex;flex-direction:column;gap:16px;position:relative;overflow:hidden;transition:opacity .4s cubic-bezier(.22,.9,.3,1),transform .4s cubic-bezier(.22,.9,.3,1),border-color .3s">
-<div style="position:absolute;inset:0;opacity:.05;pointer-events:none;background-image:url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E&quot;)"></div>
-<div style="position:relative;display:flex;align-items:center;justify-content:space-between"><span style="font:700 clamp(30px,3vw,46px)/1 'General Sans',Inter,system-ui;letter-spacing:-.04em;background:linear-gradient(180deg,#FFEFC0,#F5C328 50%,#B8830A);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">04</span><span style="display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:999px;border:1px solid rgba(245,195,40,.3);background:radial-gradient(circle at 50% 20%,rgba(245,195,40,.14),transparent 70%)"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="#F5C328" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"></path><path d="m9 12 2 2 4-4"></path></svg></span></div>
-<p style="position:relative;font:500 clamp(17px,1.5vw,23px)/1.36 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE;text-wrap:pretty">Antes de aumentar o investimento, a empresa precisa saber se possui estrutura para converter a nova demanda.</p>
-</article>
-<article data-belief style="flex:0 0 auto;width:min(78vw,470px);border-radius:22px;padding:clamp(22px,2.4vw,34px);border:1px solid rgba(243,242,238,.12);background:linear-gradient(165deg,rgba(30,25,21,.92),rgba(16,16,19,.92));backdrop-filter:blur(22px) saturate(140%);box-shadow:0 24px 50px -24px rgba(0,0,0,.9);display:flex;flex-direction:column;gap:16px;position:relative;overflow:hidden;transition:opacity .4s cubic-bezier(.22,.9,.3,1),transform .4s cubic-bezier(.22,.9,.3,1),border-color .3s">
-<div style="position:absolute;inset:0;opacity:.05;pointer-events:none;background-image:url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E&quot;)"></div>
-<div style="position:relative;display:flex;align-items:center;justify-content:space-between"><span style="font:700 clamp(30px,3vw,46px)/1 'General Sans',Inter,system-ui;letter-spacing:-.04em;background:linear-gradient(180deg,#FFEFC0,#F5C328 50%,#B8830A);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">05</span><span style="display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:999px;border:1px solid rgba(245,195,40,.3);background:radial-gradient(circle at 50% 20%,rgba(245,195,40,.14),transparent 70%)"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="#F5C328" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 6.5v11M9 15.5c0 1.1 1.2 2 3 2 2 0 3-.9 3-2.1 0-1.6-1.5-2-3-2.4-1.5-.4-3-.8-3-2.4C9 9.4 10 8.5 12 8.5c1.8 0 3 .9 3 2"></path></svg></span></div>
-<p style="position:relative;font:500 clamp(17px,1.5vw,23px)/1.36 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE;text-wrap:pretty">Margem, CAC, atendimento, follow-up e rastreamento também fazem parte da aquisição.</p>
-</article>
-<article data-belief style="flex:0 0 auto;width:min(78vw,470px);border-radius:22px;padding:clamp(22px,2.4vw,34px);border:1px solid rgba(245,195,40,.26);background:linear-gradient(165deg,rgba(38,31,20,.94),rgba(16,16,19,.94));backdrop-filter:blur(22px) saturate(140%);box-shadow:0 24px 50px -24px rgba(0,0,0,.9);display:flex;flex-direction:column;gap:16px;position:relative;overflow:hidden;transition:opacity .4s cubic-bezier(.22,.9,.3,1),transform .4s cubic-bezier(.22,.9,.3,1),border-color .3s">
+<div data-reveal style="position:relative">
+<div class="carrossel-wrap">
+<div class="carrossel-track" id="crencas-track">
+<article data-belief class="carrossel-card carrossel-clone is-dimmed" aria-hidden="true" tabindex="-1" style="width:100%;box-sizing:border-box;border-radius:22px;padding:clamp(22px,2.4vw,34px);border:1px solid rgba(245,195,40,.26);background:linear-gradient(165deg,rgba(38,31,20,.94),rgba(16,16,19,.94));backdrop-filter:blur(22px) saturate(140%);box-shadow:0 24px 50px -24px rgba(0,0,0,.9);display:flex;flex-direction:column;gap:16px;position:relative;overflow:hidden">
 <div style="position:absolute;inset:0;opacity:.05;pointer-events:none;background-image:url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E&quot;)"></div>
 <div style="position:relative;display:flex;align-items:center;justify-content:space-between"><span style="font:700 clamp(30px,3vw,46px)/1 'General Sans',Inter,system-ui;letter-spacing:-.04em;background:linear-gradient(180deg,#FFEFC0,#F5C328 50%,#B8830A);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">06</span><span style="display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:999px;border:1px solid rgba(245,195,40,.55);background:radial-gradient(circle at 50% 20%,rgba(245,195,40,.22),transparent 70%)"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="#F5C328" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4.1 13.4a.9.9 0 0 0 .7 1.5H11l-1 7.1 8.9-11.4a.9.9 0 0 0-.7-1.5H12l1-6.1Z"></path></svg></span></div>
 <p style="position:relative;font:500 clamp(17px,1.5vw,23px)/1.36 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE;text-wrap:pretty">Antes de escalar, é preciso identificar o verdadeiro gargalo.</p>
 </article>
+<article data-belief class="carrossel-card" style="width:100%;box-sizing:border-box;border-radius:22px;padding:clamp(22px,2.4vw,34px);border:1px solid rgba(243,242,238,.12);background:linear-gradient(165deg,rgba(30,25,21,.92),rgba(16,16,19,.92));backdrop-filter:blur(22px) saturate(140%);box-shadow:0 24px 50px -24px rgba(0,0,0,.9);display:flex;flex-direction:column;gap:16px;position:relative;overflow:hidden">
+<div style="position:absolute;inset:0;opacity:.05;pointer-events:none;background-image:url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E&quot;)"></div>
+<div style="position:relative;display:flex;align-items:center;justify-content:space-between"><span style="font:700 clamp(30px,3vw,46px)/1 'General Sans',Inter,system-ui;letter-spacing:-.04em;background:linear-gradient(180deg,#FFEFC0,#F5C328 50%,#B8830A);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">01</span><span style="display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:999px;border:1px solid rgba(245,195,40,.3);background:radial-gradient(circle at 50% 20%,rgba(245,195,40,.14),transparent 70%)"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="#F5C328" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"></circle><circle cx="12" cy="12" r="4.5"></circle><circle cx="12" cy="12" r="1"></circle></svg></span></div>
+<p style="position:relative;font:500 clamp(17px,1.5vw,23px)/1.36 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE;text-wrap:pretty">O problema da empresa pode estar depois do anúncio, e não necessariamente no anúncio.</p>
+</article>
+<article data-belief class="carrossel-card" style="width:100%;box-sizing:border-box;border-radius:22px;padding:clamp(22px,2.4vw,34px);border:1px solid rgba(243,242,238,.12);background:linear-gradient(165deg,rgba(30,25,21,.92),rgba(16,16,19,.92));backdrop-filter:blur(22px) saturate(140%);box-shadow:0 24px 50px -24px rgba(0,0,0,.9);display:flex;flex-direction:column;gap:16px;position:relative;overflow:hidden">
+<div style="position:absolute;inset:0;opacity:.05;pointer-events:none;background-image:url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E&quot;)"></div>
+<div style="position:relative;display:flex;align-items:center;justify-content:space-between"><span style="font:700 clamp(30px,3vw,46px)/1 'General Sans',Inter,system-ui;letter-spacing:-.04em;background:linear-gradient(180deg,#FFEFC0,#F5C328 50%,#B8830A);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">02</span><span style="display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:999px;border:1px solid rgba(245,195,40,.3);background:radial-gradient(circle at 50% 20%,rgba(245,195,40,.14),transparent 70%)"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="#F5C328" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"></path><path d="m19 9-5 5-4-4-4 4"></path></svg></span></div>
+<p style="position:relative;font:500 clamp(17px,1.5vw,23px)/1.36 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE;text-wrap:pretty">Não é possível diagnosticar uma operação olhando apenas para CPL, CTR, CPC ou quantidade de leads.</p>
+</article>
+<article data-belief class="carrossel-card" style="width:100%;box-sizing:border-box;border-radius:22px;padding:clamp(22px,2.4vw,34px);border:1px solid rgba(243,242,238,.12);background:linear-gradient(165deg,rgba(30,25,21,.92),rgba(16,16,19,.92));backdrop-filter:blur(22px) saturate(140%);box-shadow:0 24px 50px -24px rgba(0,0,0,.9);display:flex;flex-direction:column;gap:16px;position:relative;overflow:hidden">
+<div style="position:absolute;inset:0;opacity:.05;pointer-events:none;background-image:url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E&quot;)"></div>
+<div style="position:relative;display:flex;align-items:center;justify-content:space-between"><span style="font:700 clamp(30px,3vw,46px)/1 'General Sans',Inter,system-ui;letter-spacing:-.04em;background:linear-gradient(180deg,#FFEFC0,#F5C328 50%,#B8830A);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">03</span><span style="display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:999px;border:1px solid rgba(245,195,40,.3);background:radial-gradient(circle at 50% 20%,rgba(245,195,40,.14),transparent 70%)"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="#F5C328" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5h18l-7 8.5V20l-4 2v-8.5L3 5Z"></path></svg></span></div>
+<p style="position:relative;font:500 clamp(17px,1.5vw,23px)/1.36 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE;text-wrap:pretty">Marketing e comercial precisam ser analisados como partes do mesmo sistema.</p>
+</article>
+<article data-belief class="carrossel-card" style="width:100%;box-sizing:border-box;border-radius:22px;padding:clamp(22px,2.4vw,34px);border:1px solid rgba(243,242,238,.12);background:linear-gradient(165deg,rgba(30,25,21,.92),rgba(16,16,19,.92));backdrop-filter:blur(22px) saturate(140%);box-shadow:0 24px 50px -24px rgba(0,0,0,.9);display:flex;flex-direction:column;gap:16px;position:relative;overflow:hidden">
+<div style="position:absolute;inset:0;opacity:.05;pointer-events:none;background-image:url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E&quot;)"></div>
+<div style="position:relative;display:flex;align-items:center;justify-content:space-between"><span style="font:700 clamp(30px,3vw,46px)/1 'General Sans',Inter,system-ui;letter-spacing:-.04em;background:linear-gradient(180deg,#FFEFC0,#F5C328 50%,#B8830A);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">04</span><span style="display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:999px;border:1px solid rgba(245,195,40,.3);background:radial-gradient(circle at 50% 20%,rgba(245,195,40,.14),transparent 70%)"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="#F5C328" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"></path><path d="m9 12 2 2 4-4"></path></svg></span></div>
+<p style="position:relative;font:500 clamp(17px,1.5vw,23px)/1.36 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE;text-wrap:pretty">Antes de aumentar o investimento, a empresa precisa saber se possui estrutura para converter a nova demanda.</p>
+</article>
+<article data-belief class="carrossel-card" style="width:100%;box-sizing:border-box;border-radius:22px;padding:clamp(22px,2.4vw,34px);border:1px solid rgba(243,242,238,.12);background:linear-gradient(165deg,rgba(30,25,21,.92),rgba(16,16,19,.92));backdrop-filter:blur(22px) saturate(140%);box-shadow:0 24px 50px -24px rgba(0,0,0,.9);display:flex;flex-direction:column;gap:16px;position:relative;overflow:hidden">
+<div style="position:absolute;inset:0;opacity:.05;pointer-events:none;background-image:url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E&quot;)"></div>
+<div style="position:relative;display:flex;align-items:center;justify-content:space-between"><span style="font:700 clamp(30px,3vw,46px)/1 'General Sans',Inter,system-ui;letter-spacing:-.04em;background:linear-gradient(180deg,#FFEFC0,#F5C328 50%,#B8830A);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">05</span><span style="display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:999px;border:1px solid rgba(245,195,40,.3);background:radial-gradient(circle at 50% 20%,rgba(245,195,40,.14),transparent 70%)"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="#F5C328" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 6.5v11M9 15.5c0 1.1 1.2 2 3 2 2 0 3-.9 3-2.1 0-1.6-1.5-2-3-2.4-1.5-.4-3-.8-3-2.4C9 9.4 10 8.5 12 8.5c1.8 0 3 .9 3 2"></path></svg></span></div>
+<p style="position:relative;font:500 clamp(17px,1.5vw,23px)/1.36 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE;text-wrap:pretty">Margem, CAC, atendimento, follow-up e rastreamento também fazem parte da aquisição.</p>
+</article>
+<article data-belief class="carrossel-card" style="width:100%;box-sizing:border-box;border-radius:22px;padding:clamp(22px,2.4vw,34px);border:1px solid rgba(245,195,40,.26);background:linear-gradient(165deg,rgba(38,31,20,.94),rgba(16,16,19,.94));backdrop-filter:blur(22px) saturate(140%);box-shadow:0 24px 50px -24px rgba(0,0,0,.9);display:flex;flex-direction:column;gap:16px;position:relative;overflow:hidden">
+<div style="position:absolute;inset:0;opacity:.05;pointer-events:none;background-image:url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E&quot;)"></div>
+<div style="position:relative;display:flex;align-items:center;justify-content:space-between"><span style="font:700 clamp(30px,3vw,46px)/1 'General Sans',Inter,system-ui;letter-spacing:-.04em;background:linear-gradient(180deg,#FFEFC0,#F5C328 50%,#B8830A);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">06</span><span style="display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:999px;border:1px solid rgba(245,195,40,.55);background:radial-gradient(circle at 50% 20%,rgba(245,195,40,.22),transparent 70%)"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="#F5C328" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4.1 13.4a.9.9 0 0 0 .7 1.5H11l-1 7.1 8.9-11.4a.9.9 0 0 0-.7-1.5H12l1-6.1Z"></path></svg></span></div>
+<p style="position:relative;font:500 clamp(17px,1.5vw,23px)/1.36 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE;text-wrap:pretty">Antes de escalar, é preciso identificar o verdadeiro gargalo.</p>
+</article>
+<article data-belief class="carrossel-card carrossel-clone is-dimmed" aria-hidden="true" tabindex="-1" style="width:100%;box-sizing:border-box;border-radius:22px;padding:clamp(22px,2.4vw,34px);border:1px solid rgba(243,242,238,.12);background:linear-gradient(165deg,rgba(30,25,21,.92),rgba(16,16,19,.92));backdrop-filter:blur(22px) saturate(140%);box-shadow:0 24px 50px -24px rgba(0,0,0,.9);display:flex;flex-direction:column;gap:16px;position:relative;overflow:hidden">
+<div style="position:absolute;inset:0;opacity:.05;pointer-events:none;background-image:url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E&quot;)"></div>
+<div style="position:relative;display:flex;align-items:center;justify-content:space-between"><span style="font:700 clamp(30px,3vw,46px)/1 'General Sans',Inter,system-ui;letter-spacing:-.04em;background:linear-gradient(180deg,#FFEFC0,#F5C328 50%,#B8830A);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">01</span><span style="display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:999px;border:1px solid rgba(245,195,40,.3);background:radial-gradient(circle at 50% 20%,rgba(245,195,40,.14),transparent 70%)"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="#F5C328" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"></circle><circle cx="12" cy="12" r="4.5"></circle><circle cx="12" cy="12" r="1"></circle></svg></span></div>
+<p style="position:relative;font:500 clamp(17px,1.5vw,23px)/1.36 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE;text-wrap:pretty">O problema da empresa pode estar depois do anúncio, e não necessariamente no anúncio.</p>
+</article>
 </div>
-<div style="position:relative;padding:0 clamp(18px,5vw,72px);max-width:1400px;margin:0 auto;width:100%">
-<div style="height:3px;border-radius:99px;background:rgba(243,242,238,.1);overflow:hidden"><div ref="{{ railBarRef }}" style="height:100%;width:17%;border-radius:99px;background:linear-gradient(90deg,#B8830A,#F5C328 45%,#FFEFC0);box-shadow:0 0 12px rgba(245,195,40,.5);transition:width .18s linear"></div></div>
+<div class="carrossel-dots" id="crencas-dots">
+<span class="carrossel-nav carrossel-prev" id="crencas-nav-prev" role="button" tabindex="0" aria-label="Crença anterior">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 15 7-7 7 7"/></svg>
+</span>
+<span class="carrossel-dot" data-dot-i="0" role="button" tabindex="0" aria-label="Ir para crença 1"></span>
+<span class="carrossel-dot" data-dot-i="1" role="button" tabindex="0" aria-label="Ir para crença 2"></span>
+<span class="carrossel-dot" data-dot-i="2" role="button" tabindex="0" aria-label="Ir para crença 3"></span>
+<span class="carrossel-dot" data-dot-i="3" role="button" tabindex="0" aria-label="Ir para crença 4"></span>
+<span class="carrossel-dot" data-dot-i="4" role="button" tabindex="0" aria-label="Ir para crença 5"></span>
+<span class="carrossel-dot" data-dot-i="5" role="button" tabindex="0" aria-label="Ir para crença 6"></span>
+<span class="carrossel-nav carrossel-next" id="crencas-nav-next" role="button" tabindex="0" aria-label="Próxima crença">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 9 7 7 7-7"/></svg>
+</span>
+</div>
+</div>
+<p class="carrossel-hint" id="crencas-hint">
+<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"/></svg>
+Arraste para ver mais
+</p>
 </div>
 </div>
 </section>
@@ -191,48 +248,45 @@ a:hover{color:#FFD34F}
 <p style="font:400 clamp(13.5px,1vw,16px)/1.6 Inter,sans-serif;color:#B9B7AE">Cada etapa depende da anterior. É por isso que trocar de anúncio quase nunca resolve: o gargalo pode estar em qualquer ponto desta esteira.</p>
 </div>
 </div>
-<div data-reveal style="position:relative;margin-top:clamp(8px,1.4vw,18px);overflow-x:auto;scroll-snap-type:x proximity;padding:6px clamp(18px,5vw,72px) 22px">
-<div style="display:flex;align-items:stretch;gap:0;min-width:max-content">
-<div style="scroll-snap-align:center;display:flex;align-items:center;gap:0">
-<div style="display:flex;flex-direction:column;gap:10px;padding:16px 20px;border-radius:16px;border:1px solid rgba(245,195,40,.34);background:linear-gradient(165deg,rgba(245,195,40,.1),rgba(16,16,19,.9));min-width:132px;transition:transform .28s cubic-bezier(.22,.9,.3,1),border-color .28s" style-hover="transform:translateY(-4px);border-color:rgba(245,195,40,.8)"><span style="font:700 11px/1 Inter,sans-serif;font-variant-numeric:tabular-nums;letter-spacing:.14em;color:#F5C328">01</span><span style="font:500 15px/1.2 'General Sans',Inter,system-ui;letter-spacing:-.015em;color:#F3F2EE">Negócio</span></div>
-<svg viewBox="0 0 40 24" width="40" height="24" fill="none" stroke="rgba(245,195,40,.4)" stroke-width="1.4" stroke-linecap="round" style="flex:none"><path d="M4 12h28M26 7l6 5-6 5"></path></svg>
+<div data-reveal style="position:relative;margin-top:clamp(8px,1.4vw,18px)">
+<div class="carrossel-wrap">
+<div class="carrossel-track" id="diagnostico-track">
+<div class="carrossel-card carrossel-clone is-dimmed" aria-hidden="true" tabindex="-1" style="width:100%;box-sizing:border-box;display:flex;flex-direction:column;gap:10px;padding:clamp(22px,2.4vw,32px);border-radius:22px;border:1px solid rgba(245,195,40,.5);background:linear-gradient(165deg,rgba(245,195,40,.16),rgba(16,16,19,.9));transition:transform .28s cubic-bezier(.22,.9,.3,1),border-color .28s;box-shadow:0 0 34px -8px rgba(245,195,40,.4)"><span style="font:700 11px/1 Inter,sans-serif;font-variant-numeric:tabular-nums;letter-spacing:.14em;color:#F5C328">10</span><span style="font:600 15px/1.2 'General Sans',Inter,system-ui;letter-spacing:-.015em;color:#FFD34F">Margem</span></div>
+<div class="carrossel-card" style="width:100%;box-sizing:border-box;display:flex;flex-direction:column;gap:10px;padding:clamp(22px,2.4vw,32px);border-radius:22px;border:1px solid rgba(245,195,40,.34);background:linear-gradient(165deg,rgba(245,195,40,.1),rgba(16,16,19,.9));transition:transform .28s cubic-bezier(.22,.9,.3,1),border-color .28s"><span style="font:700 11px/1 Inter,sans-serif;font-variant-numeric:tabular-nums;letter-spacing:.14em;color:#F5C328">01</span><span style="font:500 15px/1.2 'General Sans',Inter,system-ui;letter-spacing:-.015em;color:#F3F2EE">Negócio</span></div>
+<div class="carrossel-card" style="width:100%;box-sizing:border-box;display:flex;flex-direction:column;gap:10px;padding:clamp(22px,2.4vw,32px);border-radius:22px;border:1px solid rgba(243,242,238,.12);background:rgba(243,242,238,.035);transition:transform .28s cubic-bezier(.22,.9,.3,1),border-color .28s"><span style="font:700 11px/1 Inter,sans-serif;font-variant-numeric:tabular-nums;letter-spacing:.14em;color:#918F86">02</span><span style="font:500 15px/1.2 'General Sans',Inter,system-ui;letter-spacing:-.015em;color:#F3F2EE">Oferta</span></div>
+<div class="carrossel-card" style="width:100%;box-sizing:border-box;display:flex;flex-direction:column;gap:10px;padding:clamp(22px,2.4vw,32px);border-radius:22px;border:1px solid rgba(243,242,238,.12);background:rgba(243,242,238,.035);transition:transform .28s cubic-bezier(.22,.9,.3,1),border-color .28s"><span style="font:700 11px/1 Inter,sans-serif;font-variant-numeric:tabular-nums;letter-spacing:.14em;color:#918F86">03</span><span style="font:500 15px/1.2 'General Sans',Inter,system-ui;letter-spacing:-.015em;color:#F3F2EE">Público</span></div>
+<div class="carrossel-card" style="width:100%;box-sizing:border-box;display:flex;flex-direction:column;gap:10px;padding:clamp(22px,2.4vw,32px);border-radius:22px;border:1px solid rgba(243,242,238,.12);background:rgba(243,242,238,.035);transition:transform .28s cubic-bezier(.22,.9,.3,1),border-color .28s"><span style="font:700 11px/1 Inter,sans-serif;font-variant-numeric:tabular-nums;letter-spacing:.14em;color:#918F86">04</span><span style="font:500 15px/1.2 'General Sans',Inter,system-ui;letter-spacing:-.015em;color:#F3F2EE">Comunicação</span></div>
+<div class="carrossel-card" style="width:100%;box-sizing:border-box;display:flex;flex-direction:column;gap:10px;padding:clamp(22px,2.4vw,32px);border-radius:22px;border:1px solid rgba(243,242,238,.12);background:rgba(243,242,238,.035);transition:transform .28s cubic-bezier(.22,.9,.3,1),border-color .28s"><span style="font:700 11px/1 Inter,sans-serif;font-variant-numeric:tabular-nums;letter-spacing:.14em;color:#918F86">05</span><span style="font:500 15px/1.2 'General Sans',Inter,system-ui;letter-spacing:-.015em;color:#F3F2EE">Aquisição</span></div>
+<div class="carrossel-card" style="width:100%;box-sizing:border-box;display:flex;flex-direction:column;gap:10px;padding:clamp(22px,2.4vw,32px);border-radius:22px;border:1px solid rgba(243,242,238,.12);background:rgba(243,242,238,.035);transition:transform .28s cubic-bezier(.22,.9,.3,1),border-color .28s"><span style="font:700 11px/1 Inter,sans-serif;font-variant-numeric:tabular-nums;letter-spacing:.14em;color:#918F86">06</span><span style="font:500 15px/1.2 'General Sans',Inter,system-ui;letter-spacing:-.015em;color:#F3F2EE">Atendimento</span></div>
+<div class="carrossel-card" style="width:100%;box-sizing:border-box;display:flex;flex-direction:column;gap:10px;padding:clamp(22px,2.4vw,32px);border-radius:22px;border:1px solid rgba(243,242,238,.12);background:rgba(243,242,238,.035);transition:transform .28s cubic-bezier(.22,.9,.3,1),border-color .28s"><span style="font:700 11px/1 Inter,sans-serif;font-variant-numeric:tabular-nums;letter-spacing:.14em;color:#918F86">07</span><span style="font:500 15px/1.2 'General Sans',Inter,system-ui;letter-spacing:-.015em;color:#F3F2EE">Comercial</span></div>
+<div class="carrossel-card" style="width:100%;box-sizing:border-box;display:flex;flex-direction:column;gap:10px;padding:clamp(22px,2.4vw,32px);border-radius:22px;border:1px solid rgba(243,242,238,.12);background:rgba(243,242,238,.035);transition:transform .28s cubic-bezier(.22,.9,.3,1),border-color .28s"><span style="font:700 11px/1 Inter,sans-serif;font-variant-numeric:tabular-nums;letter-spacing:.14em;color:#918F86">08</span><span style="font:500 15px/1.2 'General Sans',Inter,system-ui;letter-spacing:-.015em;color:#F3F2EE">Venda</span></div>
+<div class="carrossel-card" style="width:100%;box-sizing:border-box;display:flex;flex-direction:column;gap:10px;padding:clamp(22px,2.4vw,32px);border-radius:22px;border:1px solid rgba(243,242,238,.12);background:rgba(243,242,238,.035);transition:transform .28s cubic-bezier(.22,.9,.3,1),border-color .28s"><span style="font:700 11px/1 Inter,sans-serif;font-variant-numeric:tabular-nums;letter-spacing:.14em;color:#918F86">09</span><span style="font:500 15px/1.2 'General Sans',Inter,system-ui;letter-spacing:-.015em;color:#F3F2EE">Receita</span></div>
+<div class="carrossel-card" style="width:100%;box-sizing:border-box;display:flex;flex-direction:column;gap:10px;padding:clamp(22px,2.4vw,32px);border-radius:22px;border:1px solid rgba(245,195,40,.5);background:linear-gradient(165deg,rgba(245,195,40,.16),rgba(16,16,19,.9));transition:transform .28s cubic-bezier(.22,.9,.3,1),border-color .28s;box-shadow:0 0 34px -8px rgba(245,195,40,.4)"><span style="font:700 11px/1 Inter,sans-serif;font-variant-numeric:tabular-nums;letter-spacing:.14em;color:#F5C328">10</span><span style="font:600 15px/1.2 'General Sans',Inter,system-ui;letter-spacing:-.015em;color:#FFD34F">Margem</span></div>
+<div class="carrossel-card carrossel-clone is-dimmed" aria-hidden="true" tabindex="-1" style="width:100%;box-sizing:border-box;display:flex;flex-direction:column;gap:10px;padding:clamp(22px,2.4vw,32px);border-radius:22px;border:1px solid rgba(245,195,40,.34);background:linear-gradient(165deg,rgba(245,195,40,.1),rgba(16,16,19,.9));transition:transform .28s cubic-bezier(.22,.9,.3,1),border-color .28s"><span style="font:700 11px/1 Inter,sans-serif;font-variant-numeric:tabular-nums;letter-spacing:.14em;color:#F5C328">01</span><span style="font:500 15px/1.2 'General Sans',Inter,system-ui;letter-spacing:-.015em;color:#F3F2EE">Negócio</span></div>
 </div>
-<div style="scroll-snap-align:center;display:flex;align-items:center;gap:0">
-<div style="display:flex;flex-direction:column;gap:10px;padding:16px 20px;border-radius:16px;border:1px solid rgba(243,242,238,.12);background:rgba(243,242,238,.035);min-width:132px;transition:transform .28s cubic-bezier(.22,.9,.3,1),border-color .28s" style-hover="transform:translateY(-4px);border-color:rgba(245,195,40,.55)"><span style="font:700 11px/1 Inter,sans-serif;font-variant-numeric:tabular-nums;letter-spacing:.14em;color:#918F86">02</span><span style="font:500 15px/1.2 'General Sans',Inter,system-ui;letter-spacing:-.015em;color:#F3F2EE">Oferta</span></div>
-<svg viewBox="0 0 40 24" width="40" height="24" fill="none" stroke="rgba(243,242,238,.22)" stroke-width="1.4" stroke-linecap="round" style="flex:none"><path d="M4 12h28M26 7l6 5-6 5"></path></svg>
-</div>
-<div style="scroll-snap-align:center;display:flex;align-items:center;gap:0">
-<div style="display:flex;flex-direction:column;gap:10px;padding:16px 20px;border-radius:16px;border:1px solid rgba(243,242,238,.12);background:rgba(243,242,238,.035);min-width:132px;transition:transform .28s cubic-bezier(.22,.9,.3,1),border-color .28s" style-hover="transform:translateY(-4px);border-color:rgba(245,195,40,.55)"><span style="font:700 11px/1 Inter,sans-serif;font-variant-numeric:tabular-nums;letter-spacing:.14em;color:#918F86">03</span><span style="font:500 15px/1.2 'General Sans',Inter,system-ui;letter-spacing:-.015em;color:#F3F2EE">Público</span></div>
-<svg viewBox="0 0 40 24" width="40" height="24" fill="none" stroke="rgba(243,242,238,.22)" stroke-width="1.4" stroke-linecap="round" style="flex:none"><path d="M4 12h28M26 7l6 5-6 5"></path></svg>
-</div>
-<div style="scroll-snap-align:center;display:flex;align-items:center;gap:0">
-<div style="display:flex;flex-direction:column;gap:10px;padding:16px 20px;border-radius:16px;border:1px solid rgba(243,242,238,.12);background:rgba(243,242,238,.035);min-width:132px;transition:transform .28s cubic-bezier(.22,.9,.3,1),border-color .28s" style-hover="transform:translateY(-4px);border-color:rgba(245,195,40,.55)"><span style="font:700 11px/1 Inter,sans-serif;font-variant-numeric:tabular-nums;letter-spacing:.14em;color:#918F86">04</span><span style="font:500 15px/1.2 'General Sans',Inter,system-ui;letter-spacing:-.015em;color:#F3F2EE">Comunicação</span></div>
-<svg viewBox="0 0 40 24" width="40" height="24" fill="none" stroke="rgba(243,242,238,.22)" stroke-width="1.4" stroke-linecap="round" style="flex:none"><path d="M4 12h28M26 7l6 5-6 5"></path></svg>
-</div>
-<div style="scroll-snap-align:center;display:flex;align-items:center;gap:0">
-<div style="display:flex;flex-direction:column;gap:10px;padding:16px 20px;border-radius:16px;border:1px solid rgba(243,242,238,.12);background:rgba(243,242,238,.035);min-width:132px;transition:transform .28s cubic-bezier(.22,.9,.3,1),border-color .28s" style-hover="transform:translateY(-4px);border-color:rgba(245,195,40,.55)"><span style="font:700 11px/1 Inter,sans-serif;font-variant-numeric:tabular-nums;letter-spacing:.14em;color:#918F86">05</span><span style="font:500 15px/1.2 'General Sans',Inter,system-ui;letter-spacing:-.015em;color:#F3F2EE">Aquisição</span></div>
-<svg viewBox="0 0 40 24" width="40" height="24" fill="none" stroke="rgba(243,242,238,.22)" stroke-width="1.4" stroke-linecap="round" style="flex:none"><path d="M4 12h28M26 7l6 5-6 5"></path></svg>
-</div>
-<div style="scroll-snap-align:center;display:flex;align-items:center;gap:0">
-<div style="display:flex;flex-direction:column;gap:10px;padding:16px 20px;border-radius:16px;border:1px solid rgba(243,242,238,.12);background:rgba(243,242,238,.035);min-width:132px;transition:transform .28s cubic-bezier(.22,.9,.3,1),border-color .28s" style-hover="transform:translateY(-4px);border-color:rgba(245,195,40,.55)"><span style="font:700 11px/1 Inter,sans-serif;font-variant-numeric:tabular-nums;letter-spacing:.14em;color:#918F86">06</span><span style="font:500 15px/1.2 'General Sans',Inter,system-ui;letter-spacing:-.015em;color:#F3F2EE">Atendimento</span></div>
-<svg viewBox="0 0 40 24" width="40" height="24" fill="none" stroke="rgba(243,242,238,.22)" stroke-width="1.4" stroke-linecap="round" style="flex:none"><path d="M4 12h28M26 7l6 5-6 5"></path></svg>
-</div>
-<div style="scroll-snap-align:center;display:flex;align-items:center;gap:0">
-<div style="display:flex;flex-direction:column;gap:10px;padding:16px 20px;border-radius:16px;border:1px solid rgba(243,242,238,.12);background:rgba(243,242,238,.035);min-width:132px;transition:transform .28s cubic-bezier(.22,.9,.3,1),border-color .28s" style-hover="transform:translateY(-4px);border-color:rgba(245,195,40,.55)"><span style="font:700 11px/1 Inter,sans-serif;font-variant-numeric:tabular-nums;letter-spacing:.14em;color:#918F86">07</span><span style="font:500 15px/1.2 'General Sans',Inter,system-ui;letter-spacing:-.015em;color:#F3F2EE">Comercial</span></div>
-<svg viewBox="0 0 40 24" width="40" height="24" fill="none" stroke="rgba(243,242,238,.22)" stroke-width="1.4" stroke-linecap="round" style="flex:none"><path d="M4 12h28M26 7l6 5-6 5"></path></svg>
-</div>
-<div style="scroll-snap-align:center;display:flex;align-items:center;gap:0">
-<div style="display:flex;flex-direction:column;gap:10px;padding:16px 20px;border-radius:16px;border:1px solid rgba(243,242,238,.12);background:rgba(243,242,238,.035);min-width:132px;transition:transform .28s cubic-bezier(.22,.9,.3,1),border-color .28s" style-hover="transform:translateY(-4px);border-color:rgba(245,195,40,.55)"><span style="font:700 11px/1 Inter,sans-serif;font-variant-numeric:tabular-nums;letter-spacing:.14em;color:#918F86">08</span><span style="font:500 15px/1.2 'General Sans',Inter,system-ui;letter-spacing:-.015em;color:#F3F2EE">Venda</span></div>
-<svg viewBox="0 0 40 24" width="40" height="24" fill="none" stroke="rgba(243,242,238,.22)" stroke-width="1.4" stroke-linecap="round" style="flex:none"><path d="M4 12h28M26 7l6 5-6 5"></path></svg>
-</div>
-<div style="scroll-snap-align:center;display:flex;align-items:center;gap:0">
-<div style="display:flex;flex-direction:column;gap:10px;padding:16px 20px;border-radius:16px;border:1px solid rgba(243,242,238,.12);background:rgba(243,242,238,.035);min-width:132px;transition:transform .28s cubic-bezier(.22,.9,.3,1),border-color .28s" style-hover="transform:translateY(-4px);border-color:rgba(245,195,40,.55)"><span style="font:700 11px/1 Inter,sans-serif;font-variant-numeric:tabular-nums;letter-spacing:.14em;color:#918F86">09</span><span style="font:500 15px/1.2 'General Sans',Inter,system-ui;letter-spacing:-.015em;color:#F3F2EE">Receita</span></div>
-<svg viewBox="0 0 40 24" width="40" height="24" fill="none" stroke="rgba(245,195,40,.4)" stroke-width="1.4" stroke-linecap="round" style="flex:none"><path d="M4 12h28M26 7l6 5-6 5"></path></svg>
-</div>
-<div style="scroll-snap-align:center">
-<div style="display:flex;flex-direction:column;gap:10px;padding:16px 20px;border-radius:16px;border:1px solid rgba(245,195,40,.5);background:linear-gradient(165deg,rgba(245,195,40,.16),rgba(16,16,19,.9));min-width:132px;box-shadow:0 0 34px -8px rgba(245,195,40,.4);transition:transform .28s cubic-bezier(.22,.9,.3,1)" style-hover="transform:translateY(-4px)"><span style="font:700 11px/1 Inter,sans-serif;font-variant-numeric:tabular-nums;letter-spacing:.14em;color:#F5C328">10</span><span style="font:600 15px/1.2 'General Sans',Inter,system-ui;letter-spacing:-.015em;color:#FFD34F">Margem</span></div>
+<div class="carrossel-dots" id="diagnostico-dots">
+<span class="carrossel-nav carrossel-prev" id="diagnostico-nav-prev" role="button" tabindex="0" aria-label="Etapa anterior">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 15 7-7 7 7"/></svg>
+</span>
+<span class="carrossel-dot" data-dot-i="0" role="button" tabindex="0" aria-label="Ir para etapa 1"></span>
+<span class="carrossel-dot" data-dot-i="1" role="button" tabindex="0" aria-label="Ir para etapa 2"></span>
+<span class="carrossel-dot" data-dot-i="2" role="button" tabindex="0" aria-label="Ir para etapa 3"></span>
+<span class="carrossel-dot" data-dot-i="3" role="button" tabindex="0" aria-label="Ir para etapa 4"></span>
+<span class="carrossel-dot" data-dot-i="4" role="button" tabindex="0" aria-label="Ir para etapa 5"></span>
+<span class="carrossel-dot" data-dot-i="5" role="button" tabindex="0" aria-label="Ir para etapa 6"></span>
+<span class="carrossel-dot" data-dot-i="6" role="button" tabindex="0" aria-label="Ir para etapa 7"></span>
+<span class="carrossel-dot" data-dot-i="7" role="button" tabindex="0" aria-label="Ir para etapa 8"></span>
+<span class="carrossel-dot" data-dot-i="8" role="button" tabindex="0" aria-label="Ir para etapa 9"></span>
+<span class="carrossel-dot" data-dot-i="9" role="button" tabindex="0" aria-label="Ir para etapa 10"></span>
+<span class="carrossel-nav carrossel-next" id="diagnostico-nav-next" role="button" tabindex="0" aria-label="Próxima etapa">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 9 7 7 7-7"/></svg>
+</span>
 </div>
 </div>
+<p class="carrossel-hint" id="diagnostico-hint">
+<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"/></svg>
+Arraste para ver mais
+</p>
 </div>
 </section>
 
@@ -243,7 +297,7 @@ a:hover{color:#FFD34F}
 <h2 style="font:600 clamp(23px,2.9vw,40px)/1.14 'General Sans',Inter,system-ui;letter-spacing:-.026em;color:#F3F2EE;text-wrap:pretty">Seis ângulos que mudam a leitura da sua operação</h2>
 </div>
 </div>
-<div data-reveal style="position:relative;margin-top:clamp(4px,1vw,12px);display:grid;grid-auto-flow:column;grid-template-rows:repeat(2,minmax(0,auto));grid-auto-columns:minmax(min(84vw,300px),1fr);gap:clamp(14px,1.6vw,22px);overflow-x:auto;scroll-snap-type:x proximity;padding:6px clamp(18px,5vw,72px) 24px;max-width:1240px;margin-left:auto;margin-right:auto">
+<div data-reveal data-desktop-only style="position:relative;margin-top:clamp(4px,1vw,12px);display:grid;grid-auto-flow:column;grid-template-rows:repeat(2,minmax(0,auto));grid-auto-columns:minmax(min(84vw,300px),1fr);gap:clamp(14px,1.6vw,22px);overflow-x:auto;scroll-snap-type:x proximity;padding:6px clamp(18px,5vw,72px) 24px;max-width:1240px;margin-left:auto;margin-right:auto">
 <article style="scroll-snap-align:center;display:flex;flex-direction:column;gap:12px;padding:clamp(18px,1.9vw,26px);border-radius:18px;border:1px solid rgba(243,242,238,.1);background:linear-gradient(165deg,rgba(243,242,238,.055),rgba(243,242,238,.02));backdrop-filter:blur(18px) saturate(140%);transition:transform .28s cubic-bezier(.22,.9,.3,1),border-color .28s,background .28s" style-hover="transform:translateY(-4px);border-color:rgba(245,195,40,.45);background:linear-gradient(165deg,rgba(245,195,40,.08),rgba(243,242,238,.03))">
 <span style="display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:999px;border:1px solid rgba(245,195,40,.3);background:radial-gradient(circle at 50% 20%,rgba(245,195,40,.14),transparent 70%)"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#F5C328" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"></circle><circle cx="12" cy="12" r="4.5"></circle><circle cx="12" cy="12" r="1"></circle></svg></span>
 <h3 style="font:500 clamp(16px,1.25vw,19px)/1.3 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE">O problema não é necessariamente o tráfego</h3>
@@ -275,6 +329,38 @@ a:hover{color:#FFD34F}
 <p style="font:400 13.5px/1.6 Inter,sans-serif;color:#BEBCB3;text-wrap:pretty">CPL barato não significa operação lucrativa. O lead pode ser barato e não qualificar, não responder, não comprar, gerar CAC ruim e destruir margem.</p>
 </article>
 </div>
+<div data-reveal data-mobile-only style="position:relative;margin-top:clamp(4px,1vw,12px);display:none;flex-direction:column;max-width:1240px;margin-left:auto;margin-right:auto;padding:0 clamp(18px,5vw,72px)">
+<div class="carrossel-wrap">
+<div class="carrossel-track" id="angulos-track">
+<article class="carrossel-card carrossel-clone is-dimmed" aria-hidden="true" tabindex="-1" style="width:100%;box-sizing:border-box;display:flex;flex-direction:column;gap:12px;padding:clamp(18px,1.9vw,26px);border-radius:18px;border:1px solid rgba(243,242,238,.1);background:linear-gradient(165deg,rgba(243,242,238,.055),rgba(243,242,238,.02));backdrop-filter:blur(18px) saturate(140%);transition:transform .28s cubic-bezier(.22,.9,.3,1),border-color .28s,background .28s"><span style="display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:999px;border:1px solid rgba(245,195,40,.3);background:radial-gradient(circle at 50% 20%,rgba(245,195,40,.14),transparent 70%)"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#F5C328" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5h18l-7 8.5V20l-4 2v-8.5L3 5Z"></path></svg></span><h3 style="font:500 clamp(16px,1.25vw,19px)/1.3 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE">Métricas isoladas enganam</h3><p style="font:400 13.5px/1.6 Inter,sans-serif;color:#BEBCB3;text-wrap:pretty">CPL barato não significa operação lucrativa. O lead pode ser barato e não qualificar, não responder, não comprar, gerar CAC ruim e destruir margem.</p></article>
+<article class="carrossel-card" style="width:100%;box-sizing:border-box;display:flex;flex-direction:column;gap:12px;padding:clamp(18px,1.9vw,26px);border-radius:18px;border:1px solid rgba(243,242,238,.1);background:linear-gradient(165deg,rgba(243,242,238,.055),rgba(243,242,238,.02));backdrop-filter:blur(18px) saturate(140%);transition:transform .28s cubic-bezier(.22,.9,.3,1),border-color .28s,background .28s"><span style="display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:999px;border:1px solid rgba(245,195,40,.3);background:radial-gradient(circle at 50% 20%,rgba(245,195,40,.14),transparent 70%)"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#F5C328" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"></circle><circle cx="12" cy="12" r="4.5"></circle><circle cx="12" cy="12" r="1"></circle></svg></span><h3 style="font:500 clamp(16px,1.25vw,19px)/1.3 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE">O problema não é necessariamente o tráfego</h3><p style="font:400 13.5px/1.6 Inter,sans-serif;color:#BEBCB3;text-wrap:pretty">Sua empresa pode estar trocando anúncio, criativo ou gestor quando o verdadeiro gargalo está em outra etapa.</p></article>
+<article class="carrossel-card" style="width:100%;box-sizing:border-box;display:flex;flex-direction:column;gap:12px;padding:clamp(18px,1.9vw,26px);border-radius:18px;border:1px solid rgba(243,242,238,.1);background:linear-gradient(165deg,rgba(243,242,238,.055),rgba(243,242,238,.02));backdrop-filter:blur(18px) saturate(140%);transition:transform .28s cubic-bezier(.22,.9,.3,1),border-color .28s,background .28s"><span style="display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:999px;border:1px solid rgba(245,195,40,.3);background:radial-gradient(circle at 50% 20%,rgba(245,195,40,.14),transparent 70%)"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#F5C328" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"></circle><path d="M4 20.5c0-4.4 3.6-7.5 8-7.5s8 3.1 8 7.5"></path></svg></span><h3 style="font:500 clamp(16px,1.25vw,19px)/1.3 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE">Marketing × Comercial</h3><p style="font:400 13.5px/1.6 Inter,sans-serif;color:#BEBCB3;text-wrap:pretty">O marketing diz que o lead é bom. O comercial diz que é ruim. Sem rastrear o funil completo, ninguém sabe quem está certo.</p></article>
+<article class="carrossel-card" style="width:100%;box-sizing:border-box;display:flex;flex-direction:column;gap:12px;padding:clamp(18px,1.9vw,26px);border-radius:18px;border:1px solid rgba(243,242,238,.1);background:linear-gradient(165deg,rgba(243,242,238,.055),rgba(243,242,238,.02));backdrop-filter:blur(18px) saturate(140%);transition:transform .28s cubic-bezier(.22,.9,.3,1),border-color .28s,background .28s"><span style="display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:999px;border:1px solid rgba(245,195,40,.3);background:radial-gradient(circle at 50% 20%,rgba(245,195,40,.14),transparent 70%)"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#F5C328" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 6.5v11M9 15.5c0 1.1 1.2 2 3 2 2 0 3-.9 3-2.1 0-1.6-1.5-2-3-2.4-1.5-.4-3-.8-3-2.4C9 9.4 10 8.5 12 8.5c1.8 0 3 .9 3 2"></path></svg></span><h3 style="font:500 clamp(16px,1.25vw,19px)/1.3 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE">Onde o dinheiro desaparece</h3><p style="font:400 13.5px/1.6 Inter,sans-serif;color:#BEBCB3;text-wrap:pretty">Você investe em marketing. Mas consegue mostrar exatamente o que acontece entre o dinheiro investido e o dinheiro que volta para o caixa?</p></article>
+<article class="carrossel-card" style="width:100%;box-sizing:border-box;display:flex;flex-direction:column;gap:12px;padding:clamp(18px,1.9vw,26px);border-radius:18px;border:1px solid rgba(243,242,238,.1);background:linear-gradient(165deg,rgba(243,242,238,.055),rgba(243,242,238,.02));backdrop-filter:blur(18px) saturate(140%);transition:transform .28s cubic-bezier(.22,.9,.3,1),border-color .28s,background .28s"><span style="display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:999px;border:1px solid rgba(245,195,40,.3);background:radial-gradient(circle at 50% 20%,rgba(245,195,40,.14),transparent 70%)"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#F5C328" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"></path><path d="m19 9-5 5-4-4-4 4"></path></svg></span><h3 style="font:500 clamp(16px,1.25vw,19px)/1.3 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE">Antes de escalar</h3><p style="font:400 13.5px/1.6 Inter,sans-serif;color:#BEBCB3;text-wrap:pretty">Não aumente o orçamento antes de saber se oferta, atendimento, vendas, rastreamento e margem estão preparados.</p></article>
+<article class="carrossel-card" style="width:100%;box-sizing:border-box;display:flex;flex-direction:column;gap:12px;padding:clamp(18px,1.9vw,26px);border-radius:18px;border:1px solid rgba(243,242,238,.1);background:linear-gradient(165deg,rgba(243,242,238,.055),rgba(243,242,238,.02));backdrop-filter:blur(18px) saturate(140%);transition:transform .28s cubic-bezier(.22,.9,.3,1),border-color .28s,background .28s"><span style="display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:999px;border:1px solid rgba(245,195,40,.3);background:radial-gradient(circle at 50% 20%,rgba(245,195,40,.14),transparent 70%)"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#F5C328" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"></path><path d="M14 2v6h6"></path><path d="M8 13h8M8 17h8"></path></svg></span><h3 style="font:500 clamp(16px,1.25vw,19px)/1.3 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE">Estrutura</h3><p style="font:400 13.5px/1.6 Inter,sans-serif;color:#BEBCB3;text-wrap:pretty">Ter Meta Ads, site, Instagram, WhatsApp e CRM não significa ter uma operação estruturada.</p></article>
+<article class="carrossel-card" style="width:100%;box-sizing:border-box;display:flex;flex-direction:column;gap:12px;padding:clamp(18px,1.9vw,26px);border-radius:18px;border:1px solid rgba(243,242,238,.1);background:linear-gradient(165deg,rgba(243,242,238,.055),rgba(243,242,238,.02));backdrop-filter:blur(18px) saturate(140%);transition:transform .28s cubic-bezier(.22,.9,.3,1),border-color .28s,background .28s"><span style="display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:999px;border:1px solid rgba(245,195,40,.3);background:radial-gradient(circle at 50% 20%,rgba(245,195,40,.14),transparent 70%)"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#F5C328" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5h18l-7 8.5V20l-4 2v-8.5L3 5Z"></path></svg></span><h3 style="font:500 clamp(16px,1.25vw,19px)/1.3 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE">Métricas isoladas enganam</h3><p style="font:400 13.5px/1.6 Inter,sans-serif;color:#BEBCB3;text-wrap:pretty">CPL barato não significa operação lucrativa. O lead pode ser barato e não qualificar, não responder, não comprar, gerar CAC ruim e destruir margem.</p></article>
+<article class="carrossel-card carrossel-clone is-dimmed" aria-hidden="true" tabindex="-1" style="width:100%;box-sizing:border-box;display:flex;flex-direction:column;gap:12px;padding:clamp(18px,1.9vw,26px);border-radius:18px;border:1px solid rgba(243,242,238,.1);background:linear-gradient(165deg,rgba(243,242,238,.055),rgba(243,242,238,.02));backdrop-filter:blur(18px) saturate(140%);transition:transform .28s cubic-bezier(.22,.9,.3,1),border-color .28s,background .28s"><span style="display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:999px;border:1px solid rgba(245,195,40,.3);background:radial-gradient(circle at 50% 20%,rgba(245,195,40,.14),transparent 70%)"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#F5C328" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"></circle><circle cx="12" cy="12" r="4.5"></circle><circle cx="12" cy="12" r="1"></circle></svg></span><h3 style="font:500 clamp(16px,1.25vw,19px)/1.3 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE">O problema não é necessariamente o tráfego</h3><p style="font:400 13.5px/1.6 Inter,sans-serif;color:#BEBCB3;text-wrap:pretty">Sua empresa pode estar trocando anúncio, criativo ou gestor quando o verdadeiro gargalo está em outra etapa.</p></article>
+</div>
+<div class="carrossel-dots" id="angulos-dots">
+<span class="carrossel-nav carrossel-prev" id="angulos-nav-prev" role="button" tabindex="0" aria-label="Ângulo anterior">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 15 7-7 7 7"/></svg>
+</span>
+<span class="carrossel-dot" data-dot-i="0" role="button" tabindex="0" aria-label="Ir para ângulo 1"></span>
+<span class="carrossel-dot" data-dot-i="1" role="button" tabindex="0" aria-label="Ir para ângulo 2"></span>
+<span class="carrossel-dot" data-dot-i="2" role="button" tabindex="0" aria-label="Ir para ângulo 3"></span>
+<span class="carrossel-dot" data-dot-i="3" role="button" tabindex="0" aria-label="Ir para ângulo 4"></span>
+<span class="carrossel-dot" data-dot-i="4" role="button" tabindex="0" aria-label="Ir para ângulo 5"></span>
+<span class="carrossel-dot" data-dot-i="5" role="button" tabindex="0" aria-label="Ir para ângulo 6"></span>
+<span class="carrossel-nav carrossel-next" id="angulos-nav-next" role="button" tabindex="0" aria-label="Próximo ângulo">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 9 7 7 7-7"/></svg>
+</span>
+</div>
+</div>
+<p class="carrossel-hint" id="angulos-hint">
+<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"/></svg>
+Arraste para ver mais
+</p>
+</div>
 <div style="position:relative;margin-top:clamp(10px,1.6vw,22px);padding:clamp(16px,1.8vw,24px) 0;border-top:1px solid rgba(243,242,238,.07);border-bottom:1px solid rgba(243,242,238,.07);overflow:hidden">
 <div style="position:absolute;inset:0;background:linear-gradient(90deg,#1B1B20 0%,transparent 12%,transparent 88%,#1B1B20 100%);z-index:2;pointer-events:none"></div>
 <div style="display:flex;width:max-content;animation:mqA 34s linear infinite">
@@ -300,12 +386,14 @@ a:hover{color:#FFD34F}
 <p style="flex:none;padding:18px 26px;border-radius:16px;border:1px solid rgba(123,167,255,.22);background:linear-gradient(165deg,rgba(123,167,255,.06),rgba(243,242,238,.02));font:500 clamp(15px,1.3vw,20px)/1.3 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE">Seu problema pode não estar no tráfego.</p>
 <p style="flex:none;padding:18px 26px;border-radius:16px;border:1px solid rgba(243,242,238,.12);background:rgba(243,242,238,.03);font:500 clamp(15px,1.3vw,20px)/1.3 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE">Mais tráfego não corrige uma estrutura quebrada.</p>
 <p style="flex:none;padding:18px 26px;border-radius:16px;border:1px solid rgba(243,242,238,.12);background:rgba(243,242,238,.03);font:500 clamp(15px,1.3vw,20px)/1.3 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE">Você sabe onde sua empresa perde vendas depois que o lead chega?</p>
+<p style="flex:none;padding:18px 26px;border-radius:16px;border:1px solid rgba(243,242,238,.12);background:rgba(243,242,238,.03);font:500 clamp(15px,1.3vw,20px)/1.3 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE">Marketing gera lead. Mas quem garante que ele vira venda?</p>
 <p style="flex:none;padding:18px 26px;border-radius:16px;border:1px solid rgba(245,195,40,.28);background:linear-gradient(165deg,rgba(245,195,40,.08),rgba(243,242,238,.02));font:500 clamp(15px,1.3vw,20px)/1.3 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#FFD34F">Antes de escalar, descubra onde o dinheiro está vazando.</p>
 </div>
 <div style="display:flex;gap:clamp(12px,1.4vw,18px);padding-right:clamp(12px,1.4vw,18px)">
 <p style="flex:none;padding:18px 26px;border-radius:16px;border:1px solid rgba(123,167,255,.22);background:linear-gradient(165deg,rgba(123,167,255,.06),rgba(243,242,238,.02));font:500 clamp(15px,1.3vw,20px)/1.3 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE">Seu problema pode não estar no tráfego.</p>
 <p style="flex:none;padding:18px 26px;border-radius:16px;border:1px solid rgba(243,242,238,.12);background:rgba(243,242,238,.03);font:500 clamp(15px,1.3vw,20px)/1.3 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE">Mais tráfego não corrige uma estrutura quebrada.</p>
 <p style="flex:none;padding:18px 26px;border-radius:16px;border:1px solid rgba(243,242,238,.12);background:rgba(243,242,238,.03);font:500 clamp(15px,1.3vw,20px)/1.3 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE">Você sabe onde sua empresa perde vendas depois que o lead chega?</p>
+<p style="flex:none;padding:18px 26px;border-radius:16px;border:1px solid rgba(243,242,238,.12);background:rgba(243,242,238,.03);font:500 clamp(15px,1.3vw,20px)/1.3 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE">Marketing gera lead. Mas quem garante que ele vira venda?</p>
 <p style="flex:none;padding:18px 26px;border-radius:16px;border:1px solid rgba(245,195,40,.28);background:linear-gradient(165deg,rgba(245,195,40,.08),rgba(243,242,238,.02));font:500 clamp(15px,1.3vw,20px)/1.3 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#FFD34F">Antes de escalar, descubra onde o dinheiro está vazando.</p>
 </div>
 </div>
@@ -315,12 +403,14 @@ a:hover{color:#FFD34F}
 <p style="flex:none;padding:18px 26px;border-radius:16px;border:1px solid rgba(79,209,139,.22);background:linear-gradient(165deg,rgba(79,209,139,.05),rgba(243,242,238,.02));font:500 clamp(15px,1.3vw,20px)/1.3 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE">Marketing culpa vendas. Vendas culpa marketing. Quem está certo?</p>
 <p style="flex:none;padding:18px 26px;border-radius:16px;border:1px solid rgba(243,242,238,.12);background:rgba(243,242,238,.03);font:500 clamp(15px,1.3vw,20px)/1.3 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE">Você sabe quanto pode pagar para adquirir um cliente?</p>
 <p style="flex:none;padding:18px 26px;border-radius:16px;border:1px solid rgba(243,242,238,.12);background:rgba(243,242,238,.03);font:500 clamp(15px,1.3vw,20px)/1.3 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE">Pare de trocar campanha antes de descobrir o verdadeiro gargalo.</p>
+<p style="flex:none;padding:18px 26px;border-radius:16px;border:1px solid rgba(243,242,238,.12);background:rgba(243,242,238,.03);font:500 clamp(15px,1.3vw,20px)/1.3 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE">Antes de colocar mais dinheiro no tráfego, olhe para isso.</p>
 </div>
 <div style="display:flex;gap:clamp(12px,1.4vw,18px);padding-right:clamp(12px,1.4vw,18px)">
 <p style="flex:none;padding:18px 26px;border-radius:16px;border:1px solid rgba(243,242,238,.12);background:rgba(243,242,238,.03);font:500 clamp(15px,1.3vw,20px)/1.3 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE">Seu CPL caiu. Mas sua empresa ganhou mais dinheiro?</p>
 <p style="flex:none;padding:18px 26px;border-radius:16px;border:1px solid rgba(79,209,139,.22);background:linear-gradient(165deg,rgba(79,209,139,.05),rgba(243,242,238,.02));font:500 clamp(15px,1.3vw,20px)/1.3 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE">Marketing culpa vendas. Vendas culpa marketing. Quem está certo?</p>
 <p style="flex:none;padding:18px 26px;border-radius:16px;border:1px solid rgba(243,242,238,.12);background:rgba(243,242,238,.03);font:500 clamp(15px,1.3vw,20px)/1.3 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE">Você sabe quanto pode pagar para adquirir um cliente?</p>
 <p style="flex:none;padding:18px 26px;border-radius:16px;border:1px solid rgba(243,242,238,.12);background:rgba(243,242,238,.03);font:500 clamp(15px,1.3vw,20px)/1.3 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE">Pare de trocar campanha antes de descobrir o verdadeiro gargalo.</p>
+<p style="flex:none;padding:18px 26px;border-radius:16px;border:1px solid rgba(243,242,238,.12);background:rgba(243,242,238,.03);font:500 clamp(15px,1.3vw,20px)/1.3 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE">Antes de colocar mais dinheiro no tráfego, olhe para isso.</p>
 </div>
 </div>
 </div>
@@ -494,6 +584,134 @@ const FAQ = [
   { q: "Vai ter venda de outra coisa no final?", a: "A imersão entrega o diagnóstico por si só. A Mentoria 5A existe como próximo passo para quem quiser acompanhamento na aplicação, mas não é o motivo da imersão nem pré-requisito para nada." }
 ];
 
+/* ---- Motor do carrossel vertical (loop infinito, dots, setas, wheel, swipe) ---- */
+function initCarrossel(ids) {
+  var track = document.getElementById(ids.track);
+  var dotsWrap = document.getElementById(ids.dots);
+  var hint = document.getElementById(ids.hint);
+  if (!track || !dotsWrap) return;
+  var allCards = Array.prototype.slice.call(track.querySelectorAll(".carrossel-card"));
+  var cards = allCards.filter(function (c) { return !c.classList.contains("carrossel-clone"); });
+  var leadClone = allCards[0];
+  var trailClone = allCards[allCards.length - 1];
+  var dots = Array.prototype.slice.call(dotsWrap.querySelectorAll(".carrossel-dot"));
+  if (!cards.length || !dots.length) return;
+
+  function sizeTrack() {
+    var h = cards[0].getBoundingClientRect().height;
+    if (h > 0) track.style.height = Math.round(h * 1.65) + "px";
+  }
+  sizeTrack();
+  var resizeTimer = null;
+  window.addEventListener("resize", function () {
+    if (resizeTimer) clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(function () {
+      sizeTrack();
+      jumpInstant(cards[currentIndex], currentIndex);
+    }, 150);
+  });
+
+  var currentIndex = 0;
+  function setActive(index) {
+    currentIndex = index;
+    cards.forEach(function (card, i) { card.classList.toggle("is-dimmed", i !== index); });
+    dots.forEach(function (dot, i) { dot.classList.toggle("is-active", i === index); });
+  }
+  setActive(0);
+
+  function centerOn(el, smooth) {
+    var trackRect = track.getBoundingClientRect();
+    var elRect = el.getBoundingClientRect();
+    var delta = (elRect.top + elRect.height / 2) - (trackRect.top + trackRect.height / 2);
+    var target = track.scrollTop + delta;
+    if (smooth) {
+      track.scrollTo({ top: target, behavior: "smooth" });
+    } else {
+      var prevBehavior = track.style.scrollBehavior;
+      track.style.scrollBehavior = "auto";
+      track.scrollTop = target;
+      track.style.scrollBehavior = prevBehavior;
+    }
+  }
+
+  var suppressUntil = 0;
+  function jumpInstant(el, index) {
+    setActive(index);
+    centerOn(el, false);
+    suppressUntil = Date.now() + 400;
+  }
+  jumpInstant(cards[0], 0);
+
+  function goTo(index) {
+    if (index < 0 || index >= cards.length) return;
+    setActive(index);
+    centerOn(cards[index], true);
+  }
+  function goToLoop(index) { goTo((index + cards.length) % cards.length); }
+
+  dots.forEach(function (dot, i) {
+    var go = function () { goTo(i); };
+    dot.addEventListener("click", go);
+    dot.addEventListener("keydown", function (e) {
+      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); go(); }
+    });
+  });
+  function bindNav(el, handler) {
+    if (!el) return;
+    el.addEventListener("click", handler);
+    el.addEventListener("keydown", function (e) {
+      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); handler(); }
+    });
+  }
+  bindNav(document.getElementById(ids.navPrev), function () { goToLoop(currentIndex - 1); });
+  bindNav(document.getElementById(ids.navNext), function () { goToLoop(currentIndex + 1); });
+
+  var wheelLocked = false;
+  track.addEventListener("wheel", function (e) {
+    e.preventDefault();
+    if (wheelLocked) return;
+    wheelLocked = true;
+    goToLoop(currentIndex + (e.deltaY > 0 ? 1 : -1));
+    setTimeout(function () { wheelLocked = false; }, 420);
+  }, { passive: false });
+
+  function findClosestCard() {
+    var trackRect = track.getBoundingClientRect();
+    var trackCenter = trackRect.top + trackRect.height / 2;
+    var closest = null;
+    var closestDist = Infinity;
+    allCards.forEach(function (card) {
+      var r = card.getBoundingClientRect();
+      var dist = Math.abs((r.top + r.height / 2) - trackCenter);
+      if (dist < closestDist) { closestDist = dist; closest = card; }
+    });
+    return closest;
+  }
+
+  var settleTimer = null;
+  function onScrollSettle() {
+    if (Date.now() < suppressUntil) return;
+    var closest = findClosestCard();
+    if (!closest) return;
+    if (closest === trailClone) { jumpInstant(cards[0], 0); return; }
+    if (closest === leadClone) { jumpInstant(cards[cards.length - 1], cards.length - 1); return; }
+    var idx = cards.indexOf(closest);
+    if (idx !== -1 && idx !== currentIndex) setActive(idx);
+  }
+  track.addEventListener("scroll", function () {
+    if (settleTimer) clearTimeout(settleTimer);
+    settleTimer = setTimeout(onScrollSettle, 120);
+  }, { passive: true });
+
+  function dismissHint() {
+    if (hint) hint.classList.add("is-hidden");
+    track.removeEventListener("scroll", dismissHint);
+    track.removeEventListener("touchstart", dismissHint);
+  }
+  track.addEventListener("scroll", dismissHint, { passive: true });
+  track.addEventListener("touchstart", dismissHint, { passive: true });
+}
+
 class Component extends DCLogic {
   state = { faq: 0 };
   heroRef = React.createRef();
@@ -502,26 +720,23 @@ class Component extends DCLogic {
   glowRef = React.createRef();
   svgGlowRef = React.createRef();
   flashRef = React.createRef();
-  railSpacerRef = React.createRef();
-  railStickyRef = React.createRef();
-  railTrackRef = React.createRef();
-  railBarRef = React.createRef();
-  railCountRef = React.createRef();
   barRef = React.createRef();
 
   componentDidMount() {
     this._ease = "cubic-bezier(.22,.9,.3,1)";
     this.setupReveal();
     this.setupFunnel();
-    this.setupRail();
     this.setupBar();
+    initCarrossel({ track: "crencas-track", dots: "crencas-dots", hint: "crencas-hint", navPrev: "crencas-nav-prev", navNext: "crencas-nav-next" });
+    initCarrossel({ track: "diagnostico-track", dots: "diagnostico-dots", hint: "diagnostico-hint", navPrev: "diagnostico-nav-prev", navNext: "diagnostico-nav-next" });
+    initCarrossel({ track: "angulos-track", dots: "angulos-dots", hint: "angulos-hint", navPrev: "angulos-nav-prev", navNext: "angulos-nav-next" });
     this._onScroll = () => {
       if (this._rafScroll) return;
       this._rafScroll = requestAnimationFrame(() => { this._rafScroll = 0; this.onScroll(); });
     };
     this._onResize = () => {
       clearTimeout(this._rt);
-      this._rt = setTimeout(() => { this.fitHero(); this.layoutRail(); this._remeasure && this._remeasure(); this.onScroll(); }, 160);
+      this._rt = setTimeout(() => { this.fitHero(); this._remeasure && this._remeasure(); this.onScroll(); }, 160);
     };
     window.addEventListener("scroll", this._onScroll, { passive: true });
     window.addEventListener("resize", this._onResize);
@@ -659,72 +874,9 @@ class Component extends DCLogic {
     if (sg) sg.setAttribute("opacity", on ? "1" : ".55");
   }
 
-  /* ---------- trilha das crenças ---------- */
-  setupRail() {
-    this.layoutRail();
-  }
-
-  layoutRail() {
-    const spacer = this.railSpacerRef.current, sticky = this.railStickyRef.current, track = this.railTrackRef.current;
-    if (!spacer || !sticky || !track) return;
-    const wide = window.innerWidth >= 940 && window.innerHeight >= 560;
-    this._wide = wide;
-    if (wide) {
-      track.style.overflowX = "visible";
-      track.style.scrollSnapType = "none";
-      sticky.style.position = "sticky";
-      sticky.style.height = "100dvh";
-      const over = Math.max(0, track.scrollWidth - window.innerWidth);
-      this._over = over;
-      spacer.style.height = (window.innerHeight + over * 1.15) + "px";
-      if (!this._railScrollBound) { this._railScrollBound = true; }
-    } else {
-      track.style.transform = "none";
-      track.style.overflowX = "auto";
-      track.style.scrollSnapType = "x mandatory";
-      track.style.scrollPaddingLeft = "18px";
-      [...track.children].forEach(c => { c.style.scrollSnapAlign = "center"; });
-      sticky.style.position = "static";
-      sticky.style.height = "auto";
-      spacer.style.height = "auto";
-      this._over = 0;
-      if (!this._trackBound) {
-        this._trackBound = true;
-        track.addEventListener("scroll", () => {
-          const max = track.scrollWidth - track.clientWidth;
-          this.paintRail(max > 0 ? track.scrollLeft / max : 0);
-        }, { passive: true });
-      }
-    }
-    this.paintRail(0);
-  }
-
-  paintRail(p) {
-    const cards = this.railTrackRef.current ? [...this.railTrackRef.current.children] : [];
-    const bar = this.railBarRef.current, count = this.railCountRef.current;
-    const n = cards.length || 1;
-    if (bar) bar.style.width = (100 / n + p * (100 - 100 / n)) + "%";
-    const active = Math.min(n - 1, Math.round(p * (n - 1)));
-    if (count) count.textContent = String(active + 1).padStart(2, "0");
-    cards.forEach((c, i) => {
-      const on = i === active;
-      c.style.opacity = on ? "1" : ".5";
-      c.style.transform = on ? "scale(1)" : "scale(.955)";
-      c.style.borderColor = on ? "rgba(245,195,40,.42)" : "rgba(243,242,238,.12)";
-    });
-  }
-
   setupBar() { this._barShown = false; }
 
   onScroll() {
-    const spacer = this.railSpacerRef.current, track = this.railTrackRef.current;
-    if (this._wide && spacer && track) {
-      const r = spacer.getBoundingClientRect();
-      const span = spacer.offsetHeight - window.innerHeight;
-      const p = Math.max(0, Math.min(1, span > 0 ? (-r.top) / span : 0));
-      track.style.transform = "translate3d(" + (-p * this._over) + "px,0,0)";
-      this.paintRail(p);
-    }
     const bar = this.barRef.current, hero = this.heroRef.current;
     if (bar && hero) {
       const show = window.scrollY > hero.offsetHeight * 0.75;
@@ -740,8 +892,6 @@ class Component extends DCLogic {
     return {
       heroRef: this.heroRef, photoRef: this.photoRef, stageRef: this.stageRef,
       glowRef: this.glowRef, svgGlowRef: this.svgGlowRef, flashRef: this.flashRef,
-      railSpacerRef: this.railSpacerRef, railStickyRef: this.railStickyRef,
-      railTrackRef: this.railTrackRef, railBarRef: this.railBarRef, railCountRef: this.railCountRef,
       barRef: this.barRef,
       seals: [0, 1, 2, 3, 4, 5, 6, 7],
       funnelOn: () => this.funnelHeat(true),
