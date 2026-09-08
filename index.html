@@ -27,6 +27,8 @@ a:hover{color:#FFD34F}
 @keyframes arc{from{transform:rotate(0)}to{transform:rotate(360deg)}}
 @keyframes flow{0%{opacity:0;transform:translateY(0) scale(1)}12%{opacity:.5}50%{opacity:.42;transform:translateY(118px) scale(.7)}100%{opacity:0;transform:translateY(236px) scale(.115)}}
 @keyframes breathe{0%,100%{opacity:.5}50%{opacity:.95}}
+@keyframes online-pulse{0%{box-shadow:0 0 0 0 rgba(46,204,113,.6)}70%{box-shadow:0 0 0 8px rgba(46,204,113,0)}100%{box-shadow:0 0 0 0 rgba(46,204,113,0)}}
+.online-dot{width:7px;height:7px;border-radius:99px;background:#2ECC71;flex:none;animation:online-pulse 1.8s cubic-bezier(.4,0,.6,1) infinite}
 @keyframes hint{0%,100%{transform:translateX(0);opacity:.5}50%{transform:translateX(6px);opacity:1}}
 @media (max-width:480px){
 .hero-emph{white-space:normal!important}
@@ -59,7 +61,7 @@ a:hover{color:#FFD34F}
 .carrossel-card{position:relative}
 .carrossel-card::before{content:'';position:absolute;inset:0;border-radius:inherit;padding:1.5px;z-index:3;pointer-events:none;background:conic-gradient(from var(--bd-angle),rgba(245,195,40,0) 0deg,rgba(245,195,40,0) 190deg,rgba(245,195,40,.8) 270deg,#FFEFC0 315deg,rgba(245,195,40,.8) 345deg,rgba(245,195,40,0) 360deg);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;animation:bd-rotate 8s linear infinite}
 .carrossel-card:hover,.carrossel-card:active,.carrossel-card:focus-within{opacity:1!important;filter:blur(0)!important;transform:scale(1.015)!important;box-shadow:0 10px 22px -10px rgba(245,195,40,.3),0 6px 14px -8px rgba(0,0,0,.5)!important;border-color:rgba(245,195,40,.4)!important}
-@media (prefers-reduced-motion:reduce){.carrossel-card::before{animation:none}}
+@media (prefers-reduced-motion:reduce){.carrossel-card::before{animation:none}.online-dot{animation:none}}
 /* ---- Linha do tempo iluminada no scroll (secao "Seis angulos") ---- */
 .timeline{position:relative}
 .tl-rail{position:absolute;left:50%;top:0;bottom:0;width:2px;transform:translateX(-50%);background:rgba(243,242,238,.05);border-radius:2px}
@@ -125,7 +127,7 @@ a:hover{color:#FFD34F}
 <div style="position:relative;width:100%;overflow:hidden;background:#0A0A0C">
 
 <div style="position:fixed;top:16px;left:50%;transform:translateX(-50%);z-index:45;width:clamp(196px,58vw,240px);display:flex;align-items:center;justify-content:center;gap:9px;padding:10px 18px;border-radius:999px;border:1px solid rgba(245,195,40,.4);background:linear-gradient(180deg,rgba(30,27,20,.88) 0%,rgba(8,8,10,.85) 100%);backdrop-filter:blur(16px) saturate(160%);box-shadow:0 16px 36px -12px rgba(0,0,0,.85),0 2px 0 rgba(0,0,0,.5),inset 0 1.5px 0 rgba(255,239,192,.18),inset 0 -7px 12px -8px rgba(0,0,0,.55);box-sizing:border-box">
-<span style="width:7px;height:7px;border-radius:99px;background:#F5C328;box-shadow:0 0 8px rgba(245,195,40,.9);flex:none;animation:breathe 2.6s cubic-bezier(.22,.9,.3,1) infinite"></span>
+<span class="online-dot"></span>
 <span id="hero-capsule-text" ref="{{ capsuleTextRef }}" style="display:inline-flex;align-items:center;justify-content:center;gap:7px;font:600 12.5px/1 Inter,sans-serif;letter-spacing:.03em;color:#F3F2EE;white-space:nowrap;transition:opacity .35s cubic-bezier(.22,.9,.3,1),transform .35s cubic-bezier(.22,.9,.3,1)"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="#F5C328" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3.5 2"></path></svg>4 horas</span>
 </div>
 
