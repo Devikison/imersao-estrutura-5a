@@ -32,20 +32,25 @@ a:hover{color:#FFD34F}
 .hero-emph{white-space:normal!important}
 }
 .hero-creative-bg{display:none}
+.hero-mobile-creative{display:none}
 .hero-h1{max-width:26ch}
 .hero-sub{max-width:46ch}
 .hero-br{display:none}
 .hero-float-icon{display:none}
 @keyframes float-bob{0%,100%{transform:translate(50%,-50%) translateY(0)}50%{transform:translate(50%,-50%) translateY(-9px)}}
+@keyframes float-bob-l{0%,100%{transform:translate(-50%,-50%) translateY(0)}50%{transform:translate(-50%,-50%) translateY(-9px)}}
 @media (min-width:901px){
-.hero-creative-bg{display:block;position:absolute;inset:0;background-image:url(assets/hero-creative.png);background-size:cover;background-position:right center;z-index:0;pointer-events:none}
+.hero-creative-bg{display:block;position:absolute;inset:0;background-image:url(assets/hero-creative.png);background-size:contain;background-repeat:no-repeat;background-position:right center;z-index:0;pointer-events:none}
 .hero-h1{max-width:36ch}
 .hero-sub{max-width:64ch}
 .hero-br{display:block}
 .hero-float-icon{display:block;position:absolute;z-index:1;pointer-events:none;animation:float-bob 4s ease-in-out infinite}
 }
 @media (max-width:900px){
-.hero-sec{align-items:flex-end!important}
+.hero-sec{flex-direction:column;align-items:stretch!important;justify-content:flex-start!important;padding:0 0 clamp(36px,6vh,72px)!important}
+.hero-mobile-creative{display:block;position:relative;width:100%;height:clamp(200px,calc(100dvh - 460px),640px);background-image:url(assets/hero-creative-mobile.png);background-size:cover;background-position:top center;flex:none;z-index:0}
+.hero-mobile-float-icon{display:block;position:absolute;z-index:1;pointer-events:none}
+.hero-content-wrap{padding:clamp(18px,4.5vh,30px) clamp(18px,5vw,72px) 0}
 }
 @media (max-width:760px){
 [data-mobile-center]{align-items:center!important;text-align:center!important}
@@ -147,8 +152,13 @@ a:hover{color:#FFD34F}
 <img class="hero-float-icon" src="assets/google-ads-hero.png" alt="" style="top:37.4%;right:35.5%;width:65px;animation-delay:0s">
 <img class="hero-float-icon" src="assets/facebook-hero.png" alt="" style="top:81.3%;right:9%;width:57px;animation-delay:1.3s">
 <img class="hero-float-icon" src="assets/seta-hero.png" alt="" style="top:85.2%;right:45%;width:75px;animation-delay:.6s">
+<div class="hero-mobile-creative">
+<img class="hero-mobile-float-icon" src="assets/google-ads-hero.png" alt="" style="top:47%;right:19%;width:44px;animation:float-bob 4s ease-in-out infinite;animation-delay:0s">
+<img class="hero-mobile-float-icon" src="assets/facebook-hero.png" alt="" style="top:49%;left:18%;width:38px;animation:float-bob-l 4s ease-in-out infinite;animation-delay:1.3s">
+<img class="hero-mobile-float-icon" src="assets/seta-hero.png" alt="" style="top:86%;left:11%;width:50px;animation:float-bob-l 4s ease-in-out infinite;animation-delay:.6s">
+</div>
 <div style="position:absolute;bottom:-20%;left:-10%;width:55%;height:60%;background:radial-gradient(circle,rgba(245,195,40,.05),transparent 70%);pointer-events:none"></div>
-<div style="position:relative;z-index:1;width:100%;max-width:1240px;margin:0 auto;display:flex;flex-wrap:wrap-reverse;align-items:center;gap:clamp(26px,3.6vw,60px)">
+<div class="hero-content-wrap" style="position:relative;z-index:1;width:100%;max-width:1240px;margin:0 auto;display:flex;flex-wrap:wrap-reverse;align-items:center;gap:clamp(26px,3.6vw,60px)">
 
 <div data-mobile-center style="flex:1 1 330px;min-width:min(100%,320px);display:flex;flex-direction:column;align-items:flex-start;gap:clamp(14px,1.7vw,22px)">
 <h1 data-reveal class="hero-h1" style="font:600 clamp(32px,3.7vw,50px)/1.16 'General Sans',Inter,system-ui;letter-spacing:-.028em;color:#F3F2EE;text-wrap:pretty">Antes de investir mais em tráfego<br class="hero-br"> descubra onde sua empresa<br class="hero-br"> <span class="hero-emph" style="position:relative;white-space:nowrap"><span style="position:relative;z-index:1;background:linear-gradient(180deg,#FFEFC0,#F5C328 55%,#B8830A);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">está perdendo vendas.</span><span style="position:absolute;left:0;right:0;bottom:.06em;height:2px;background:linear-gradient(90deg,transparent,rgba(245,195,40,.7),transparent)"></span></span></h1>
