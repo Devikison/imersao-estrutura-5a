@@ -64,19 +64,19 @@ a:hover{color:#FFD34F}
 [data-mobile-quote]{border-left:none!important;padding-left:0!important;text-align:center!important}
 [data-mobile-footer]{flex-direction:column!important;text-align:center!important}
 }
-/* ---- Carrossel vertical: motor (comportamento), cores adaptadas ao tema desta pagina ---- */
-.carrossel-wrap{display:flex;align-items:stretch;gap:16px;max-width:640px;margin:0 auto}
-.carrossel-track{flex:1;min-width:0;min-height:0;height:clamp(500px,80vw,620px);padding:clamp(56px,7vw,68px) 20px;box-sizing:border-box;overflow-y:auto;overflow-x:hidden;overscroll-behavior-y:contain;scroll-snap-type:y mandatory;scroll-behavior:smooth;touch-action:pan-y;scrollbar-width:none;-ms-overflow-style:none;-webkit-overflow-scrolling:touch;-webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 clamp(40px,5vw,52px),#000 calc(100% - clamp(40px,5vw,52px)),transparent 100%);mask-image:linear-gradient(to bottom,transparent 0,#000 clamp(40px,5vw,52px),#000 calc(100% - clamp(40px,5vw,52px)),transparent 100%)}
-.carrossel-track::-webkit-scrollbar{display:none}
-.carrossel-card{scroll-snap-align:center;scroll-snap-stop:always;box-sizing:border-box;opacity:1;filter:blur(0);transform:scale(1);transition:opacity .22s ease,filter .22s ease,transform .3s cubic-bezier(.22,.9,.3,1),box-shadow .3s cubic-bezier(.22,.9,.3,1)}
-.carrossel-card+.carrossel-card{margin-top:14px}
-.carrossel-card.is-dimmed{opacity:.4;filter:blur(2.5px);transform:scale(.92)}
-@property --bd-angle{syntax:'<angle>';initial-value:0deg;inherits:false}
-@keyframes bd-rotate{to{--bd-angle:360deg}}
-.carrossel-card{position:relative}
-.carrossel-card::before{content:'';position:absolute;inset:0;border-radius:inherit;padding:1.5px;z-index:3;pointer-events:none;background:conic-gradient(from var(--bd-angle),rgba(245,195,40,0) 0deg,rgba(245,195,40,0) 190deg,rgba(245,195,40,.8) 270deg,#FFEFC0 315deg,rgba(245,195,40,.8) 345deg,rgba(245,195,40,0) 360deg);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;animation:bd-rotate 8s linear infinite}
-.carrossel-card:hover,.carrossel-card:active,.carrossel-card:focus-within{opacity:1!important;filter:blur(0)!important;transform:scale(1.015)!important;box-shadow:0 10px 22px -10px rgba(245,195,40,.3),0 6px 14px -8px rgba(0,0,0,.5)!important;border-color:rgba(245,195,40,.4)!important}
-@media (prefers-reduced-motion:reduce){.carrossel-card::before{animation:none}.online-dot{animation:none}}
+/* ---- Cards empilhados no scroll (mesmo motor da secao "Atuacao" de referencia) ---- */
+.stack-outer{display:flex;flex-wrap:wrap;align-items:stretch;gap:clamp(32px,5vw,70px)}
+.stack-left-inner{position:sticky;top:clamp(96px,12vh,120px)}
+.stack-cards{flex:1 1 360px;min-width:min(100%,300px);display:flex;flex-direction:column;gap:14px}
+.stack-card{position:sticky;top:clamp(96px,12vh,120px);box-sizing:border-box;display:flex;align-items:center;gap:16px;padding:clamp(20px,2.4vw,26px) clamp(20px,2.6vw,28px);border-radius:16px;border:1px solid rgba(243,242,238,.12);background:linear-gradient(165deg,rgba(30,25,21,.92),rgba(16,16,19,.92));backdrop-filter:blur(20px) saturate(140%);-webkit-backdrop-filter:blur(20px) saturate(140%);box-shadow:0 20px 40px -26px rgba(0,0,0,.85);overflow:hidden}
+.stack-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#F3DFA3 0%,#F5C328 50%,#C9A25E 100%)}
+.stack-card.is-hi{border-color:rgba(245,195,40,.4)}
+.stack-ico{flex:0 0 auto;width:50px;height:50px;border-radius:14px;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 50% 22%,rgba(245,195,40,.24),rgba(245,195,40,.05) 72%);border:1px solid rgba(245,195,40,.42);box-shadow:inset 0 1.5px 1.5px rgba(255,239,192,.28),inset 0 -4px 8px -4px rgba(245,195,40,.35);color:#F5C328}
+.stack-ico svg{width:23px;height:23px;stroke-width:1.7;fill:none;stroke:currentColor;stroke-linecap:round;stroke-linejoin:round}
+.stack-body{min-width:0;align-self:center}
+.stack-text{margin:0;font:600 16px/1.45 'General Sans',Inter,system-ui;color:#F3F2EE}
+@media (max-width:900px){.stack-left-inner{position:static}}
+@media (prefers-reduced-motion:reduce){.online-dot{animation:none}}
 /* ---- Linha do tempo iluminada no scroll (secao "Seis angulos") ---- */
 .timeline{position:relative}
 .tl-rail{position:absolute;left:50%;top:0;bottom:0;width:2px;transform:translateX(-50%);background:rgba(243,242,238,.05);border-radius:2px}
@@ -120,37 +120,7 @@ a:hover{color:#FFD34F}
 .cx-arrow.is-on{opacity:1}
 @media (hover:hover) and (pointer:fine){*{cursor:none!important}}
 @media (hover:none),(pointer:coarse),(prefers-reduced-motion:reduce){.cx-arrow{display:none!important}}
-.carrossel-dots{flex:none;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;width:10px}
-.carrossel-dot{display:block;width:6px;height:6px;border-radius:999px;background:rgba(243,242,238,.18);border:none;padding:0;cursor:pointer;transition:background .25s,height .25s}
-.carrossel-dot.is-active{background:#F5C328;height:22px}
-#crencas-track .carrossel-card+.carrossel-card,#diagnostico-track .carrossel-card+.carrossel-card{margin-top:34px}
-.tag-card{overflow:visible!important}
-.tag-noise{position:absolute;inset:0;border-radius:inherit;overflow:hidden;opacity:.05;pointer-events:none;z-index:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
-.tag-tab{position:absolute;top:0;left:clamp(20px,2.4vw,26px);transform:translateY(-56%);z-index:3;display:inline-flex;align-items:center;height:32px;padding:0 14px;border-radius:11px 11px 11px 3px;background:linear-gradient(180deg,#342a14,#16130b);border:1px solid rgba(245,195,40,.32);box-shadow:0 8px 18px -6px rgba(0,0,0,.75)}
-.tag-tab span{position:relative;font:700 10.5px/1 Inter,sans-serif;letter-spacing:.1em;text-transform:uppercase;color:#F5C328;white-space:nowrap}
-.tag-tab.tag-hi{background:linear-gradient(180deg,#503e15,#1d1608);border-color:rgba(245,195,40,.65)}
-.tag-tab.tag-hi span{color:#FFD34F}
-.tag-badge{position:absolute;top:0;right:clamp(16px,2vw,22px);transform:translateY(-64%);z-index:4;width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 50% 22%,#3c3117,#16130b 72%);border:1px solid rgba(245,195,40,.4);box-shadow:0 6px 14px -4px rgba(0,0,0,.7)}
-.tag-badge.tag-hi{border-color:rgba(245,195,40,.78);background:radial-gradient(circle at 50% 22%,#503e15,#1d1608 72%)}
-.carrossel-nav{display:none}
-@media (min-width:860px){
-.carrossel-wrap{gap:20px;max-width:720px}
-.carrossel-dots{width:34px;gap:10px}
-.carrossel-nav{display:flex;align-items:center;justify-content:center;flex:none;width:32px;height:32px;border-radius:999px;background:radial-gradient(circle at 50% 20%,#2a2418 0%,#141310 58%,#0a0a0c 100%);border:1.5px solid rgba(245,195,40,.4);box-shadow:inset 0 1.5px 1.5px rgba(255,239,192,.35),inset 0 -4px 8px -4px rgba(245,195,40,.4),0 4px 10px -4px rgba(0,0,0,.6);color:#F5C328;cursor:pointer;transition:background .2s,border-color .2s,transform .2s,opacity .2s,box-shadow .2s}
-.carrossel-nav svg{width:14px;height:14px}
-.carrossel-nav:hover{border-color:rgba(245,195,40,.55);background:rgba(245,195,40,.08);transform:translateY(-1px)}
-.carrossel-prev{margin-bottom:4px}
-.carrossel-next{margin-top:4px}
-}
-.carrossel-hint{display:flex;align-items:center;justify-content:center;gap:8px;margin:18px 0 0;font:600 13px/1 Inter,sans-serif;color:#F5C328;filter:blur(0);transition:opacity .6s cubic-bezier(.16,1,.3,1),filter .6s cubic-bezier(.16,1,.3,1)}
-.carrossel-hint svg{animation:carrossel-hint-bob 1.4s ease-in-out infinite}
-.carrossel-hint.is-hidden{opacity:0;filter:blur(4px);pointer-events:none}
-@keyframes carrossel-hint-bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
-@media (prefers-reduced-motion:reduce){
-.carrossel-hint svg{animation:none}
-.carrossel-hint{transition:opacity .4s ease;filter:none!important}
-.carrossel-card{transition:none}
-}
+@media (prefers-reduced-motion:reduce){.stack-card{box-shadow:none}}
 </style></helmet>
 
 <div style="position:relative;width:100%;overflow:hidden;background:#0A0A0C">
@@ -279,191 +249,123 @@ a:hover{color:#FFD34F}
 </section>
 
 <section style="position:relative;padding:clamp(64px,9vw,130px) clamp(18px,5vw,72px);background:#101013;overflow:hidden">
-<div style="position:relative;max-width:1240px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;gap:clamp(32px,5vw,70px)">
-<div data-reveal data-mobile-center style="flex:1 1 340px;min-width:min(100%,300px);display:flex;flex-direction:column;gap:16px;align-items:flex-start;text-align:left">
+<div class="stack-outer" style="position:relative;max-width:1240px;margin:0 auto">
+<div data-reveal data-mobile-center style="flex:1 1 340px;min-width:min(100%,300px)">
+<div class="stack-left-inner" style="display:flex;flex-direction:column;gap:16px;align-items:flex-start;text-align:left">
 <h2 class="sec-h2" style="color:#F3F2EE;max-width:15ch">O que você precisa entender antes de colocar mais dinheiro em tráfego</h2>
 <p style="font:500 clamp(15px,1.15vw,18.5px)/1.6 Inter,sans-serif;color:#F3F2EE;max-width:42ch">Seis crenças que precisam ficar claras antes de você aumentar o investimento em tráfego.</p>
 </div>
-<div data-reveal style="flex:1 1 360px;min-width:min(100%,300px);position:relative">
-<div class="carrossel-wrap">
-<div class="carrossel-track" id="crencas-track">
-<article data-belief class="carrossel-card carrossel-clone is-dimmed tag-card" aria-hidden="true" tabindex="-1" style="width:100%;box-sizing:border-box;border-radius:22px;padding:clamp(38px,4.4vw,48px) clamp(22px,2.4vw,34px) clamp(22px,2.4vw,34px);border:1px solid rgba(245,195,40,.34);background:linear-gradient(165deg,rgba(40,32,19,.95),rgba(16,16,19,.95));backdrop-filter:blur(22px) saturate(140%);box-shadow:0 0 34px -10px rgba(245,195,40,.4),0 24px 50px -24px rgba(0,0,0,.9);display:flex;flex-direction:column;gap:16px;position:relative">
-<div class="tag-noise"></div>
-<div class="tag-tab tag-hi"><span>Crença 06</span></div>
-<div class="tag-badge tag-hi"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#F5C328" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4.1 13.4a.9.9 0 0 0 .7 1.5H11l-1 7.1 8.9-11.4a.9.9 0 0 0-.7-1.5H12l1-6.1Z"></path></svg></div>
-<p style="position:relative;font:500 clamp(17px,1.5vw,23px)/1.36 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE;text-wrap:pretty">Antes de escalar, é preciso identificar o verdadeiro gargalo.</p>
-</article>
-<article data-belief class="carrossel-card tag-card" style="width:100%;box-sizing:border-box;border-radius:22px;padding:clamp(38px,4.4vw,48px) clamp(22px,2.4vw,34px) clamp(22px,2.4vw,34px);border:1px solid rgba(243,242,238,.12);background:linear-gradient(165deg,rgba(30,25,21,.92),rgba(16,16,19,.92));backdrop-filter:blur(22px) saturate(140%);box-shadow:0 24px 50px -24px rgba(0,0,0,.9);display:flex;flex-direction:column;gap:16px;position:relative">
-<div class="tag-noise"></div>
-<div class="tag-tab"><span>Crença 01</span></div>
-<div class="tag-badge"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#F5C328" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"></circle><circle cx="12" cy="12" r="4.5"></circle><circle cx="12" cy="12" r="1"></circle></svg></div>
-<p style="position:relative;font:500 clamp(17px,1.5vw,23px)/1.36 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE;text-wrap:pretty">O problema da empresa pode estar depois do anúncio, e não necessariamente no anúncio.</p>
-</article>
-<article data-belief class="carrossel-card tag-card" style="width:100%;box-sizing:border-box;border-radius:22px;padding:clamp(38px,4.4vw,48px) clamp(22px,2.4vw,34px) clamp(22px,2.4vw,34px);border:1px solid rgba(243,242,238,.12);background:linear-gradient(165deg,rgba(30,25,21,.92),rgba(16,16,19,.92));backdrop-filter:blur(22px) saturate(140%);box-shadow:0 24px 50px -24px rgba(0,0,0,.9);display:flex;flex-direction:column;gap:16px;position:relative">
-<div class="tag-noise"></div>
-<div class="tag-tab"><span>Crença 02</span></div>
-<div class="tag-badge"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#F5C328" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"></path><path d="m19 9-5 5-4-4-4 4"></path></svg></div>
-<p style="position:relative;font:500 clamp(17px,1.5vw,23px)/1.36 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE;text-wrap:pretty">Não é possível diagnosticar uma operação olhando apenas para CPL, CTR, CPC ou quantidade de leads.</p>
-</article>
-<article data-belief class="carrossel-card tag-card" style="width:100%;box-sizing:border-box;border-radius:22px;padding:clamp(38px,4.4vw,48px) clamp(22px,2.4vw,34px) clamp(22px,2.4vw,34px);border:1px solid rgba(243,242,238,.12);background:linear-gradient(165deg,rgba(30,25,21,.92),rgba(16,16,19,.92));backdrop-filter:blur(22px) saturate(140%);box-shadow:0 24px 50px -24px rgba(0,0,0,.9);display:flex;flex-direction:column;gap:16px;position:relative">
-<div class="tag-noise"></div>
-<div class="tag-tab"><span>Crença 03</span></div>
-<div class="tag-badge"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#F5C328" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5h18l-7 8.5V20l-4 2v-8.5L3 5Z"></path></svg></div>
-<p style="position:relative;font:500 clamp(17px,1.5vw,23px)/1.36 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE;text-wrap:pretty">Marketing e comercial precisam ser analisados como partes do mesmo sistema.</p>
-</article>
-<article data-belief class="carrossel-card tag-card" style="width:100%;box-sizing:border-box;border-radius:22px;padding:clamp(38px,4.4vw,48px) clamp(22px,2.4vw,34px) clamp(22px,2.4vw,34px);border:1px solid rgba(243,242,238,.12);background:linear-gradient(165deg,rgba(30,25,21,.92),rgba(16,16,19,.92));backdrop-filter:blur(22px) saturate(140%);box-shadow:0 24px 50px -24px rgba(0,0,0,.9);display:flex;flex-direction:column;gap:16px;position:relative">
-<div class="tag-noise"></div>
-<div class="tag-tab"><span>Crença 04</span></div>
-<div class="tag-badge"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#F5C328" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"></path><path d="m9 12 2 2 4-4"></path></svg></div>
-<p style="position:relative;font:500 clamp(17px,1.5vw,23px)/1.36 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE;text-wrap:pretty">Antes de aumentar o investimento, a empresa precisa saber se possui estrutura para converter a nova demanda.</p>
-</article>
-<article data-belief class="carrossel-card tag-card" style="width:100%;box-sizing:border-box;border-radius:22px;padding:clamp(38px,4.4vw,48px) clamp(22px,2.4vw,34px) clamp(22px,2.4vw,34px);border:1px solid rgba(243,242,238,.12);background:linear-gradient(165deg,rgba(30,25,21,.92),rgba(16,16,19,.92));backdrop-filter:blur(22px) saturate(140%);box-shadow:0 24px 50px -24px rgba(0,0,0,.9);display:flex;flex-direction:column;gap:16px;position:relative">
-<div class="tag-noise"></div>
-<div class="tag-tab"><span>Crença 05</span></div>
-<div class="tag-badge"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#F5C328" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 6.5v11M9 15.5c0 1.1 1.2 2 3 2 2 0 3-.9 3-2.1 0-1.6-1.5-2-3-2.4-1.5-.4-3-.8-3-2.4C9 9.4 10 8.5 12 8.5c1.8 0 3 .9 3 2"></path></svg></div>
-<p style="position:relative;font:500 clamp(17px,1.5vw,23px)/1.36 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE;text-wrap:pretty">Margem, CAC, atendimento, follow-up e rastreamento também fazem parte da aquisição.</p>
-</article>
-<article data-belief class="carrossel-card tag-card" style="width:100%;box-sizing:border-box;border-radius:22px;padding:clamp(38px,4.4vw,48px) clamp(22px,2.4vw,34px) clamp(22px,2.4vw,34px);border:1px solid rgba(245,195,40,.34);background:linear-gradient(165deg,rgba(40,32,19,.95),rgba(16,16,19,.95));backdrop-filter:blur(22px) saturate(140%);box-shadow:0 0 34px -10px rgba(245,195,40,.4),0 24px 50px -24px rgba(0,0,0,.9);display:flex;flex-direction:column;gap:16px;position:relative">
-<div class="tag-noise"></div>
-<div class="tag-tab tag-hi"><span>Crença 06</span></div>
-<div class="tag-badge tag-hi"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#F5C328" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4.1 13.4a.9.9 0 0 0 .7 1.5H11l-1 7.1 8.9-11.4a.9.9 0 0 0-.7-1.5H12l1-6.1Z"></path></svg></div>
-<p style="position:relative;font:500 clamp(17px,1.5vw,23px)/1.36 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE;text-wrap:pretty">Antes de escalar, é preciso identificar o verdadeiro gargalo.</p>
-</article>
-<article data-belief class="carrossel-card carrossel-clone is-dimmed tag-card" aria-hidden="true" tabindex="-1" style="width:100%;box-sizing:border-box;border-radius:22px;padding:clamp(38px,4.4vw,48px) clamp(22px,2.4vw,34px) clamp(22px,2.4vw,34px);border:1px solid rgba(243,242,238,.12);background:linear-gradient(165deg,rgba(30,25,21,.92),rgba(16,16,19,.92));backdrop-filter:blur(22px) saturate(140%);box-shadow:0 24px 50px -24px rgba(0,0,0,.9);display:flex;flex-direction:column;gap:16px;position:relative">
-<div class="tag-noise"></div>
-<div class="tag-tab"><span>Crença 01</span></div>
-<div class="tag-badge"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#F5C328" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"></circle><circle cx="12" cy="12" r="4.5"></circle><circle cx="12" cy="12" r="1"></circle></svg></div>
-<p style="position:relative;font:500 clamp(17px,1.5vw,23px)/1.36 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE;text-wrap:pretty">O problema da empresa pode estar depois do anúncio, e não necessariamente no anúncio.</p>
-</article>
 </div>
-<div class="carrossel-dots" id="crencas-dots">
-<span class="carrossel-nav carrossel-prev" id="crencas-nav-prev" role="button" tabindex="0" aria-label="Crença anterior">
-<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 15 7-7 7 7"/></svg>
-</span>
-<span class="carrossel-dot" data-dot-i="0" role="button" tabindex="0" aria-label="Ir para crença 1"></span>
-<span class="carrossel-dot" data-dot-i="1" role="button" tabindex="0" aria-label="Ir para crença 2"></span>
-<span class="carrossel-dot" data-dot-i="2" role="button" tabindex="0" aria-label="Ir para crença 3"></span>
-<span class="carrossel-dot" data-dot-i="3" role="button" tabindex="0" aria-label="Ir para crença 4"></span>
-<span class="carrossel-dot" data-dot-i="4" role="button" tabindex="0" aria-label="Ir para crença 5"></span>
-<span class="carrossel-dot" data-dot-i="5" role="button" tabindex="0" aria-label="Ir para crença 6"></span>
-<span class="carrossel-nav carrossel-next" id="crencas-nav-next" role="button" tabindex="0" aria-label="Próxima crença">
-<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 9 7 7 7-7"/></svg>
-</span>
+<div data-reveal class="stack-cards" style="flex:1 1 360px;min-width:min(100%,300px)">
+<article data-belief class="stack-card">
+<span class="stack-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"></circle><circle cx="12" cy="12" r="4.5"></circle><circle cx="12" cy="12" r="1"></circle></svg></span>
+<div class="stack-body">
+<p class="stack-text">O problema da empresa pode estar depois do anúncio, e não necessariamente no anúncio.</p>
 </div>
+</article>
+<article data-belief class="stack-card">
+<span class="stack-ico"><svg viewBox="0 0 24 24"><path d="M3 3v18h18"></path><path d="m19 9-5 5-4-4-4 4"></path></svg></span>
+<div class="stack-body">
+<p class="stack-text">Não é possível diagnosticar uma operação olhando apenas para CPL, CTR, CPC ou quantidade de leads.</p>
 </div>
-<p class="carrossel-hint" id="crencas-hint">
-<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"/></svg>
-Arraste para ver mais
-</p>
+</article>
+<article data-belief class="stack-card">
+<span class="stack-ico"><svg viewBox="0 0 24 24"><path d="M3 5h18l-7 8.5V20l-4 2v-8.5L3 5Z"></path></svg></span>
+<div class="stack-body">
+<p class="stack-text">Marketing e comercial precisam ser analisados como partes do mesmo sistema.</p>
+</div>
+</article>
+<article data-belief class="stack-card">
+<span class="stack-ico"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"></path><path d="m9 12 2 2 4-4"></path></svg></span>
+<div class="stack-body">
+<p class="stack-text">Antes de aumentar o investimento, a empresa precisa saber se possui estrutura para converter a nova demanda.</p>
+</div>
+</article>
+<article data-belief class="stack-card">
+<span class="stack-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><path d="M12 6.5v11M9 15.5c0 1.1 1.2 2 3 2 2 0 3-.9 3-2.1 0-1.6-1.5-2-3-2.4-1.5-.4-3-.8-3-2.4C9 9.4 10 8.5 12 8.5c1.8 0 3 .9 3 2"></path></svg></span>
+<div class="stack-body">
+<p class="stack-text">Margem, CAC, atendimento, follow-up e rastreamento também fazem parte da aquisição.</p>
+</div>
+</article>
+<article data-belief class="stack-card is-hi">
+<span class="stack-ico"><svg viewBox="0 0 24 24"><path d="M13 2 4.1 13.4a.9.9 0 0 0 .7 1.5H11l-1 7.1 8.9-11.4a.9.9 0 0 0-.7-1.5H12l1-6.1Z"></path></svg></span>
+<div class="stack-body">
+<p class="stack-text">Antes de escalar, é preciso identificar o verdadeiro gargalo.</p>
+</div>
+</article>
 </div>
 </div>
 </section>
 
 <section id="diagnostico" style="position:relative;padding:clamp(64px,9vw,130px) 0;background:#101013">
-<div style="position:relative;max-width:1240px;margin:0 auto;padding:0 clamp(18px,5vw,72px);display:flex;flex-wrap:wrap;align-items:center;gap:clamp(32px,5vw,70px)">
-<div data-reveal data-mobile-center style="flex:1 1 340px;min-width:min(100%,300px);display:flex;flex-direction:column;gap:16px;align-items:flex-start;text-align:left">
+<div class="stack-outer" style="position:relative;max-width:1240px;margin:0 auto;padding:0 clamp(18px,5vw,72px)">
+<div data-reveal data-mobile-center style="flex:1 1 340px;min-width:min(100%,300px)">
+<div class="stack-left-inner" style="display:flex;flex-direction:column;gap:16px;align-items:flex-start;text-align:left">
 <h2 class="sec-h2" style="color:#F3F2EE;max-width:15ch">O caminho completo que a imersão ensina a enxergar: da primeira etapa até o dinheiro entrar de verdade.</h2>
 <p style="font:500 clamp(15px,1.15vw,18.5px)/1.6 Inter,sans-serif;color:#F3F2EE;max-width:42ch">Cada etapa depende da anterior. É por isso que trocar de anúncio quase nunca resolve: o gargalo pode estar em qualquer ponto desta esteira.</p>
 </div>
-<div data-reveal style="flex:1 1 360px;min-width:min(100%,300px);position:relative">
-<div class="carrossel-wrap">
-<div class="carrossel-track" id="diagnostico-track">
-<div data-step-card class="carrossel-card carrossel-clone is-dimmed tag-card" aria-hidden="true" tabindex="-1" style="width:100%;box-sizing:border-box;border-radius:22px;padding:clamp(38px,4.4vw,48px) clamp(22px,2.4vw,34px) clamp(22px,2.4vw,34px);border:1px solid rgba(245,195,40,.34);background:linear-gradient(165deg,rgba(38,31,20,.94),rgba(16,16,19,.94));backdrop-filter:blur(22px) saturate(140%);box-shadow:0 24px 50px -24px rgba(0,0,0,.9);display:flex;flex-direction:column;gap:16px;position:relative">
-<div class="tag-noise"></div>
-<div class="tag-tab tag-hi"><span>Etapa 10</span></div>
-<div class="tag-badge tag-hi"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#F5C328" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"></path></svg></div>
-<p style="position:relative;font:600 clamp(17px,1.5vw,23px)/1.3 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#FFD34F">Margem</p>
 </div>
-<div data-step-card class="carrossel-card tag-card" style="width:100%;box-sizing:border-box;border-radius:22px;padding:clamp(38px,4.4vw,48px) clamp(22px,2.4vw,34px) clamp(22px,2.4vw,34px);border:1px solid rgba(243,242,238,.12);background:linear-gradient(165deg,rgba(30,25,21,.92),rgba(16,16,19,.92));backdrop-filter:blur(22px) saturate(140%);box-shadow:0 24px 50px -24px rgba(0,0,0,.9);display:flex;flex-direction:column;gap:16px;position:relative">
-<div class="tag-noise"></div>
-<div class="tag-tab"><span>Etapa 01</span></div>
-<div class="tag-badge"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#F5C328" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"></path></svg></div>
-<p style="position:relative;font:600 clamp(17px,1.5vw,23px)/1.3 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE">Negócio</p>
+<div data-reveal class="stack-cards" style="flex:1 1 360px;min-width:min(100%,300px)">
+<article data-step-card class="stack-card">
+<span class="stack-ico"><svg viewBox="0 0 24 24"><rect x="3.5" y="7.5" width="17" height="12" rx="2"></rect><path d="M8.5 7.5V6a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v1.5"></path><path d="M3.5 12.5h17"></path></svg></span>
+<div class="stack-body">
+<p class="stack-text">Negócio</p>
 </div>
-<div data-step-card class="carrossel-card tag-card" style="width:100%;box-sizing:border-box;border-radius:22px;padding:clamp(38px,4.4vw,48px) clamp(22px,2.4vw,34px) clamp(22px,2.4vw,34px);border:1px solid rgba(243,242,238,.12);background:linear-gradient(165deg,rgba(30,25,21,.92),rgba(16,16,19,.92));backdrop-filter:blur(22px) saturate(140%);box-shadow:0 24px 50px -24px rgba(0,0,0,.9);display:flex;flex-direction:column;gap:16px;position:relative">
-<div class="tag-noise"></div>
-<div class="tag-tab"><span>Etapa 02</span></div>
-<div class="tag-badge"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#F5C328" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"></path></svg></div>
-<p style="position:relative;font:600 clamp(17px,1.5vw,23px)/1.3 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE">Oferta</p>
+</article>
+<article data-step-card class="stack-card">
+<span class="stack-ico"><svg viewBox="0 0 24 24"><path d="M12.6 3.4h4.9c1.2 0 2.1.9 2.1 2.1v4.9c0 .6-.2 1.1-.6 1.5l-8 8c-.8.8-2.2.8-3 0l-4.9-4.9c-.8-.8-.8-2.2 0-3l8-8c.4-.4.9-.6 1.5-.6Z"></path><circle cx="16.5" cy="7.5" r="1.3" fill="currentColor" stroke="none"></circle></svg></span>
+<div class="stack-body">
+<p class="stack-text">Oferta</p>
 </div>
-<div data-step-card class="carrossel-card tag-card" style="width:100%;box-sizing:border-box;border-radius:22px;padding:clamp(38px,4.4vw,48px) clamp(22px,2.4vw,34px) clamp(22px,2.4vw,34px);border:1px solid rgba(243,242,238,.12);background:linear-gradient(165deg,rgba(30,25,21,.92),rgba(16,16,19,.92));backdrop-filter:blur(22px) saturate(140%);box-shadow:0 24px 50px -24px rgba(0,0,0,.9);display:flex;flex-direction:column;gap:16px;position:relative">
-<div class="tag-noise"></div>
-<div class="tag-tab"><span>Etapa 03</span></div>
-<div class="tag-badge"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#F5C328" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"></path></svg></div>
-<p style="position:relative;font:600 clamp(17px,1.5vw,23px)/1.3 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE">Público</p>
+</article>
+<article data-step-card class="stack-card">
+<span class="stack-ico"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"></circle><path d="M3.5 19.5a5.5 5.5 0 0 1 11 0"></path><path d="M16 5.6a3.2 3.2 0 0 1 0 5.8"></path><path d="M17.2 14a5.5 5.5 0 0 1 2.8 5"></path></svg></span>
+<div class="stack-body">
+<p class="stack-text">Público</p>
 </div>
-<div data-step-card class="carrossel-card tag-card" style="width:100%;box-sizing:border-box;border-radius:22px;padding:clamp(38px,4.4vw,48px) clamp(22px,2.4vw,34px) clamp(22px,2.4vw,34px);border:1px solid rgba(243,242,238,.12);background:linear-gradient(165deg,rgba(30,25,21,.92),rgba(16,16,19,.92));backdrop-filter:blur(22px) saturate(140%);box-shadow:0 24px 50px -24px rgba(0,0,0,.9);display:flex;flex-direction:column;gap:16px;position:relative">
-<div class="tag-noise"></div>
-<div class="tag-tab"><span>Etapa 04</span></div>
-<div class="tag-badge"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#F5C328" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"></path></svg></div>
-<p style="position:relative;font:600 clamp(17px,1.5vw,23px)/1.3 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE">Comunicação</p>
+</article>
+<article data-step-card class="stack-card">
+<span class="stack-ico"><svg viewBox="0 0 24 24"><path d="M3 10v4a1 1 0 0 0 1 1h2l7 4V5l-7 4H4a1 1 0 0 0-1 1Z"></path><path d="M17 9.5a3.5 3.5 0 0 1 0 5"></path><path d="M19.5 7a7 7 0 0 1 0 10"></path></svg></span>
+<div class="stack-body">
+<p class="stack-text">Comunicação</p>
 </div>
-<div data-step-card class="carrossel-card tag-card" style="width:100%;box-sizing:border-box;border-radius:22px;padding:clamp(38px,4.4vw,48px) clamp(22px,2.4vw,34px) clamp(22px,2.4vw,34px);border:1px solid rgba(243,242,238,.12);background:linear-gradient(165deg,rgba(30,25,21,.92),rgba(16,16,19,.92));backdrop-filter:blur(22px) saturate(140%);box-shadow:0 24px 50px -24px rgba(0,0,0,.9);display:flex;flex-direction:column;gap:16px;position:relative">
-<div class="tag-noise"></div>
-<div class="tag-tab"><span>Etapa 05</span></div>
-<div class="tag-badge"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#F5C328" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"></path></svg></div>
-<p style="position:relative;font:600 clamp(17px,1.5vw,23px)/1.3 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE">Aquisição</p>
+</article>
+<article data-step-card class="stack-card">
+<span class="stack-ico"><svg viewBox="0 0 24 24"><path d="M4 5h16l-6 7.5V19l-4 2v-8.5L4 5Z"></path></svg></span>
+<div class="stack-body">
+<p class="stack-text">Aquisição</p>
 </div>
-<div data-step-card class="carrossel-card tag-card" style="width:100%;box-sizing:border-box;border-radius:22px;padding:clamp(38px,4.4vw,48px) clamp(22px,2.4vw,34px) clamp(22px,2.4vw,34px);border:1px solid rgba(243,242,238,.12);background:linear-gradient(165deg,rgba(30,25,21,.92),rgba(16,16,19,.92));backdrop-filter:blur(22px) saturate(140%);box-shadow:0 24px 50px -24px rgba(0,0,0,.9);display:flex;flex-direction:column;gap:16px;position:relative">
-<div class="tag-noise"></div>
-<div class="tag-tab"><span>Etapa 06</span></div>
-<div class="tag-badge"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#F5C328" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"></path></svg></div>
-<p style="position:relative;font:600 clamp(17px,1.5vw,23px)/1.3 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE">Atendimento</p>
+</article>
+<article data-step-card class="stack-card">
+<span class="stack-ico"><svg viewBox="0 0 24 24"><path d="M4 13v-1a8 8 0 0 1 16 0v1"></path><rect x="3" y="13" width="4" height="6" rx="1.5"></rect><rect x="17" y="13" width="4" height="6" rx="1.5"></rect><path d="M19 19v1a2 2 0 0 1-2 2h-3"></path></svg></span>
+<div class="stack-body">
+<p class="stack-text">Atendimento</p>
 </div>
-<div data-step-card class="carrossel-card tag-card" style="width:100%;box-sizing:border-box;border-radius:22px;padding:clamp(38px,4.4vw,48px) clamp(22px,2.4vw,34px) clamp(22px,2.4vw,34px);border:1px solid rgba(243,242,238,.12);background:linear-gradient(165deg,rgba(30,25,21,.92),rgba(16,16,19,.92));backdrop-filter:blur(22px) saturate(140%);box-shadow:0 24px 50px -24px rgba(0,0,0,.9);display:flex;flex-direction:column;gap:16px;position:relative">
-<div class="tag-noise"></div>
-<div class="tag-tab"><span>Etapa 07</span></div>
-<div class="tag-badge"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#F5C328" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"></path></svg></div>
-<p style="position:relative;font:600 clamp(17px,1.5vw,23px)/1.3 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE">Comercial</p>
+</article>
+<article data-step-card class="stack-card">
+<span class="stack-ico"><svg viewBox="0 0 24 24"><path d="M4 18 9.5 12l4 3L20 7"></path><path d="M20 12V7h-5"></path></svg></span>
+<div class="stack-body">
+<p class="stack-text">Comercial</p>
 </div>
-<div data-step-card class="carrossel-card tag-card" style="width:100%;box-sizing:border-box;border-radius:22px;padding:clamp(38px,4.4vw,48px) clamp(22px,2.4vw,34px) clamp(22px,2.4vw,34px);border:1px solid rgba(243,242,238,.12);background:linear-gradient(165deg,rgba(30,25,21,.92),rgba(16,16,19,.92));backdrop-filter:blur(22px) saturate(140%);box-shadow:0 24px 50px -24px rgba(0,0,0,.9);display:flex;flex-direction:column;gap:16px;position:relative">
-<div class="tag-noise"></div>
-<div class="tag-tab"><span>Etapa 08</span></div>
-<div class="tag-badge"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#F5C328" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"></path></svg></div>
-<p style="position:relative;font:600 clamp(17px,1.5vw,23px)/1.3 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE">Venda</p>
+</article>
+<article data-step-card class="stack-card">
+<span class="stack-ico"><svg viewBox="0 0 24 24"><circle cx="9" cy="20" r="1.3" fill="currentColor" stroke="none"></circle><circle cx="17" cy="20" r="1.3" fill="currentColor" stroke="none"></circle><path d="M3 4h2l2.2 11.2a2 2 0 0 0 2 1.6h7.6a2 2 0 0 0 2-1.6L20 8H6.2"></path></svg></span>
+<div class="stack-body">
+<p class="stack-text">Venda</p>
 </div>
-<div data-step-card class="carrossel-card tag-card" style="width:100%;box-sizing:border-box;border-radius:22px;padding:clamp(38px,4.4vw,48px) clamp(22px,2.4vw,34px) clamp(22px,2.4vw,34px);border:1px solid rgba(243,242,238,.12);background:linear-gradient(165deg,rgba(30,25,21,.92),rgba(16,16,19,.92));backdrop-filter:blur(22px) saturate(140%);box-shadow:0 24px 50px -24px rgba(0,0,0,.9);display:flex;flex-direction:column;gap:16px;position:relative">
-<div class="tag-noise"></div>
-<div class="tag-tab"><span>Etapa 09</span></div>
-<div class="tag-badge"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#F5C328" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"></path></svg></div>
-<p style="position:relative;font:600 clamp(17px,1.5vw,23px)/1.3 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE">Receita</p>
+</article>
+<article data-step-card class="stack-card">
+<span class="stack-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v10M9.5 9.5c0-1 .9-1.8 2.5-1.8s2.5.8 2.5 1.8c0 2.4-5 1.4-5 3.8 0 1 1 1.8 2.5 1.8s2.5-.8 2.5-1.8"></path></svg></span>
+<div class="stack-body">
+<p class="stack-text">Receita</p>
 </div>
-<div data-step-card class="carrossel-card tag-card" style="width:100%;box-sizing:border-box;border-radius:22px;padding:clamp(38px,4.4vw,48px) clamp(22px,2.4vw,34px) clamp(22px,2.4vw,34px);border:1px solid rgba(245,195,40,.34);background:linear-gradient(165deg,rgba(38,31,20,.94),rgba(16,16,19,.94));backdrop-filter:blur(22px) saturate(140%);box-shadow:0 24px 50px -24px rgba(0,0,0,.9);display:flex;flex-direction:column;gap:16px;position:relative">
-<div class="tag-noise"></div>
-<div class="tag-tab tag-hi"><span>Etapa 10</span></div>
-<div class="tag-badge tag-hi"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#F5C328" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"></path></svg></div>
-<p style="position:relative;font:600 clamp(17px,1.5vw,23px)/1.3 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#FFD34F">Margem</p>
+</article>
+<article data-step-card class="stack-card is-hi">
+<span class="stack-ico"><svg viewBox="0 0 24 24"><circle cx="7.5" cy="7.5" r="2.3"></circle><circle cx="16.5" cy="16.5" r="2.3"></circle><path d="m5.5 18.5 13-13"></path></svg></span>
+<div class="stack-body">
+<p class="stack-text" style="color:#FFD34F">Margem</p>
 </div>
-<div data-step-card class="carrossel-card carrossel-clone is-dimmed tag-card" aria-hidden="true" tabindex="-1" style="width:100%;box-sizing:border-box;border-radius:22px;padding:clamp(38px,4.4vw,48px) clamp(22px,2.4vw,34px) clamp(22px,2.4vw,34px);border:1px solid rgba(243,242,238,.12);background:linear-gradient(165deg,rgba(30,25,21,.92),rgba(16,16,19,.92));backdrop-filter:blur(22px) saturate(140%);box-shadow:0 24px 50px -24px rgba(0,0,0,.9);display:flex;flex-direction:column;gap:16px;position:relative">
-<div class="tag-noise"></div>
-<div class="tag-tab"><span>Etapa 01</span></div>
-<div class="tag-badge"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#F5C328" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"></path></svg></div>
-<p style="position:relative;font:600 clamp(17px,1.5vw,23px)/1.3 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE">Negócio</p>
-</div>
-</div>
-<div class="carrossel-dots" id="diagnostico-dots">
-<span class="carrossel-nav carrossel-prev" id="diagnostico-nav-prev" role="button" tabindex="0" aria-label="Etapa anterior">
-<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 15 7-7 7 7"/></svg>
-</span>
-<span class="carrossel-dot" data-dot-i="0" role="button" tabindex="0" aria-label="Ir para etapa 1"></span>
-<span class="carrossel-dot" data-dot-i="1" role="button" tabindex="0" aria-label="Ir para etapa 2"></span>
-<span class="carrossel-dot" data-dot-i="2" role="button" tabindex="0" aria-label="Ir para etapa 3"></span>
-<span class="carrossel-dot" data-dot-i="3" role="button" tabindex="0" aria-label="Ir para etapa 4"></span>
-<span class="carrossel-dot" data-dot-i="4" role="button" tabindex="0" aria-label="Ir para etapa 5"></span>
-<span class="carrossel-dot" data-dot-i="5" role="button" tabindex="0" aria-label="Ir para etapa 6"></span>
-<span class="carrossel-dot" data-dot-i="6" role="button" tabindex="0" aria-label="Ir para etapa 7"></span>
-<span class="carrossel-dot" data-dot-i="7" role="button" tabindex="0" aria-label="Ir para etapa 8"></span>
-<span class="carrossel-dot" data-dot-i="8" role="button" tabindex="0" aria-label="Ir para etapa 9"></span>
-<span class="carrossel-dot" data-dot-i="9" role="button" tabindex="0" aria-label="Ir para etapa 10"></span>
-<span class="carrossel-nav carrossel-next" id="diagnostico-nav-next" role="button" tabindex="0" aria-label="Próxima etapa">
-<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 9 7 7 7-7"/></svg>
-</span>
-</div>
-</div>
-<p class="carrossel-hint" id="diagnostico-hint">
-<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"/></svg>
-Arraste para ver mais
-</p>
+</article>
 </div>
 </div>
 </section>
@@ -694,140 +596,6 @@ const FAQ = [
   { q: "Vai ter venda de outra coisa no final?", a: "A imersão entrega o diagnóstico por si só. A Mentoria 5A existe como próximo passo para quem quiser acompanhamento na aplicação, mas não é o motivo da imersão nem pré-requisito para nada." }
 ];
 
-/* ---- Motor do carrossel vertical (loop infinito, dots, setas, wheel, swipe) ---- */
-function initCarrossel(ids) {
-  var track = document.getElementById(ids.track);
-  var dotsWrap = document.getElementById(ids.dots);
-  var hint = document.getElementById(ids.hint);
-  if (!track || !dotsWrap) return;
-  var allCards = Array.prototype.slice.call(track.querySelectorAll(".carrossel-card"));
-  var cards = allCards.filter(function (c) { return !c.classList.contains("carrossel-clone"); });
-  var leadClone = allCards[0];
-  var trailClone = allCards[allCards.length - 1];
-  var dots = Array.prototype.slice.call(dotsWrap.querySelectorAll(".carrossel-dot"));
-  if (!cards.length || !dots.length) return;
-
-  function sizeTrack() {
-    var h = cards[0].getBoundingClientRect().height;
-    if (h > 0) track.style.height = Math.round(h * 1.65) + "px";
-  }
-  sizeTrack();
-  var resizeTimer = null;
-  window.addEventListener("resize", function () {
-    if (resizeTimer) clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(function () {
-      sizeTrack();
-      jumpInstant(cards[currentIndex], currentIndex);
-    }, 150);
-  });
-
-  var currentIndex = 0;
-  function setActive(index) {
-    currentIndex = index;
-    cards.forEach(function (card, i) { card.classList.toggle("is-dimmed", i !== index); });
-    dots.forEach(function (dot, i) { dot.classList.toggle("is-active", i === index); });
-  }
-  setActive(0);
-
-  function centerOn(el, smooth) {
-    var trackRect = track.getBoundingClientRect();
-    var elRect = el.getBoundingClientRect();
-    var delta = (elRect.top + elRect.height / 2) - (trackRect.top + trackRect.height / 2);
-    var target = track.scrollTop + delta;
-    if (smooth) {
-      track.scrollTo({ top: target, behavior: "smooth" });
-    } else {
-      var prevBehavior = track.style.scrollBehavior;
-      track.style.scrollBehavior = "auto";
-      track.scrollTop = target;
-      track.style.scrollBehavior = prevBehavior;
-    }
-  }
-
-  var suppressUntil = 0;
-  function jumpInstant(el, index) {
-    setActive(index);
-    var prevSnap = track.style.scrollSnapType;
-    track.style.scrollSnapType = "none";
-    centerOn(el, false);
-    requestAnimationFrame(function () {
-      requestAnimationFrame(function () {
-        track.style.scrollSnapType = prevSnap || "";
-      });
-    });
-    suppressUntil = Date.now() + 400;
-  }
-  jumpInstant(cards[0], 0);
-
-  function goTo(index) {
-    if (index < 0 || index >= cards.length) return;
-    setActive(index);
-    centerOn(cards[index], true);
-  }
-  function goToLoop(index) { goTo((index + cards.length) % cards.length); }
-
-  dots.forEach(function (dot, i) {
-    var go = function () { goTo(i); };
-    dot.addEventListener("click", go);
-    dot.addEventListener("keydown", function (e) {
-      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); go(); }
-    });
-  });
-  function bindNav(el, handler) {
-    if (!el) return;
-    el.addEventListener("click", handler);
-    el.addEventListener("keydown", function (e) {
-      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); handler(); }
-    });
-  }
-  bindNav(document.getElementById(ids.navPrev), function () { goToLoop(currentIndex - 1); });
-  bindNav(document.getElementById(ids.navNext), function () { goToLoop(currentIndex + 1); });
-
-  var wheelLocked = false;
-  track.addEventListener("wheel", function (e) {
-    e.preventDefault();
-    if (wheelLocked) return;
-    wheelLocked = true;
-    goToLoop(currentIndex + (e.deltaY > 0 ? 1 : -1));
-    setTimeout(function () { wheelLocked = false; }, 420);
-  }, { passive: false });
-
-  function findClosestCard() {
-    var trackRect = track.getBoundingClientRect();
-    var trackCenter = trackRect.top + trackRect.height / 2;
-    var closest = null;
-    var closestDist = Infinity;
-    allCards.forEach(function (card) {
-      var r = card.getBoundingClientRect();
-      var dist = Math.abs((r.top + r.height / 2) - trackCenter);
-      if (dist < closestDist) { closestDist = dist; closest = card; }
-    });
-    return closest;
-  }
-
-  var settleTimer = null;
-  function onScrollSettle() {
-    if (Date.now() < suppressUntil) return;
-    var closest = findClosestCard();
-    if (!closest) return;
-    if (closest === trailClone) { jumpInstant(cards[0], 0); return; }
-    if (closest === leadClone) { jumpInstant(cards[cards.length - 1], cards.length - 1); return; }
-    var idx = cards.indexOf(closest);
-    if (idx !== -1 && idx !== currentIndex) setActive(idx);
-  }
-  track.addEventListener("scroll", function () {
-    if (settleTimer) clearTimeout(settleTimer);
-    settleTimer = setTimeout(onScrollSettle, 120);
-  }, { passive: true });
-
-  function dismissHint() {
-    if (hint) hint.classList.add("is-hidden");
-    track.removeEventListener("scroll", dismissHint);
-    track.removeEventListener("touchstart", dismissHint);
-  }
-  track.addEventListener("scroll", dismissHint, { passive: true });
-  track.addEventListener("touchstart", dismissHint, { passive: true });
-}
 
 /* ---- Linha do tempo iluminada no scroll ---- */
 function initTimeline() {
@@ -879,8 +647,6 @@ class Component extends DCLogic {
     this.setupBar();
     this.setupCapsule();
     this.setupCursor();
-    initCarrossel({ track: "crencas-track", dots: "crencas-dots", hint: "crencas-hint", navPrev: "crencas-nav-prev", navNext: "crencas-nav-next" });
-    initCarrossel({ track: "diagnostico-track", dots: "diagnostico-dots", hint: "diagnostico-hint", navPrev: "diagnostico-nav-prev", navNext: "diagnostico-nav-next" });
     initTimeline();
     this._onScroll = () => {
       if (this._rafScroll) return;
@@ -961,7 +727,7 @@ class Component extends DCLogic {
       if (!on) { on = true; arrow.classList.add("is-on"); }
     };
     window.addEventListener("mousemove", onMove, { passive: true });
-    const hoverSel = "a,button,[role='button'],.carrossel-dot,.carrossel-nav,input,textarea,[onclick]";
+    const hoverSel = "a,button,[role='button'],input,textarea,[onclick]";
     document.addEventListener("mouseover", e => {
       if (e.target.closest && e.target.closest(hoverSel)) { hover = true; inner.style.transform = "scale(1.2)"; }
     });
