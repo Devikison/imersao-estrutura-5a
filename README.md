@@ -14,8 +14,8 @@ Landing page de venda da **Imersão Estrutura 5A** (Grupo 2!H): imersão online 
 
 | Caminho | O que é |
 |---|---|
-| `index.html` | **A landing page inteira.** HTML estático com CSS no `<style>` do `<head>` e JavaScript no `<script>` no fim do `<body>`. Sem build, sem framework, sem dependência externa além das fontes. |
-| `assets/` | Logos, ícones e imagens. As capas do hero são servidas em JPEG (`hero-creative-*.jpg`); os PNG (`hero-creative.png`, `hero-creative-mobile.png`) ficam só como arquivo-fonte e **não são carregados pela página**. |
+| `index.html` | **A landing page inteira.** HTML estático com CSS no `<style>` do `<head>` e JavaScript no `<script>` no fim do `<body>`. Sem build, sem framework e **sem nenhuma dependência externa** (fontes hospedadas em `assets/fonts`). |
+| `assets/` | Logos, ícones, imagens e as fontes (`assets/fonts`: General Sans 400-700 e Inter variável, em woff2, declaradas no `<style>` da página). As capas do hero são servidas em JPEG (`hero-creative-*.jpg`); os PNG (`hero-creative.png`, `hero-creative-mobile.png`) ficam só como arquivo-fonte e **não são carregados pela página**. |
 | `tools/serve.ps1` | Servidor local de preview (PowerShell puro, a máquina não tem Python nem Node). |
 | `tools/make-hero-jpg.ps1` | Regenera os JPEG do hero a partir dos PNG. Rodar sempre que trocar uma capa. |
 | `CNAME` | Domínio do GitHub Pages. Não apagar. |
@@ -90,7 +90,8 @@ Armadilha conhecida: `.spot` define `position:relative`; os cards empilhados pre
 
 - Página estática, sem React/Babel (a versão anterior carregava 3 MB de JavaScript do unpkg antes de renderizar).
 - Hero em JPEG com `preload` por faixa de largura (828, 1080, 1366 e 1920 px), qualidade 92/90.
-- Fontes carregadas sem bloquear a renderização (`media="print" onload`).
+- Fontes servidas do próprio domínio (`assets/fonts`), com preload de General Sans 600 e Inter. Nenhuma conexão com Fontshare ou Google Fonts.
+- Seta neon do hero é SVG inline; logo e ícones de canal em PNG no tamanho exibido; imagens abaixo da dobra com `loading="lazy"`; grupos dos marquees duplicados por JavaScript.
 - `lang="pt-BR"`, meta description, Open Graph, `width`/`height` nas imagens.
 - Se voltar a rodar o PageSpeed, a API pública sem chave estoura cota; use o site pagespeed.web.dev.
 
