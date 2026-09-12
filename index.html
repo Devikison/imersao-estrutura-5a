@@ -16,7 +16,9 @@ h1,h2,h3,p,blockquote{margin:0}
 a{color:#F5C328;text-decoration:none}
 a:hover{color:#FFD34F}
 ::selection{background:rgba(245,195,40,.28)}
-.page-scroll-rail{position:fixed;top:0;right:5px;bottom:0;width:3px;z-index:39;background:rgba(243,242,238,.06);border-radius:3px;pointer-events:none}
+.page-scroll-rail{position:fixed;top:0;right:0;bottom:0;width:18px;z-index:39;pointer-events:none;touch-action:none;user-select:none}
+.page-scroll-track{position:absolute;top:0;bottom:0;right:5px;width:3px;background:rgba(243,242,238,.06);border-radius:3px;transition:width .2s var(--ease),right .2s var(--ease)}
+@media (hover:hover) and (pointer:fine){.page-scroll-rail{pointer-events:auto;cursor:pointer}.page-scroll-rail:hover .page-scroll-track,.page-scroll-rail.dragging .page-scroll-track{width:5px;right:4px}.page-scroll-rail:hover .page-scroll-fill::after,.page-scroll-rail.dragging .page-scroll-fill::after{width:13px;height:13px;bottom:-6px}}
 .page-scroll-fill{position:absolute;left:0;top:0;width:100%;height:0%;background:linear-gradient(180deg,#FFEFC0,#F5C328 45%,#B8830A);border-radius:3px;box-shadow:0 0 10px 2px rgba(245,195,40,.45),0 0 24px 6px rgba(245,195,40,.16)}
 .page-scroll-fill::after{content:'';position:absolute;left:50%;bottom:-4px;width:9px;height:9px;transform:translateX(-50%);border-radius:50%;background:radial-gradient(circle,#FFF8E2,#FFEFC0 30%,#F5C328 60%,transparent 74%);box-shadow:0 0 12px 4px rgba(245,195,40,.7)}
 @keyframes sheen{0%{transform:translateX(-130%)}55%{transform:translateX(130%)}100%{transform:translateX(130%)}}
@@ -80,7 +82,7 @@ a:hover{color:#FFD34F}
 @media (prefers-reduced-motion:reduce){.online-dot{animation:none}}
 /* ---- Linha do tempo iluminada no scroll (secao "Seis angulos") ---- */
 .timeline{position:relative}
-.tl-rail{position:absolute;left:50%;top:0;bottom:0;width:2px;transform:translateX(-50%);background:rgba(243,242,238,.05);border-radius:2px}
+.tl-rail{position:absolute;left:50%;top:30px;bottom:30px;width:2px;transform:translateX(-50%);background:rgba(243,242,238,.05);border-radius:2px}
 .tl-fill{position:absolute;left:0;top:0;width:100%;height:var(--tl,0%);background:linear-gradient(180deg,#FFEFC0,#F5C328 40%,#B8830A);box-shadow:0 0 10px 2px rgba(245,195,40,.45),0 0 26px 6px rgba(245,195,40,.16);border-radius:2px;transition:height .15s linear}
 .tl-fill::before{content:'';position:absolute;left:50%;bottom:-9px;width:19px;height:19px;transform:translateX(-50%);border-radius:50%;border:1.5px solid rgba(245,195,40,.4);pointer-events:none;animation:tl-ring 2.6s cubic-bezier(.2,.65,.35,1) infinite}
 .tl-fill::after{content:'';position:absolute;left:50%;bottom:-8px;width:17px;height:17px;transform:translateX(-50%);border-radius:50%;background:radial-gradient(circle,#FFF8E2,#FFEFC0 30%,#F5C328 60%,transparent 74%);box-shadow:0 0 16px 5px rgba(245,195,40,.55),0 0 36px 12px rgba(245,195,40,.2);animation:tl-pulse 2.6s ease-in-out infinite}
@@ -96,9 +98,9 @@ a:hover{color:#FFD34F}
 .tl-step.lit .tl-card{opacity:1;transform:none;border-color:rgba(245,195,40,.28);box-shadow:0 20px 44px -30px rgba(245,195,40,.18),inset 0 1px 0 rgba(255,255,255,.06)}
 .tl-num{font:700 12px/1 Inter,sans-serif;letter-spacing:.1em;color:#F5C328;display:block;margin-bottom:6px}
 @media (max-width:899px){
-.tl-rail{left:19px}
-.tl-step{grid-template-columns:38px 1fr;gap:14px;margin:20px 0}
-.tl-node{grid-column:1;width:36px;height:36px}
+.tl-rail{left:calc(clamp(18px,5vw,72px) + 22px);top:22px;bottom:22px}
+.tl-step{grid-template-columns:44px 1fr;gap:16px;margin:18px 0}
+.tl-node{grid-column:1;width:44px;height:44px;background:#141416}
 .tl-card,.tl-step:nth-child(even) .tl-card{grid-column:2;text-align:left}
 }
 @media (prefers-reduced-motion:reduce){.tl-card,.tl-node,.tl-node::before{transition:none}.tl-fill::before,.tl-fill::after{animation:none}}
@@ -122,19 +124,257 @@ a:hover{color:#FFD34F}
 @media (hover:hover) and (pointer:fine){*{cursor:none!important}}
 @media (hover:none),(pointer:coarse),(prefers-reduced-motion:reduce){.cx-arrow{display:none!important}}
 @media (prefers-reduced-motion:reduce){.stack-card{box-shadow:none}}
+/* =====================================================================
+   REDESIGN v2 — tokens, botoes, cards, secoes, funil, mobile
+   ===================================================================== */
+:root{--bg0:#0A0A0C;--bg1:#0F0F12;--bg2:#15151A;--cream:#F3EDE2;--cream2:#FBF8F1;--ink:#141414;--gold:#F5C328;--gold2:#FFD34F;--gold3:#B8830A;--ease:cubic-bezier(.22,.9,.3,1)}
+.wrap{position:relative;max-width:1240px;margin:0 auto}
+.sec-pad{padding:clamp(64px,9vw,128px) clamp(18px,5vw,72px)}
+.sec-dark{background:var(--bg1);color:#F3F2EE}
+.sec-dark-2{background:var(--bg2);color:#F3F2EE}
+.sec-light{background:var(--cream);color:var(--ink)}
+.sec-gold{background:linear-gradient(180deg,#F8CB3E 0%,#F5C328 55%,#E5AE16 100%);color:var(--ink)}
+.sec-grid::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(243,242,238,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(243,242,238,.035) 1px,transparent 1px);background-size:64px 64px;mask-image:radial-gradient(70% 60% at 50% 30%,#000 20%,transparent 100%);-webkit-mask-image:radial-gradient(70% 60% at 50% 30%,#000 20%,transparent 100%);pointer-events:none}
+.sec-glow-top::after{content:'';position:absolute;left:50%;top:0;width:min(90vw,900px);height:1px;transform:translateX(-50%);background:linear-gradient(90deg,transparent,rgba(245,195,40,.55),transparent);pointer-events:none}
+.orb{position:absolute;border-radius:50%;filter:blur(60px);pointer-events:none}
+/* --- cabecalho de secao --- */
+.sec-head{display:flex;flex-direction:column;gap:16px;align-items:flex-start}
+.sec-head.center{align-items:center;text-align:center;margin-left:auto;margin-right:auto}
+.eyebrow{display:inline-flex;align-items:center;gap:9px;padding:7px 14px 7px 8px;border-radius:999px;font:700 11px/1 Inter,sans-serif;letter-spacing:.14em;text-transform:uppercase;border:1px solid rgba(245,195,40,.35);background:linear-gradient(160deg,rgba(245,195,40,.14),rgba(245,195,40,.03));color:#FFD34F;box-shadow:inset 0 1px 0 rgba(255,239,192,.12)}
+.eyebrow b{display:inline-flex;align-items:center;justify-content:center;min-width:22px;height:22px;padding:0 6px;border-radius:999px;background:linear-gradient(135deg,#FFDF7A,#F5C328 45%,#D9A012);color:#121215;font:800 10.5px/1 Inter,sans-serif;letter-spacing:.02em}
+.on-light .eyebrow{border-color:rgba(20,20,20,.16);background:rgba(20,20,20,.05);color:#6B4A05;box-shadow:none}
+.sec-sub{font:500 clamp(15px,1.15vw,18.5px)/1.6 Inter,sans-serif;color:#C9C7BE;max-width:52ch;text-wrap:pretty}
+.on-light .sec-sub{color:rgba(20,20,20,.72)}
+.h2-line{display:block;width:72px;height:3px;border-radius:3px;background:linear-gradient(90deg,#FFEFC0,#F5C328,#B8830A);transform:scaleX(0);transform-origin:left;transition:transform 1s var(--ease) .25s}
+.center .h2-line{transform-origin:center}
+.is-in .h2-line{transform:scaleX(1)}
+/* --- botoes v2 --- */
+.btn-v2{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:12px;height:60px;padding:0 9px 0 28px;border-radius:999px;font:700 16px/1 'General Sans',Inter,system-ui;letter-spacing:-.01em;white-space:nowrap;text-decoration:none;isolation:isolate;overflow:hidden;box-sizing:border-box;transition:transform .32s var(--ease),box-shadow .32s var(--ease),background .3s var(--ease),border-color .3s}
+.btn-v2 .btn-ic{flex:none;width:42px;height:42px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;transition:transform .4s var(--ease),background .3s}
+.btn-v2 .btn-ic svg{width:18px;height:18px}
+.btn-v2::after{content:'';position:absolute;top:0;left:-90%;width:55%;height:100%;background:linear-gradient(115deg,transparent,rgba(255,255,255,.55),transparent);transform:skewX(-18deg);transition:left .9s cubic-bezier(.2,.7,.2,1);pointer-events:none;z-index:1}
+@media (hover:hover){.btn-v2:hover::after{left:150%}.btn-v2:hover{transform:translateY(-3px)}.btn-v2:hover .btn-ic{transform:translateX(4px)}}
+.btn-v2:active{transform:translateY(-1px) scale(.98)}
+.btn-gold{background:linear-gradient(135deg,#FFE28A 0%,#F5C328 38%,#E2AA14 100%);color:#121215;box-shadow:inset 0 1px 0 rgba(255,255,255,.5),inset 0 -2px 0 rgba(0,0,0,.14),0 16px 36px -12px rgba(245,195,40,.75),0 0 0 1px rgba(255,220,120,.35)}
+.btn-gold .btn-ic{background:#121215;color:#F5C328;box-shadow:0 4px 12px -4px rgba(0,0,0,.6)}
+.btn-gold:hover{color:#121215;box-shadow:inset 0 1px 0 rgba(255,255,255,.55),inset 0 -2px 0 rgba(0,0,0,.14),0 24px 50px -12px rgba(245,195,40,.9),0 0 0 1px rgba(255,220,120,.5)}
+.btn-pulse{animation:btn-pulse 2.6s ease-out infinite}
+@keyframes btn-pulse{0%{outline:2px solid rgba(245,195,40,.55);outline-offset:0}100%{outline:2px solid rgba(245,195,40,0);outline-offset:16px}}
+.btn-ink{background:linear-gradient(180deg,#1E1D21,#0A0A0C);color:#FFD34F;border:1px solid rgba(245,195,40,.4);box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 16px 34px -14px rgba(0,0,0,.7)}
+.btn-ink .btn-ic{background:linear-gradient(135deg,#FFE28A,#F5C328 45%,#E2AA14);color:#121215}
+.btn-ink:hover{color:#FFE28A;border-color:rgba(245,195,40,.75);box-shadow:inset 0 1px 0 rgba(255,255,255,.1),0 24px 44px -14px rgba(245,195,40,.35)}
+.btn-glass{background:rgba(243,242,238,.05);color:#F3F2EE;border:1px solid rgba(243,242,238,.18);backdrop-filter:blur(12px) saturate(140%);-webkit-backdrop-filter:blur(12px) saturate(140%)}
+.btn-glass .btn-ic{background:rgba(245,195,40,.12);color:#F5C328;border:1px solid rgba(245,195,40,.4)}
+.btn-glass:hover{color:#F3F2EE;border-color:rgba(245,195,40,.5);background:rgba(245,195,40,.09)}
+.btn-sm{height:48px;padding:0 6px 0 20px;font-size:14px;gap:9px}
+.btn-sm .btn-ic{width:36px;height:36px}
+.btn-sm .btn-ic svg{width:15px;height:15px}
+.btn-lg{height:66px;padding:0 10px 0 34px;font-size:17.5px}
+.btn-lg .btn-ic{width:48px;height:48px}
+.btn-lg .btn-ic svg{width:20px;height:20px}
+@media (max-width:560px){.btn-v2{height:56px;font-size:15px;padding-left:22px}.btn-block-m{width:100%}.btn-lg{height:60px;font-size:16px}}
+/* --- cards --- */
+.card-v2{position:relative;border-radius:22px;border:1px solid rgba(243,242,238,.1);background:linear-gradient(165deg,rgba(255,255,255,.065),rgba(255,255,255,.015));box-shadow:0 26px 50px -32px rgba(0,0,0,.85),inset 0 1px 0 rgba(255,255,255,.06);transition:transform .45s var(--ease),border-color .45s var(--ease),box-shadow .45s var(--ease)}
+@media (hover:hover){.card-v2:hover{transform:translateY(-4px);border-color:rgba(245,195,40,.42);box-shadow:0 34px 64px -30px rgba(245,195,40,.28),inset 0 1px 0 rgba(255,255,255,.1)}}
+.spot{position:relative;overflow:hidden}
+.spot>*{position:relative;z-index:1}
+.spot::after{content:'';position:absolute;inset:0;border-radius:inherit;background:radial-gradient(260px circle at var(--mx,50%) var(--my,50%),rgba(245,195,40,.16),transparent 62%);opacity:0;transition:opacity .45s var(--ease);pointer-events:none;z-index:0}
+@media (hover:hover){.spot:hover::after{opacity:1}}
+.stack-card.spot{position:sticky}
+.tilt{transform-style:preserve-3d;will-change:transform}
+/* --- top logo --- */
+.top-logo{position:fixed;top:14px;left:clamp(14px,3vw,32px);z-index:46;display:inline-flex;align-items:center;gap:10px;padding:7px 12px 7px 8px;border-radius:999px;border:1px solid rgba(243,242,238,.1);background:rgba(10,10,12,.55);backdrop-filter:blur(14px) saturate(150%);-webkit-backdrop-filter:blur(14px) saturate(150%);box-shadow:0 12px 30px -14px rgba(0,0,0,.8);transition:border-color .3s,transform .3s var(--ease)}
+.top-logo img{height:26px;width:auto;display:block}
+.top-logo span{font:700 10.5px/1 Inter,sans-serif;letter-spacing:.16em;color:#D9D7CE}
+.top-logo:hover{border-color:rgba(245,195,40,.45);transform:translateY(-1px)}
+@media (max-width:640px){.top-logo{top:12px;padding:6px 8px}.top-logo img{height:22px}.top-logo span{display:none}}
+/* --- capsula central fixa --- */
+.hero-capsule{position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:45;display:flex;align-items:center;gap:10px;width:300px;padding:7px 14px 7px 7px;border-radius:999px;border:1px solid rgba(245,195,40,.45);background:linear-gradient(180deg,rgba(34,30,20,.92) 0%,rgba(8,8,10,.9) 100%);backdrop-filter:blur(16px) saturate(160%);-webkit-backdrop-filter:blur(16px) saturate(160%);box-shadow:0 18px 40px -14px rgba(0,0,0,.9),0 0 0 1px rgba(0,0,0,.5),0 0 24px -6px rgba(245,195,40,.35),inset 0 1.5px 0 rgba(255,239,192,.2),inset 0 -8px 14px -10px rgba(0,0,0,.6);box-sizing:border-box;overflow:hidden;isolation:isolate}
+.hero-capsule::after{content:'';position:absolute;top:0;left:-80%;width:50%;height:100%;background:linear-gradient(115deg,transparent,rgba(255,239,192,.16),transparent);transform:skewX(-18deg);animation:cap-sheen 6s cubic-bezier(.2,.7,.2,1) infinite;pointer-events:none}
+@keyframes cap-sheen{0%,70%{left:-80%}100%{left:160%}}
+.cap-inner{display:inline-flex;align-items:center;gap:10px;flex:1;min-width:0;transition:opacity .35s var(--ease),transform .35s var(--ease)}
+.cap-ic{flex:none;width:28px;height:28px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#FFE28A,#F5C328 45%,#D9A012);color:#121215;box-shadow:inset 0 1px 0 rgba(255,255,255,.5),0 6px 14px -6px rgba(245,195,40,.7)}
+.cap-ic svg{width:15px;height:15px}
+.cap-txt{flex:1;min-width:0;text-align:center;font:600 12.5px/1.15 Inter,sans-serif;letter-spacing:.02em;color:#F3F2EE;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cap-inner.gold .cap-txt{color:#FFD34F;font-weight:800}
+.cap-dot{flex:none;width:7px;height:7px;margin-left:2px}
+@media (max-width:640px){.hero-capsule{top:12px;width:236px;padding:6px 12px 6px 6px;gap:8px}.cap-ic{width:26px;height:26px}.cap-txt{font-size:12px}}
+@media (prefers-reduced-motion:reduce){.hero-capsule::after{animation:none}}
+/* --- hero --- */
+.hero-eyebrow{display:inline-flex;align-items:center;gap:10px;padding:8px 16px 8px 10px;border-radius:999px;border:1px solid rgba(245,195,40,.35);background:linear-gradient(160deg,rgba(245,195,40,.14),rgba(10,10,12,.3));backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);font:600 12px/1 Inter,sans-serif;letter-spacing:.06em;text-transform:uppercase;color:#F3F2EE}
+.hero-eyebrow .live{display:inline-flex;align-items:center;gap:6px;padding:4px 9px;border-radius:999px;background:rgba(46,204,113,.14);color:#7FE3A6;border:1px solid rgba(46,204,113,.35);font-weight:700;letter-spacing:.08em}
+.hero-trust{display:flex;flex-wrap:wrap;align-items:center;gap:10px 18px;font:500 13px/1.4 Inter,sans-serif;color:#CFCDC4}
+.hero-trust span{display:inline-flex;align-items:center;gap:7px}
+.hero-trust svg{width:15px;height:15px;color:#F5C328;flex:none}
+@media (max-width:760px){.hero-trust{justify-content:center}}
+.hero-scroll-cue{position:absolute;left:clamp(18px,5vw,72px);bottom:22px;display:none;flex-direction:column;align-items:center;gap:6px;color:#A5A39A;font:600 10.5px/1 Inter,sans-serif;letter-spacing:.2em;text-transform:uppercase;z-index:2}
+.hero-scroll-cue i{width:22px;height:34px;border-radius:12px;border:1.5px solid rgba(243,242,238,.28);position:relative}
+.hero-scroll-cue i::after{content:'';position:absolute;left:50%;top:6px;width:3px;height:7px;border-radius:2px;background:#F5C328;transform:translateX(-50%);animation:cue 1.8s var(--ease) infinite}
+@keyframes cue{0%{opacity:0;transform:translate(-50%,0)}30%{opacity:1}100%{opacity:0;transform:translate(-50%,12px)}}
+@media (min-width:901px){.hero-scroll-cue{display:flex}}
+/* --- faixa marquee --- */
+.marquee-pause:hover>div{animation-play-state:paused}
+/* --- funil v2 --- */
+.funnel-wrap{position:relative;width:100%;display:flex;flex-direction:column;align-items:center;gap:18px}
+.funnel-stage{position:relative;width:min(100%,clamp(260px,36vw,520px));aspect-ratio:400/580;cursor:default;user-select:none;-webkit-user-select:none}
+.funnel-stage svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.funnel-label{font:600 11px/1 Inter,sans-serif;letter-spacing:.16em;text-transform:uppercase;fill:rgba(243,242,238,.5)}
+.funnel-label.hi{fill:#FFD34F}
+.fn-lab{position:absolute;transform:translateY(-50%);font:600 11px/1 Inter,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:rgba(243,242,238,.55);white-space:nowrap;z-index:4;pointer-events:none;text-shadow:0 1px 2px rgba(0,0,0,.6)}
+.fn-lab.hi{color:#FFD34F}
+@media (max-width:640px){.funnel-stage{width:72%;align-self:center}.fn-lab{font-size:9.5px;letter-spacing:.12em}.fn-lab[style*="left:89%"]{left:88%!important}}
+.seal{position:absolute;top:0;left:0;width:46px;height:46px;opacity:0;z-index:2;will-change:transform,opacity;pointer-events:none}
+.seal-glow{position:absolute;inset:-46%;border-radius:50%;background:radial-gradient(circle,rgba(245,195,40,.42) 0%,rgba(245,195,40,.14) 42%,rgba(245,195,40,0) 70%);filter:blur(6px);transition:background .4s}
+.seal-body{position:absolute;inset:0;border-radius:50%;border:1.5px solid rgba(255,225,140,.85);background:radial-gradient(circle at 50% 22%,#3a3120 0%,#17150f 55%,#08080a 100%);display:flex;align-items:center;justify-content:center;box-shadow:inset 0 2px 2px rgba(255,239,192,.5),inset 0 -5px 8px -4px rgba(245,195,40,.55),0 4px 10px rgba(0,0,0,.65);overflow:hidden}
+.seal-body::before{content:'';position:absolute;left:14%;right:14%;top:6%;height:34%;border-radius:50%;background:linear-gradient(180deg,rgba(255,239,192,.5),rgba(255,239,192,0));pointer-events:none}
+.seal-body::after{content:'';position:absolute;inset:0;border-radius:50%;background:conic-gradient(from 210deg,rgba(255,255,255,0) 0 60%,rgba(255,255,255,.16) 72%,rgba(255,255,255,0) 84%);pointer-events:none}
+.seal-body img{width:52%;height:52%;object-fit:contain;display:block;position:relative;filter:drop-shadow(0 1px 2px rgba(0,0,0,.6))}
+.seal-body svg{width:54%;height:54%;position:relative}
+.seal.is-lost .seal-glow{background:radial-gradient(circle,rgba(255,90,70,.3) 0%,rgba(255,90,70,.08) 42%,rgba(255,90,70,0) 70%)}
+.seal.is-lost .seal-body{border-color:rgba(255,120,100,.6);filter:grayscale(1) brightness(.75)}
+.seal-x{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .2s}
+.seal.is-lost .seal-x{opacity:1}
+.seal-x svg{width:40%;height:40%}
+.coin{position:absolute;top:0;left:0;width:24px;height:24px;opacity:0;z-index:4;will-change:transform,opacity;pointer-events:none}
+.coin i{position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at 35% 28%,#FFF3C4 0%,#F5C328 38%,#C8901A 78%,#8F6208 100%);box-shadow:inset 0 -2px 3px rgba(0,0,0,.35),inset 0 2px 2px rgba(255,255,255,.7),0 0 14px 3px rgba(245,195,40,.55);display:flex;align-items:center;justify-content:center;font:800 11px/1 Inter,sans-serif;color:#5b3d05;font-style:normal}
+.coin::after{content:'';position:absolute;inset:-40%;border-radius:50%;background:radial-gradient(circle,rgba(255,239,192,.5),rgba(245,195,40,0) 65%);filter:blur(4px);z-index:-1}
+.ripple{position:absolute;left:50%;width:82%;aspect-ratio:400/76;border-radius:50%;border:1.5px solid rgba(255,239,192,.7);opacity:0;transform:translate(-50%,-50%) scale(.6);pointer-events:none;z-index:3}
+.ripple.go{animation:ripple .9s var(--ease) forwards}
+@keyframes ripple{0%{opacity:.9;transform:translate(-50%,-50%) scale(.55)}100%{opacity:0;transform:translate(-50%,-50%) scale(1.06)}}
+.funnel-hud{display:flex;flex-wrap:wrap;justify-content:center;gap:8px}
+.hud-chip{display:inline-flex;align-items:center;gap:8px;padding:9px 13px;border-radius:999px;border:1px solid rgba(243,242,238,.12);background:linear-gradient(160deg,rgba(243,242,238,.07),rgba(243,242,238,.02));font:600 12.5px/1 Inter,sans-serif;color:#D9D7CE;font-variant-numeric:tabular-nums}
+.hud-chip i{width:8px;height:8px;border-radius:50%;flex:none;font-style:normal}
+.hud-chip b{font-weight:800;color:#F3F2EE;min-width:2ch;text-align:right}
+.hud-chip.win{border-color:rgba(245,195,40,.4);background:linear-gradient(160deg,rgba(245,195,40,.16),rgba(245,195,40,.04));color:#FFD34F}
+.hud-chip.win b{color:#FFD34F}
+@keyframes funnel-breathe{0%,100%{opacity:.55}50%{opacity:1}}
+@keyframes pool-shimmer{0%{transform:translateX(-30%)}100%{transform:translateX(30%)}}
+.funnel-caption{max-width:38ch;text-align:center;font:500 15px/1.55 Inter,sans-serif;color:#EDEBE2}
+.quote-v2{position:relative;padding:clamp(22px,2.6vw,34px) clamp(22px,2.6vw,34px) clamp(22px,2.6vw,34px) clamp(26px,3vw,40px);border-radius:24px;border:1px solid rgba(245,195,40,.2);background:linear-gradient(165deg,rgba(245,195,40,.07),rgba(243,242,238,.02));box-shadow:inset 0 1px 0 rgba(255,255,255,.05)}
+.quote-v2::before{content:'“';position:absolute;left:18px;top:-6px;font:700 84px/1 'General Sans',Inter,serif;color:rgba(245,195,40,.35);line-height:1;pointer-events:none}
+.quote-v2 blockquote{font:500 clamp(19px,2.1vw,29px)/1.32 'General Sans',Inter,system-ui;letter-spacing:-.02em;color:#F3F2EE;text-wrap:pretty}
+.quote-v2 .quote-kicker{margin-top:18px;display:flex;align-items:center;gap:12px;font:600 clamp(16px,1.5vw,21px)/1.35 'General Sans',Inter,system-ui;letter-spacing:-.01em;color:#FFD34F}
+.quote-v2 .quote-kicker::before{content:'';width:28px;height:2px;border-radius:2px;background:linear-gradient(90deg,#FFEFC0,#F5C328);flex:none}
+@media (max-width:760px){.quote-v2 .quote-kicker::before{display:none}.quote-v2{text-align:center;padding-left:clamp(22px,2.6vw,34px)}.quote-v2::before{left:50%;transform:translateX(-50%);top:-14px}.quote-v2 .quote-kicker{justify-content:center}}
+/* --- crencas: stack cards sobre fundo claro --- */
+.stack-card{border-radius:22px;border:1px solid rgba(245,195,40,.24);background:linear-gradient(165deg,#1E1B15 0%,#0C0C0E 70%);box-shadow:0 30px 60px -34px rgba(0,0,0,.9),0 1px 0 rgba(255,255,255,.05) inset;transform-origin:50% 0;will-change:transform,filter;backdrop-filter:none;-webkit-backdrop-filter:none}
+.stack-card::before{display:none}
+.stack-desc{margin:5px 0 0;font:500 13.5px/1.5 Inter,sans-serif;color:#B9B7AE}
+.stack-dark .stack-card{background:linear-gradient(165deg,#1F1B14 0%,#121215 70%);border-color:rgba(245,195,40,.3);box-shadow:0 30px 60px -30px rgba(0,0,0,.95),0 0 0 1px rgba(0,0,0,.4),0 1px 0 rgba(255,255,255,.06) inset}
+.stack-dark .stack-card.is-hi{border-color:rgba(245,195,40,.7);box-shadow:0 34px 70px -30px rgba(245,195,40,.4),0 1px 0 rgba(255,255,255,.08) inset}
+.stack-progress{width:100%;max-width:360px;margin-top:8px;padding:14px 16px;border-radius:16px;border:1px solid rgba(245,195,40,.22);background:linear-gradient(160deg,rgba(245,195,40,.08),rgba(243,242,238,.02))}
+.stack-progress-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px;font:600 12px/1 Inter,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#B9B7AE}
+.stack-progress-top b{color:#FFD34F;font-weight:800}
+.stack-progress-top span:last-child{color:#F3F2EE;letter-spacing:.02em;text-transform:none;font:700 13px/1 'General Sans',Inter,system-ui}
+.stack-progress-bar{height:5px;border-radius:5px;background:rgba(243,242,238,.08);overflow:hidden}
+.stack-progress-bar i{display:block;height:100%;width:10%;border-radius:5px;background:linear-gradient(90deg,#F5C328,#FFD34F);box-shadow:0 0 10px 1px rgba(245,195,40,.55);transition:width .35s var(--ease)}
+@media (max-width:900px),(max-height:720px){.stack-progress{display:none}}
+.stack-num{font:800 11px/1 Inter,sans-serif;letter-spacing:.16em;color:#F5C328;display:block;margin-bottom:7px}
+.stack-text{font:600 clamp(15.5px,1.2vw,17.5px)/1.45 'General Sans',Inter,system-ui;color:#F3F2EE}
+.stack-ico{width:54px;height:54px;border-radius:16px}
+.stack-card.is-hi{border-color:rgba(245,195,40,.65);box-shadow:0 30px 60px -30px rgba(245,195,40,.35),0 1px 0 rgba(255,255,255,.06) inset}
+.stack-card.is-hi .stack-text{color:#FFD34F}
+@media (max-width:760px){.stack-card{padding:18px 18px}.stack-ico{width:46px;height:46px;border-radius:13px}.stack-ico svg{width:20px;height:20px}}
+/* --- seis angulos: timeline refinada --- */
+.tl-card{border-radius:20px;padding:22px 26px}
+.tl-card p{color:#C9C7BE!important}
+.tl-node svg{width:19px;height:19px}
+.tl-step.lit .tl-node{transform:scale(1.06)}
+@media (max-width:899px){.tl-card{border-left:2px solid rgba(245,195,40,0)}.tl-step.lit .tl-card{border-left-color:rgba(245,195,40,.6)}.tl-node{transition:border-color .45s ease,background .45s ease,box-shadow .45s ease,transform .45s var(--ease)}}
+.tl-step.lit .tl-card p{color:#DEDCD3!important}
+.tl-step.lit .tl-card{background:linear-gradient(165deg,rgba(245,195,40,.09),rgba(243,242,238,.02))}
+.channels-row{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:clamp(14px,2vw,28px)}
+.channel-chip{display:inline-flex;align-items:center;gap:10px;padding:10px 16px;border-radius:999px;border:1px solid rgba(243,242,238,.1);background:rgba(243,242,238,.03);font:600 13px/1 Inter,sans-serif;color:#D9D7CE;transition:border-color .3s,transform .3s var(--ease),background .3s}
+.channel-chip img{height:20px;width:auto;display:block}
+@media (hover:hover){.channel-chip:hover{border-color:rgba(245,195,40,.45);background:rgba(245,195,40,.07);transform:translateY(-2px)}}
+/* --- frases (secao dourada) --- */
+.hook{flex:none;padding:16px 24px;border-radius:16px;border:1px solid rgba(20,20,20,.14);background:#141416;font:500 clamp(15px,1.3vw,20px)/1.3 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE;box-shadow:0 12px 26px -16px rgba(0,0,0,.7),inset 0 1px 0 rgba(255,255,255,.06);transition:transform .35s var(--ease),box-shadow .35s}
+.hook.hook-hi{background:#0A0A0C;color:#FFD34F;border-color:rgba(255,239,192,.35)}
+@media (hover:hover){.hook:hover{transform:translateY(-3px);box-shadow:0 20px 34px -16px rgba(0,0,0,.8),inset 0 1px 0 rgba(255,255,255,.1)}}
+.hook-fade{position:absolute;inset:0;z-index:2;pointer-events:none;background:linear-gradient(90deg,#F6C733 0%,transparent 10%,transparent 90%,#EDB61C 100%)}
+/* --- oferta --- */
+.offer-frame{width:100%;border-radius:36px;padding:clamp(14px,2vw,26px);background:rgba(20,20,20,.04);border:1px solid rgba(20,20,20,.08);display:flex;justify-content:center}
+.offer-card{position:relative;display:flex;flex-direction:column;width:100%;max-width:520px;padding:clamp(24px,4vw,40px);box-sizing:border-box;border-radius:28px;text-align:left;background:radial-gradient(120% 90% at 24% 0%,rgba(245,195,40,.2),transparent 55%),linear-gradient(165deg,#1c1710 0%,#0a0a0c 78%);box-shadow:0 6px 0 rgba(0,0,0,.28),0 40px 70px -32px rgba(0,0,0,.85);overflow:hidden;transition:transform .45s var(--ease),box-shadow .45s var(--ease)}
+.offer-card::before{content:'';position:absolute;inset:0;border-radius:inherit;padding:1.5px;background:conic-gradient(from var(--ang,0deg),rgba(245,195,40,.1),#FFE28A 20%,rgba(245,195,40,.15) 40%,#F5C328 62%,rgba(245,195,40,.1) 80%,#FFE28A 100%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none;animation:spin-ang 7s linear infinite}
+@property --ang{syntax:'<angle>';initial-value:0deg;inherits:false}
+@keyframes spin-ang{to{--ang:360deg}}
+@media (hover:hover){.offer-card:hover{transform:translateY(-6px);box-shadow:0 6px 0 rgba(0,0,0,.28),0 50px 90px -30px rgba(0,0,0,.9)}}
+.offer-badge{flex:none;padding:8px 13px;border-radius:999px;background:linear-gradient(180deg,#FFEFC0,#F5C328 55%,#E0A80D);font:800 11px/1 Inter,sans-serif;letter-spacing:.1em;color:#141414;white-space:nowrap;box-shadow:0 6px 16px -6px rgba(245,195,40,.6)}
+.chk{display:flex;align-items:flex-start;gap:12px;font:500 14.5px/1.5 Inter,sans-serif;color:#EDEBE2;padding:11px 0;border-bottom:1px solid rgba(243,242,238,.07)}
+.chk:last-child{border-bottom:none}
+.chk-ic{flex:none;width:24px;height:24px;border-radius:50%;margin-top:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#FFE28A,#F5C328 45%,#D9A012);box-shadow:0 4px 12px -4px rgba(245,195,40,.65),inset 0 1px 0 rgba(255,255,255,.5)}
+.chk-ic svg{width:13px;height:13px}
+.offer-note{display:flex;align-items:flex-start;gap:10px;padding:12px 14px;border-radius:14px;border:1px dashed rgba(20,20,20,.18);font:500 13.5px/1.5 Inter,sans-serif;color:rgba(20,20,20,.7);max-width:520px}
+.offer-note svg{flex:none;width:16px;height:16px;margin-top:2px;color:#8A5C06}
+/* --- FAQ (glass escuro) --- */
+.faq-item{border-radius:20px;border:1px solid rgba(243,242,238,.1);background:linear-gradient(165deg,rgba(255,255,255,.05),rgba(255,255,255,.015));overflow:hidden;transition:border-color .3s var(--ease),background .3s var(--ease),box-shadow .3s var(--ease)}
+.faq-item.open{border-color:rgba(245,195,40,.4);background:linear-gradient(165deg,rgba(245,195,40,.09),rgba(255,255,255,.015));box-shadow:0 24px 48px -32px rgba(245,195,40,.3)}
+@media (hover:hover){.faq-item:hover{border-color:rgba(245,195,40,.35)}}
+.faq-q{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:clamp(16px,1.7vw,22px) clamp(18px,2vw,26px);cursor:pointer;user-select:none}
+.faq-q span:first-child{font:600 clamp(15px,1.15vw,17.5px)/1.36 'General Sans',Inter,system-ui;letter-spacing:-.014em;color:#F3F2EE}
+.faq-plus{flex:none;display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:999px;border:1px solid rgba(245,195,40,.5);background:radial-gradient(circle at 50% 20%,#332c1c 0%,#171510 58%,#0a0a0c 100%);box-shadow:inset 0 2px 2px rgba(255,239,192,.45),inset 0 -5px 10px -4px rgba(245,195,40,.5),0 6px 14px -5px rgba(0,0,0,.35);font:600 18px/1 Inter,sans-serif;color:#F5C328;transition:transform .34s var(--ease),background .3s}
+.faq-a{overflow:hidden;transition:max-height .42s var(--ease),opacity .34s ease}
+.faq-a p{padding:0 clamp(18px,2vw,26px) clamp(18px,2vw,24px);font:500 15px/1.65 Inter,sans-serif;color:#D9D7CE;max-width:70ch;border-top:1px solid rgba(243,242,238,.08);padding-top:14px;margin-top:2px}
+/* --- numeros --- */
+.num-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(14px,2vw,24px)}
+@media (max-width:820px){.num-grid{grid-template-columns:repeat(2,1fr)}}
+.num-card{display:flex;flex-direction:column;align-items:center;gap:16px;text-align:center;padding:clamp(22px,2.4vw,32px) clamp(14px,2vw,24px);border-radius:24px;background:#FFFFFF;border:1px solid rgba(20,20,20,.07);box-shadow:0 20px 40px -30px rgba(20,20,20,.35),inset 0 1px 0 #fff;transition:transform .45s var(--ease),box-shadow .45s var(--ease),border-color .45s}
+@media (hover:hover){.num-card:hover{transform:translateY(-5px);box-shadow:0 30px 56px -30px rgba(20,20,20,.4);border-color:rgba(245,195,40,.55)}}
+.num-card.hi{background:linear-gradient(165deg,#FFF9E6,#FFFFFF 60%);border-color:rgba(245,195,40,.5)}
+.num-val{font:600 clamp(19px,1.8vw,26px)/1.1 'General Sans',Inter,system-ui;letter-spacing:-.026em;color:#141414;font-variant-numeric:tabular-nums}
+.num-lab{font:700 11px/1 Inter,sans-serif;letter-spacing:.18em;color:rgba(20,20,20,.5)}
+/* --- CTA final --- */
+.cta-orb{position:absolute;left:50%;top:50%;width:min(80vw,760px);aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle,rgba(245,195,40,.18) 0%,rgba(245,195,40,.06) 35%,transparent 68%);filter:blur(30px);pointer-events:none}
+.cta-ring{position:absolute;left:50%;top:50%;width:min(70vw,620px);aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;border:1px solid rgba(245,195,40,.14);pointer-events:none;animation:ring-breathe 6s ease-in-out infinite}
+.cta-ring.r2{width:min(52vw,440px);animation-delay:-2s}
+.cta-ring.r3{width:min(34vw,280px);animation-delay:-4s}
+@keyframes ring-breathe{0%,100%{opacity:.35;transform:translate(-50%,-50%) scale(1)}50%{opacity:.9;transform:translate(-50%,-50%) scale(1.04)}}
+.cta-chip{display:inline-flex;align-items:center;gap:8px;padding:9px 14px;border-radius:999px;border:1px solid rgba(243,242,238,.14);background:linear-gradient(160deg,rgba(243,242,238,.08),rgba(243,242,238,.02));font:600 12.5px/1 Inter,sans-serif;color:#D9D7CE}
+.cta-chip svg{width:14px;height:14px;color:#F5C328}
+.cta-chip.gold{border-color:rgba(245,195,40,.5);background:linear-gradient(160deg,rgba(245,195,40,.18),rgba(245,195,40,.05));color:#FFD34F;font-weight:800}
+/* --- rodape --- */
+.foot-link{font:500 13px/1 Inter,sans-serif;color:#B9B7AE;transition:color .25s}
+.foot-link:hover{color:#F5C328}
+.soc{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:999px;border:1px solid rgba(245,195,40,.3);background:radial-gradient(circle at 50% 20%,#2a2418 0%,#141310 58%,#0a0a0c 100%);box-shadow:inset 0 1.5px 1.5px rgba(255,239,192,.35),inset 0 -4px 8px -4px rgba(245,195,40,.4),0 6px 14px -6px rgba(0,0,0,.65);transition:border-color .3s,transform .3s var(--ease)}
+.soc:hover{border-color:rgba(245,195,40,.75);transform:translateY(-2px)}
+.soc img{width:18px;height:18px;display:block}
+/* --- barra fixa --- */
+.sticky-bar{position:fixed;left:0;bottom:0;width:100%;z-index:40;padding:10px clamp(12px,3vw,26px) max(10px,env(safe-area-inset-bottom));background:linear-gradient(160deg,rgba(40,35,24,.6) 0%,rgba(10,10,12,.66) 100%);backdrop-filter:blur(20px) saturate(160%);-webkit-backdrop-filter:blur(20px) saturate(160%);border-top:1px solid rgba(245,195,40,.28);box-shadow:0 -14px 34px -14px rgba(0,0,0,.65),inset 0 1px 0 rgba(255,255,255,.07);transform:translateY(115%);transition:transform .5s var(--ease);pointer-events:none}
+.sticky-bar.on{transform:none;pointer-events:auto}
+/* --- reveal por filhos (stagger) --- */
+[data-stagger]>*{opacity:0;transform:translateY(18px);transition:opacity .8s var(--ease),transform .8s var(--ease);transition-delay:calc(var(--i,0)*90ms)}
+[data-stagger].is-in>*{opacity:1;transform:none}
+/* --- mobile: fluidez --- */
+@media (max-width:760px){
+.sec-h2{font-size:clamp(27px,7.4vw,34px)}
+.sec-pad{padding:56px 18px}
+.stack-outer{gap:26px}
+.stack-cards{gap:12px}
+.stack-card{top:84px}
+.tl-card{padding:16px 18px}
+.offer-frame{padding:10px;border-radius:26px}
+.offer-card{border-radius:22px}
+.num-card{padding:20px 12px;border-radius:20px}
+.hero-h1{font-size:clamp(28px,8vw,36px)!important}
+.hero-sub{font-size:15px!important}
+}
+@media (max-width:760px){.gh-pill,.btn-glass,.top-logo,.sticky-bar{backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}.tl-card{backdrop-filter:none}}
+@media (prefers-reduced-motion:reduce){.btn-pulse,.offer-card::before,.cta-ring,.hero-scroll-cue i::after{animation:none}[data-stagger]>*{transition:none;opacity:1;transform:none}.flow-step{transition:none}}
 </style></helmet>
 
 <div style="position:relative;width:100%;overflow-x:clip;background:#0A0A0C">
 
-<div class="page-scroll-rail" aria-hidden="true"><div class="page-scroll-fill" id="page-scroll-fill"></div></div>
+<div class="page-scroll-rail" id="page-scroll-rail" role="slider" aria-label="Posição na página" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" title="Arraste para navegar"><div class="page-scroll-track"><div class="page-scroll-fill" id="page-scroll-fill"></div></div></div>
 
-<div class="hero-capsule" style="position:fixed;top:16px;left:50%;transform:translateX(-50%);z-index:45;width:clamp(196px,58vw,240px);display:flex;align-items:center;justify-content:center;padding:10px 18px;border-radius:999px;border:1px solid rgba(245,195,40,.4);background:linear-gradient(180deg,rgba(30,27,20,.88) 0%,rgba(8,8,10,.85) 100%);backdrop-filter:blur(16px) saturate(160%);box-shadow:0 16px 36px -12px rgba(0,0,0,.85),0 2px 0 rgba(0,0,0,.5),inset 0 1.5px 0 rgba(255,239,192,.18),inset 0 -7px 12px -8px rgba(0,0,0,.55);box-sizing:border-box">
-<span class="online-dot" style="position:absolute;left:16px;top:50%;transform:translateY(-50%)"></span>
-<span id="hero-capsule-text" ref="{{ capsuleTextRef }}" style="display:inline-flex;align-items:center;justify-content:center;gap:7px;font:600 12.5px/1 Inter,sans-serif;letter-spacing:.03em;color:#F3F2EE;white-space:nowrap;transition:opacity .35s cubic-bezier(.22,.9,.3,1),transform .35s cubic-bezier(.22,.9,.3,1)"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="#F5C328" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3.5 2"></path></svg>4 horas</span>
+<a href="#" class="top-logo" aria-label="Grupo 2!H"><img src="assets/logo-2h.png" alt="Grupo 2!H"><span>GRUPO 2!H</span></a>
+
+<div class="hero-capsule" aria-live="polite">
+<span id="hero-capsule-text" ref="{{ capsuleTextRef }}" class="cap-inner"><span class="cap-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3.5 2"></path></svg></span><span class="cap-txt">4 horas direto ao ponto</span></span>
+<span class="online-dot cap-dot"></span>
 </div>
 
 <section ref="{{ heroRef }}" class="hero-sec" style="position:relative;min-height:100dvh;display:flex;align-items:center;padding:clamp(88px,12vh,128px) clamp(18px,5vw,72px) clamp(36px,6vh,72px);background:#0A0A0C;overflow:hidden">
-<div class="hero-creative-bg"></div>
+<div class="hero-creative-bg" data-parallax="0.12"></div>
 <img class="hero-float-icon" src="assets/google-ads-hero.png" alt="" style="top:37.4%;right:35.5%;width:65px;animation-delay:0s">
 <img class="hero-float-icon" src="assets/facebook-hero.png" alt="" style="top:81.3%;right:9%;width:57px;animation-delay:1.3s">
 <img class="hero-float-icon" src="assets/seta-hero.png" alt="" style="top:85.2%;right:45%;width:75px;animation-delay:.6s">
@@ -143,15 +383,15 @@ a:hover{color:#FFD34F}
 <img class="hero-mobile-float-icon" src="assets/facebook-hero.png" alt="" style="top:57.5%;right:19%;width:38px;animation:float-bob 4s ease-in-out infinite;animation-delay:1.3s">
 <img class="hero-mobile-float-icon" src="assets/seta-hero.png" alt="" style="top:84%;left:11%;width:50px;animation:float-bob-l 4s ease-in-out infinite;animation-delay:.6s">
 </div>
-<div style="position:absolute;bottom:-20%;left:-10%;width:55%;height:60%;background:radial-gradient(circle,rgba(245,195,40,.05),transparent 70%);pointer-events:none"></div>
+<div class="orb" style="bottom:-20%;left:-10%;width:55%;height:60%;background:radial-gradient(circle,rgba(245,195,40,.07),transparent 70%)"></div>
 <div class="hero-content-wrap" style="position:relative;z-index:1;width:100%;max-width:1240px;margin:0 auto;display:flex;flex-wrap:wrap-reverse;align-items:center;gap:clamp(26px,3.6vw,60px)">
 
 <div data-mobile-center style="flex:1 1 330px;min-width:min(100%,320px);display:flex;flex-direction:column;align-items:flex-start;gap:clamp(14px,1.7vw,22px)">
 <h1 data-reveal class="hero-h1" style="font:600 clamp(32px,3.7vw,50px)/1.16 'General Sans',Inter,system-ui;letter-spacing:-.028em;color:#F3F2EE;text-wrap:pretty">Antes de investir mais em tráfego<br class="hero-br"> descubra onde sua empresa<br class="hero-br"> <span class="hero-emph" style="position:relative;white-space:nowrap"><span style="position:relative;z-index:1;background:linear-gradient(180deg,#FFEFC0,#F5C328 55%,#B8830A);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">está perdendo vendas.</span><span style="position:absolute;left:0;right:0;bottom:.06em;height:2px;background:linear-gradient(90deg,transparent,rgba(245,195,40,.7),transparent)"></span></span></h1>
 <p data-reveal class="hero-sub" style="font:500 clamp(14.5px,1.25vw,19px)/1.55 Inter,sans-serif;color:#EDEBE2;text-wrap:pretty">Em uma imersão online e ao vivo de <strong style="color:#FFFFFF;font-weight:700">4 horas</strong>, você vai aprender<br class="hero-br"> a analisar a estrutura entre marketing, atendimento e comercial<br class="hero-br"> para identificar gargalos, entender seus números e descobrir<br class="hero-br"> o que precisa ser corrigido antes de tentar escalar.</p>
-<div data-reveal data-mobile-row-center style="display:flex;flex-wrap:wrap;align-items:center;gap:clamp(12px,1.6vw,22px);margin-top:clamp(2px,.6vw,8px)">
-<a href="#inscricao" class="btn-chique" style="display:inline-flex;align-items:center;justify-content:center;gap:clamp(6px,2vw,10px);padding:clamp(14px,4vw,18px) clamp(16px,5vw,32px);border-radius:13px;background:linear-gradient(135deg,#F5C328 0%,#C9930F 100%);color:#121215;font:600 clamp(13px,3.8vw,16px)/1 'General Sans',Inter,system-ui;letter-spacing:-.01em;white-space:nowrap;box-shadow:0 14px 36px -10px rgba(245,195,40,.55),inset 0 1px 0 rgba(255,255,255,.3)" style-hover="color:#121215;box-shadow:0 20px 46px -10px rgba(245,195,40,.7),inset 0 1px 0 rgba(255,255,255,.35)">Quero garantir minha vaga <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="#121215" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><path d="M4 8.3c0-1.2.9-2.1 2.1-2.1h11.8c1.2 0 2.1.9 2.1 2.1v2c-.9 0-1.6.7-1.6 1.7s.7 1.7 1.6 1.7v2c0 1.2-.9 2.1-2.1 2.1H6.1C4.9 17.8 4 16.9 4 15.7v-2c.9 0 1.6-.7 1.6-1.7S4.9 10.3 4 10.3v-2Z"></path><path d="M10.4 6.4v11.2" stroke-dasharray="1.8 1.8"></path></svg></a>
-<a href="#diagnostico" class="btn-chique btn-ghost" style="display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:17px 30px;border-radius:13px;font:600 15px/1 'General Sans',Inter,system-ui">o que você vai enxergar <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none"><path d="M12 5v13M6 13l6 6 6-6"></path></svg></a>
+<div data-reveal data-mobile-row-center style="display:flex;flex-wrap:wrap;align-items:center;gap:clamp(12px,1.6vw,18px);margin-top:clamp(2px,.6vw,8px);width:100%">
+<a href="#inscricao" class="btn-v2 btn-gold btn-pulse btn-block-m">Quero garantir minha vaga <span class="btn-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></a>
+<a href="#diagnostico" class="btn-v2 btn-glass btn-block-m">O que você vai enxergar <span class="btn-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v13M6 13l6 6 6-6"></path></svg></span></a>
 </div>
 </div>
 
@@ -188,109 +428,145 @@ a:hover{color:#FFD34F}
 </div>
 </section>
 
-<section style="position:relative;padding:clamp(64px,9vw,130px) clamp(18px,5vw,72px);background:#16161A">
-<div style="position:relative;max-width:1240px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;gap:clamp(32px,5vw,80px)">
-<div data-mobile-center style="flex:1 1 380px;min-width:min(100%,320px);display:flex;flex-direction:column;gap:clamp(18px,2vw,28px)">
-<blockquote data-reveal data-mobile-quote style="position:relative;font:500 clamp(21px,2.5vw,35px)/1.28 'General Sans',Inter,system-ui;letter-spacing:-.022em;color:#F3F2EE;text-wrap:pretty;padding-left:clamp(16px,2vw,26px);border-left:2px solid rgba(245,195,40,.5)">Mais tráfego não corrige uma estrutura quebrada. Antes de investir mais para atrair novos leads, o empresário precisa entender se oferta, atendimento, comercial, dados e margem estão preparados para transformar aquisição em vendas.</blockquote>
-<p data-reveal data-mobile-quote style="font:600 clamp(18px,1.7vw,24px)/1.45 'General Sans',Inter,system-ui;letter-spacing:-.01em;color:#F5C328;padding-left:clamp(18px,2vw,28px)">Antes de escalar o tráfego <br class="quote-br">estruture o caminho até a venda.</p>
+<section class="sec-pad sec-dark sec-grid sec-glow-top" style="position:relative;overflow:hidden">
+<div class="orb" style="top:-10%;right:-8%;width:46%;height:70%;background:radial-gradient(circle,rgba(245,195,40,.09),transparent 70%)"></div>
+<div class="wrap" style="display:flex;flex-wrap:wrap;align-items:center;gap:clamp(32px,5vw,80px)">
+<div data-mobile-center style="flex:1 1 380px;min-width:min(100%,320px);display:flex;flex-direction:column;gap:clamp(18px,2vw,26px)">
+<div data-reveal class="sec-head">
+<h2 class="sec-h2" style="color:#F3F2EE;max-width:18ch">Mais tráfego não corrige uma estrutura quebrada.</h2>
+</div>
+<div data-reveal class="quote-v2">
+<blockquote>Antes de investir mais para atrair novos leads, o empresário precisa entender se oferta, atendimento, comercial, dados e margem estão preparados para transformar aquisição em vendas.</blockquote>
+<p class="quote-kicker">Antes de escalar o tráfego, <br class="quote-br">estruture o caminho até a venda.</p>
+</div>
 </div>
 
-<div style="flex:1 1 300px;min-width:min(100%,260px);display:flex;flex-direction:column;align-items:center;gap:14px">
-<div ref="{{ stageRef }}" onMouseEnter="{{ funnelOn }}" onMouseLeave="{{ funnelOff }}" onTouchStart="{{ funnelTouch }}" data-reveal style="position:relative;width:min(100%,clamp(240px,34vw,500px));aspect-ratio:20/26;cursor:default">
-<div ref="{{ glowRef }}" style="position:absolute;left:50%;top:44%;width:92%;height:82%;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle,rgba(245,195,40,.2) 0%,rgba(245,195,40,.07) 40%,transparent 72%);filter:blur(26px);opacity:.5;transition:opacity .45s cubic-bezier(.22,.9,.3,1),transform .45s cubic-bezier(.22,.9,.3,1);pointer-events:none"></div>
-<svg viewBox="0 0 400 520" style="position:absolute;inset:0;width:100%;height:100%;z-index:1;overflow:visible" aria-hidden="true">
+<div class="funnel-wrap" style="flex:1 1 320px;min-width:min(100%,280px)">
+<div ref="{{ stageRef }}" onMouseEnter="{{ funnelOn }}" onMouseLeave="{{ funnelOff }}" onTouchStart="{{ funnelTouch }}" data-reveal class="funnel-stage">
+<div ref="{{ glowRef }}" style="position:absolute;left:50%;top:42%;width:100%;height:84%;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle,rgba(245,195,40,.22) 0%,rgba(245,195,40,.08) 40%,transparent 72%);filter:blur(28px);opacity:.55;transition:opacity .45s cubic-bezier(.22,.9,.3,1),transform .45s cubic-bezier(.22,.9,.3,1);pointer-events:none"></div>
+<svg viewBox="0 0 400 580" style="z-index:1" aria-hidden="true">
 <defs>
-<radialGradient id="cav" cx=".5" cy=".2" r=".95"><stop offset="0" stop-color="#050506"></stop><stop offset=".5" stop-color="#0b0a08"></stop><stop offset="1" stop-color="#1d1810"></stop></radialGradient>
-<linearGradient id="cavsh" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#000000" stop-opacity=".8"></stop><stop offset=".7" stop-color="#000000" stop-opacity="0"></stop></linearGradient>
+<radialGradient id="fn-cav" cx=".5" cy=".25" r=".95"><stop offset="0" stop-color="#040405"></stop><stop offset=".55" stop-color="#0a0908"></stop><stop offset="1" stop-color="#231c10"></stop></radialGradient>
+<linearGradient id="fn-cavsh" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#000" stop-opacity=".85"></stop><stop offset=".75" stop-color="#000" stop-opacity="0"></stop></linearGradient>
+<linearGradient id="fn-rim" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFF3C9"></stop><stop offset=".4" stop-color="#F5C328"></stop><stop offset="1" stop-color="#A97607"></stop></linearGradient>
+<linearGradient id="fn-glass" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F3F2EE" stop-opacity=".14"></stop><stop offset=".5" stop-color="#F3F2EE" stop-opacity=".05"></stop><stop offset="1" stop-color="#F5C328" stop-opacity=".12"></stop></linearGradient>
+<linearGradient id="fn-cyl" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#000" stop-opacity=".5"></stop><stop offset=".18" stop-color="#000" stop-opacity=".08"></stop><stop offset=".36" stop-color="#FFF" stop-opacity=".16"></stop><stop offset=".55" stop-color="#000" stop-opacity=".03"></stop><stop offset=".8" stop-color="#000" stop-opacity=".22"></stop><stop offset="1" stop-color="#000" stop-opacity=".55"></stop></linearGradient>
+<linearGradient id="fn-inner" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F5C328" stop-opacity="0"></stop><stop offset=".7" stop-color="#F5C328" stop-opacity=".08"></stop><stop offset="1" stop-color="#F5C328" stop-opacity=".28"></stop></linearGradient>
+<radialGradient id="fn-pool" cx=".5" cy=".4" r=".7"><stop offset="0" stop-color="#FFF1B8"></stop><stop offset=".35" stop-color="#F5C328"></stop><stop offset="1" stop-color="#7a5306"></stop></radialGradient>
+<radialGradient id="fn-dish" cx=".5" cy=".3" r=".8"><stop offset="0" stop-color="#2a2417"></stop><stop offset="1" stop-color="#0a0a0c"></stop></radialGradient>
+<radialGradient id="fn-coin" cx=".38" cy=".3" r=".8"><stop offset="0" stop-color="#FFF3C4"></stop><stop offset=".4" stop-color="#F5C328"></stop><stop offset="1" stop-color="#8F6208"></stop></radialGradient>
+<filter id="fn-blur" x="-70%" y="-70%" width="240%" height="240%"><feGaussianBlur stdDeviation="7"></feGaussianBlur></filter>
+<filter id="fn-soft" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="2.2"></feGaussianBlur></filter>
+<filter id="fn-poolglow" x="-60%" y="-120%" width="220%" height="340%"><feGaussianBlur stdDeviation="9"></feGaussianBlur></filter>
 </defs>
-<ellipse cx="200" cy="130" rx="168" ry="34" fill="url(#cav)"></ellipse>
-<ellipse cx="200" cy="130" rx="168" ry="34" fill="url(#cavsh)"></ellipse>
-<path d="M32 130 A168 34 0 0 1 368 130" fill="none" stroke="rgba(245,195,40,.42)" stroke-width="1.5"></path>
-<path d="M32 130 A168 34 0 0 1 368 130" fill="none" stroke="rgba(255,239,192,.5)" stroke-width="3" filter="url(#fblur)" opacity=".5"></path>
+<!-- prato de receita (abaixo do funil) -->
+<ellipse cx="200" cy="546" rx="104" ry="24" fill="url(#fn-dish)" stroke="rgba(245,195,40,.28)" stroke-width="1"></ellipse>
+<ellipse cx="200" cy="540" rx="82" ry="16" fill="#F5C328" opacity=".45" filter="url(#fn-poolglow)" style="animation:funnel-breathe 3.6s ease-in-out infinite"></ellipse>
+<ellipse cx="200" cy="540" rx="78" ry="15" fill="url(#fn-pool)"></ellipse>
+<ellipse cx="200" cy="536" rx="60" ry="7" fill="rgba(255,243,196,.35)" filter="url(#fn-soft)"></ellipse>
+<g transform="translate(176 522)"><ellipse cx="0" cy="8" rx="16" ry="5.5" fill="#8F6208"></ellipse><ellipse cx="0" cy="4" rx="16" ry="5.5" fill="url(#fn-coin)" stroke="rgba(255,243,196,.7)" stroke-width=".8"></ellipse><ellipse cx="0" cy="0" rx="16" ry="5.5" fill="url(#fn-coin)" stroke="rgba(255,243,196,.8)" stroke-width=".8"></ellipse></g>
+<g transform="translate(214 526)"><ellipse cx="0" cy="4" rx="16" ry="5.5" fill="#8F6208"></ellipse><ellipse cx="0" cy="0" rx="16" ry="5.5" fill="url(#fn-coin)" stroke="rgba(255,243,196,.8)" stroke-width=".8"></ellipse></g>
+<!-- cavidade da boca -->
+<ellipse cx="200" cy="120" rx="172" ry="38" fill="url(#fn-cav)"></ellipse>
+<ellipse cx="200" cy="120" rx="172" ry="38" fill="url(#fn-cavsh)"></ellipse>
+<ellipse cx="200" cy="121" rx="160" ry="33" fill="none" stroke="rgba(245,195,40,.22)" stroke-width="1"></ellipse>
 </svg>
-<sc-for list="{{ seals }}" as="s" hint-placeholder-count="8">
-<div data-seal style="position:absolute;top:0;left:0;width:44px;height:44px;opacity:0;z-index:2;will-change:transform,opacity;pointer-events:none">
-<div style="position:absolute;inset:-42%;border-radius:50%;background:radial-gradient(circle,rgba(245,195,40,.4) 0%,rgba(245,195,40,.14) 44%,rgba(245,195,40,0) 72%);filter:blur(6px)"></div>
-<div style="position:absolute;inset:0;border-radius:50%;border:1px solid rgba(245,195,40,.72);background:radial-gradient(circle at 50% 24%,#2a2418 0%,#141310 58%,#0a0a0c 100%);display:flex;align-items:center;justify-content:center;box-shadow:inset 0 1.5px 1.5px rgba(255,239,192,.45),inset 0 -4px 7px -4px rgba(245,195,40,.5),0 3px 8px rgba(0,0,0,.6)">
-<div style="position:absolute;left:16%;right:16%;top:7%;height:32%;border-radius:50%;background:linear-gradient(180deg,rgba(255,239,192,.42),rgba(255,239,192,0));pointer-events:none"></div>
-<svg viewBox="0 0 24 24" width="50%" height="50%" fill="none" stroke="#F5C328" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="position:relative"><circle cx="12" cy="8" r="4"></circle><path d="M4 20.5c0-4.4 3.6-7.5 8-7.5s8 3.1 8 7.5"></path></svg>
-</div>
-</div>
+<sc-for list="{{ seals }}" as="s" hint-placeholder-count="10">
+<div data-seal class="seal"><div class="seal-glow"></div><div class="seal-body"><img data-seal-img src="assets/meta.png" alt=""><span class="seal-x"><svg viewBox="0 0 24 24" fill="none" stroke="#FF9A85" stroke-width="3" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"></path></svg></span></div></div>
 </sc-for>
-<svg viewBox="0 0 400 520" style="position:absolute;inset:0;width:100%;height:100%;z-index:3;overflow:visible;pointer-events:none" aria-hidden="true">
-<defs>
-<linearGradient id="rim" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFEFC0"></stop><stop offset=".38" stop-color="#F5C328"></stop><stop offset="1" stop-color="#B8830A"></stop></linearGradient>
-<linearGradient id="glass" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F3F2EE" stop-opacity=".13"></stop><stop offset=".55" stop-color="#F3F2EE" stop-opacity=".05"></stop><stop offset="1" stop-color="#F5C328" stop-opacity=".07"></stop></linearGradient>
-<linearGradient id="cyl" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#000000" stop-opacity=".42"></stop><stop offset=".2" stop-color="#000000" stop-opacity=".06"></stop><stop offset=".38" stop-color="#FFFFFF" stop-opacity=".12"></stop><stop offset=".56" stop-color="#000000" stop-opacity=".04"></stop><stop offset="1" stop-color="#000000" stop-opacity=".46"></stop></linearGradient>
-<filter id="fblur" x="-70%" y="-70%" width="240%" height="240%"><feGaussianBlur stdDeviation="6"></feGaussianBlur></filter>
-<filter id="fsoft" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="2.4"></feGaussianBlur></filter>
-</defs>
-<g ref="{{ svgGlowRef }}" opacity=".55" filter="url(#fblur)"><path d="M32 130 C38 248 150 300 180 368 L180 460 A20 7 0 0 0 220 460 L220 368 C250 300 362 248 368 130" fill="none" stroke="#F5C328" stroke-width="4" stroke-linejoin="round"></path></g>
-<path d="M32 130 C38 248 150 300 180 368 L180 460 A20 7 0 0 0 220 460 L220 368 C250 300 362 248 368 130 A168 34 0 0 1 32 130 Z" fill="url(#glass)"></path>
-<path d="M32 130 C38 248 150 300 180 368 L180 460 A20 7 0 0 0 220 460 L220 368 C250 300 362 248 368 130 A168 34 0 0 1 32 130 Z" fill="url(#cyl)"></path>
-<ellipse cx="200" cy="233" rx="131" ry="26" fill="none" stroke="rgba(245,195,40,.13)" stroke-width="1"></ellipse>
-<ellipse cx="200" cy="289" rx="83" ry="17" fill="none" stroke="rgba(245,195,40,.13)" stroke-width="1"></ellipse>
-<ellipse cx="200" cy="338" rx="38" ry="8" fill="none" stroke="rgba(245,195,40,.13)" stroke-width="1"></ellipse>
-<g style="transform-origin:200px 130px;animation:flow 5.4s cubic-bezier(.3,.7,.5,1) infinite"><ellipse cx="200" cy="130" rx="168" ry="34" fill="none" stroke="rgba(255,239,192,.55)" stroke-width="1.6"></ellipse></g>
-<g style="transform-origin:200px 130px;animation:flow 5.4s cubic-bezier(.3,.7,.5,1) 2.7s infinite"><ellipse cx="200" cy="130" rx="168" ry="34" fill="none" stroke="rgba(255,239,192,.55)" stroke-width="1.6"></ellipse></g>
-<path d="M32 130 C38 248 150 300 180 368 L180 460 A20 7 0 0 0 220 460 L220 368 C250 300 362 248 368 130" fill="none" stroke="url(#rim)" stroke-width="1.7" stroke-linejoin="round"></path>
-<path d="M368 130 A168 34 0 0 1 32 130" fill="none" stroke="#FFEFC0" stroke-width="2.1"></path>
-<path d="M368 130 A168 34 0 0 1 32 130" fill="none" stroke="#FFEFC0" stroke-width="4" filter="url(#fsoft)" opacity=".55"></path>
-<path d="M54 152 C60 250 158 296 186 360" fill="none" stroke="rgba(255,255,255,.3)" stroke-width="3.4" filter="url(#fsoft)" opacity=".5"></path>
-<path d="M56 158 C62 250 158 294 186 356" fill="none" stroke="rgba(255,255,255,.55)" stroke-width="1" opacity=".3"></path>
-<path d="M187 374 L187 452" fill="none" stroke="rgba(255,255,255,.3)" stroke-width="2" filter="url(#fsoft)" opacity=".55"></path>
-<ellipse cx="200" cy="460" rx="20" ry="7" fill="none" stroke="rgba(245,195,40,.8)" stroke-width="1.4"></ellipse>
-<ellipse ref="{{ flashRef }}" cx="200" cy="466" rx="40" ry="13" fill="rgba(255,239,192,.9)" opacity="0" filter="url(#fblur)"></ellipse>
-<ellipse cx="200" cy="470" rx="15" ry="5" fill="rgba(255,239,192,.5)" filter="url(#fsoft)" style="animation:breathe 3.4s cubic-bezier(.22,.9,.3,1) infinite"></ellipse>
-</sc-for>
+<svg viewBox="0 0 400 580" style="z-index:3;pointer-events:none" aria-hidden="true">
+<g ref="{{ svgGlowRef }}" opacity=".6" filter="url(#fn-blur)"><path d="M28 120 C34 236 148 302 176 372 L176 452 A24 8 0 0 0 224 452 L224 372 C252 302 366 236 372 120" fill="none" stroke="#F5C328" stroke-width="5" stroke-linejoin="round"></path></g>
+<path d="M28 120 C34 236 148 302 176 372 L176 452 A24 8 0 0 0 224 452 L224 372 C252 302 366 236 372 120 A172 38 0 0 1 28 120 Z" fill="url(#fn-glass)"></path>
+<path d="M28 120 C34 236 148 302 176 372 L176 452 A24 8 0 0 0 224 452 L224 372 C252 302 366 236 372 120 A172 38 0 0 1 28 120 Z" fill="url(#fn-cyl)"></path>
+<path d="M28 120 C34 236 148 302 176 372 L176 452 A24 8 0 0 0 224 452 L224 372 C252 302 366 236 372 120 A172 38 0 0 1 28 120 Z" fill="url(#fn-inner)"></path>
+<!-- aneis de etapa -->
+<ellipse cx="200" cy="236" rx="133" ry="27" fill="none" stroke="rgba(245,195,40,.2)" stroke-width="1" stroke-dasharray="3 5"></ellipse>
+<ellipse cx="200" cy="294" rx="84" ry="17" fill="none" stroke="rgba(245,195,40,.22)" stroke-width="1" stroke-dasharray="3 5"></ellipse>
+<ellipse cx="200" cy="344" rx="40" ry="8" fill="none" stroke="rgba(245,195,40,.3)" stroke-width="1" stroke-dasharray="3 5"></ellipse>
+<!-- rotulos -->
+<g class="funnel-tick" stroke="rgba(245,195,40,.35)" stroke-width="1"><path d="M336 236 H352"></path><path d="M287 294 H352"></path><path d="M243 344 H352"></path></g>
+<!-- ondas descendo -->
+<g style="transform-origin:200px 120px;animation:flow 5.4s cubic-bezier(.3,.7,.5,1) infinite"><ellipse cx="200" cy="120" rx="172" ry="38" fill="none" stroke="rgba(255,239,192,.5)" stroke-width="1.5"></ellipse></g>
+<g style="transform-origin:200px 120px;animation:flow 5.4s cubic-bezier(.3,.7,.5,1) 2.7s infinite"><ellipse cx="200" cy="120" rx="172" ry="38" fill="none" stroke="rgba(255,239,192,.5)" stroke-width="1.5"></ellipse></g>
+<!-- bordas e reflexos -->
+<path d="M28 120 C34 236 148 302 176 372 L176 452 A24 8 0 0 0 224 452 L224 372 C252 302 366 236 372 120" fill="none" stroke="url(#fn-rim)" stroke-width="1.8" stroke-linejoin="round"></path>
+<path d="M372 120 A172 38 0 0 1 28 120" fill="none" stroke="#FFF3C9" stroke-width="2.4"></path>
+<path d="M372 120 A172 38 0 0 1 28 120" fill="none" stroke="#FFF3C9" stroke-width="5" filter="url(#fn-soft)" opacity=".6"></path>
+<path d="M28 120 A172 38 0 0 0 372 120" fill="none" stroke="url(#fn-rim)" stroke-width="1.4" opacity=".9"></path>
+<path d="M52 146 C58 244 156 298 184 362" fill="none" stroke="rgba(255,255,255,.34)" stroke-width="3.6" filter="url(#fn-soft)" opacity=".55"></path>
+<path d="M54 152 C60 246 156 296 184 358" fill="none" stroke="rgba(255,255,255,.6)" stroke-width="1" opacity=".35"></path>
+<path d="M348 150 C338 240 262 296 236 352" fill="none" stroke="rgba(255,255,255,.14)" stroke-width="2" filter="url(#fn-soft)"></path>
+<path d="M184 378 L184 448" fill="none" stroke="rgba(255,255,255,.34)" stroke-width="2.2" filter="url(#fn-soft)" opacity=".6"></path>
+<ellipse cx="200" cy="452" rx="24" ry="8" fill="none" stroke="rgba(245,195,40,.85)" stroke-width="1.4"></ellipse>
+<ellipse ref="{{ flashRef }}" cx="200" cy="458" rx="44" ry="14" fill="rgba(255,243,196,.9)" opacity="0" filter="url(#fn-blur)"></ellipse>
+<ellipse cx="200" cy="462" rx="15" ry="5" fill="rgba(255,243,196,.5)" filter="url(#fn-soft)" style="animation:breathe 3.4s cubic-bezier(.22,.9,.3,1) infinite"></ellipse>
+</svg>
+<span class="fn-lab" style="left:7%;top:11.5%">Leads entrando</span>
+<span class="fn-lab" style="left:89%;top:40.7%">Atendimento</span>
+<span class="fn-lab" style="left:89%;top:50.7%">Comercial</span>
+<span class="fn-lab hi" style="left:89%;top:59.3%">Venda</span>
+<span class="fn-lab hi" style="left:50%;top:99.5%;transform:translate(-50%,-50%)">Receita · Margem</span>
+<div class="ripple" data-ripple style="top:20.7%"></div>
+<div class="ripple" data-ripple style="top:20.7%"></div>
+<div class="ripple" data-ripple style="top:20.7%"></div>
+<div class="coin" data-coin><i>$</i></div>
+<div class="coin" data-coin><i>$</i></div>
+<div class="coin" data-coin><i>$</i></div>
+<div class="coin" data-coin><i>$</i></div>
+<div class="coin" data-coin><i>$</i></div>
 </div>
-<div data-reveal class="gh-pill" style="display:block;border-radius:16px;padding:16px 24px;max-width:36ch"><p style="font:500 15px/1.55 Inter,sans-serif;color:#FFFFFF;text-align:center">Muita gente entrando. Poucos saindo como venda. A imersão mostra onde, exatamente, o caminho aperta.</p></div>
+<div data-reveal class="funnel-hud">
+<span class="hud-chip"><i style="background:#F3F2EE"></i>Entraram <b data-cnt-in>0</b></span>
+<span class="hud-chip"><i style="background:#FF8A70"></i>Perdidos no caminho <b data-cnt-lost>0</b></span>
+<span class="hud-chip win"><i style="background:#F5C328;box-shadow:0 0 8px rgba(245,195,40,.8)"></i>Viraram venda <b data-cnt-win>0</b></span>
+</div>
+<p data-reveal class="funnel-caption">Muita gente entrando. Poucos saindo como venda. A imersão mostra onde, exatamente, o caminho aperta.</p>
 </div>
 </div>
 </section>
 
-<section style="position:relative;padding:clamp(64px,9vw,130px) clamp(18px,5vw,72px);background:#101013">
-<div class="stack-outer" style="position:relative;max-width:1240px;margin:0 auto">
+<section class="sec-pad sec-light on-light" style="position:relative">
+<div class="stack-outer wrap">
 <div data-reveal style="flex:1 1 340px;min-width:min(100%,300px)">
-<div class="stack-left-inner" data-mobile-center style="display:flex;flex-direction:column;gap:16px;align-items:flex-start;text-align:left">
-<h2 class="sec-h2 stack-title" style="color:#F3F2EE;max-width:15ch">O que você precisa entender antes de colocar mais dinheiro em tráfego</h2>
-<p style="font:500 clamp(15px,1.15vw,18.5px)/1.6 Inter,sans-serif;color:#F3F2EE;max-width:42ch">Seis crenças que precisam ficar claras antes de você aumentar o investimento em tráfego.</p>
+<div class="stack-left-inner sec-head" data-mobile-center>
+<h2 class="sec-h2 stack-title" style="color:#141414;max-width:15ch">O que você precisa entender antes de colocar mais dinheiro em tráfego</h2>
+<p class="sec-sub">Seis crenças que precisam ficar claras antes de você aumentar o investimento em tráfego. Role para ver uma a uma.</p>
 </div>
 </div>
-<div data-reveal class="stack-cards" style="flex:1 1 360px;min-width:min(100%,300px)">
-<article data-belief class="stack-card">
+<div class="stack-cards" data-stack style="flex:1 1 360px;min-width:min(100%,300px)">
+<article data-belief class="stack-card spot">
 <span class="stack-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"></circle><circle cx="12" cy="12" r="4.5"></circle><circle cx="12" cy="12" r="1"></circle></svg></span>
-<div class="stack-body">
+<div class="stack-body"><span class="stack-num">CRENÇA 01</span>
 <p class="stack-text">O problema da empresa pode estar depois do anúncio, e não necessariamente no anúncio.</p>
 </div>
 </article>
-<article data-belief class="stack-card">
+<article data-belief class="stack-card spot">
 <span class="stack-ico"><svg viewBox="0 0 24 24"><path d="M3 3v18h18"></path><path d="m19 9-5 5-4-4-4 4"></path></svg></span>
-<div class="stack-body">
+<div class="stack-body"><span class="stack-num">CRENÇA 02</span>
 <p class="stack-text">Não é possível diagnosticar uma operação olhando apenas para CPL, CTR, CPC ou quantidade de leads.</p>
 </div>
 </article>
-<article data-belief class="stack-card">
+<article data-belief class="stack-card spot">
 <span class="stack-ico"><svg viewBox="0 0 24 24"><path d="M3 5h18l-7 8.5V20l-4 2v-8.5L3 5Z"></path></svg></span>
-<div class="stack-body">
+<div class="stack-body"><span class="stack-num">CRENÇA 03</span>
 <p class="stack-text">Marketing e comercial precisam ser analisados como partes do mesmo sistema.</p>
 </div>
 </article>
-<article data-belief class="stack-card">
+<article data-belief class="stack-card spot">
 <span class="stack-ico"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"></path><path d="m9 12 2 2 4-4"></path></svg></span>
-<div class="stack-body">
+<div class="stack-body"><span class="stack-num">CRENÇA 04</span>
 <p class="stack-text">Antes de aumentar o investimento, a empresa precisa saber se possui estrutura para converter a nova demanda.</p>
 </div>
 </article>
-<article data-belief class="stack-card">
+<article data-belief class="stack-card spot">
 <span class="stack-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><path d="M12 6.5v11M9 15.5c0 1.1 1.2 2 3 2 2 0 3-.9 3-2.1 0-1.6-1.5-2-3-2.4-1.5-.4-3-.8-3-2.4C9 9.4 10 8.5 12 8.5c1.8 0 3 .9 3 2"></path></svg></span>
-<div class="stack-body">
+<div class="stack-body"><span class="stack-num">CRENÇA 05</span>
 <p class="stack-text">Margem, CAC, atendimento, follow-up e rastreamento também fazem parte da aquisição.</p>
 </div>
 </article>
-<article data-belief class="stack-card is-hi">
+<article data-belief class="stack-card is-hi spot">
 <span class="stack-ico"><svg viewBox="0 0 24 24"><path d="M13 2 4.1 13.4a.9.9 0 0 0 .7 1.5H11l-1 7.1 8.9-11.4a.9.9 0 0 0-.7-1.5H12l1-6.1Z"></path></svg></span>
-<div class="stack-body">
+<div class="stack-body"><span class="stack-num">CRENÇA 06 · A MAIS IMPORTANTE</span>
 <p class="stack-text">Antes de escalar, é preciso identificar o verdadeiro gargalo.</p>
 </div>
 </article>
@@ -298,83 +574,73 @@ a:hover{color:#FFD34F}
 </div>
 </section>
 
-<section id="diagnostico" style="position:relative;padding:clamp(64px,9vw,130px) 0;background:#101013">
-<div class="stack-outer" style="position:relative;max-width:1240px;margin:0 auto;padding:0 clamp(18px,5vw,72px)">
+<section id="diagnostico" class="sec-pad sec-dark sec-glow-top" style="position:relative;background:#0A0A0C;overflow:clip">
+<div class="orb" style="top:20%;left:-14%;width:50%;height:70%;background:radial-gradient(circle,rgba(245,195,40,.08),transparent 70%)"></div>
+<div class="stack-outer wrap">
 <div data-reveal style="flex:1 1 340px;min-width:min(100%,300px)">
-<div class="stack-left-inner" data-mobile-center style="display:flex;flex-direction:column;gap:16px;align-items:flex-start;text-align:left">
+<div class="stack-left-inner sec-head" data-mobile-center>
 <h2 class="sec-h2 stack-title" style="color:#F3F2EE;max-width:15ch">O caminho completo que a imersão ensina a enxergar: da primeira etapa até o dinheiro entrar de verdade.</h2>
-<p style="font:500 clamp(15px,1.15vw,18.5px)/1.6 Inter,sans-serif;color:#F3F2EE;max-width:42ch">Cada etapa depende da anterior. É por isso que trocar de anúncio quase nunca resolve: o gargalo pode estar em qualquer ponto desta esteira.</p>
+<p class="sec-sub">Cada etapa depende da anterior. É por isso que trocar de anúncio quase nunca resolve: o gargalo pode estar em qualquer ponto desta esteira.</p>
+<div class="stack-progress" data-stack-progress>
+<div class="stack-progress-top"><span>Etapa <b data-stack-cur>01</b> de 10</span><span data-stack-name>Negócio</span></div>
+<div class="stack-progress-bar"><i data-stack-bar></i></div>
 </div>
 </div>
-<div data-reveal class="stack-cards" style="flex:1 1 360px;min-width:min(100%,300px)">
-<article data-step-card class="stack-card">
+</div>
+<div class="stack-cards stack-dark" data-stack style="flex:1 1 360px;min-width:min(100%,300px)">
+<article data-step-card class="stack-card spot" data-step-name="Negócio">
 <span class="stack-ico"><svg viewBox="0 0 24 24"><rect x="3.5" y="7.5" width="17" height="12" rx="2"></rect><path d="M8.5 7.5V6a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v1.5"></path><path d="M3.5 12.5h17"></path></svg></span>
-<div class="stack-body">
-<p class="stack-text">Negócio</p>
-</div>
+<div class="stack-body"><span class="stack-num">ETAPA 01</span><p class="stack-text">Negócio</p><p class="stack-desc">Modelo, posicionamento e capacidade de entrega.</p></div>
 </article>
-<article data-step-card class="stack-card">
+<article data-step-card class="stack-card spot" data-step-name="Oferta">
 <span class="stack-ico"><svg viewBox="0 0 24 24"><path d="M12.6 3.4h4.9c1.2 0 2.1.9 2.1 2.1v4.9c0 .6-.2 1.1-.6 1.5l-8 8c-.8.8-2.2.8-3 0l-4.9-4.9c-.8-.8-.8-2.2 0-3l8-8c.4-.4.9-.6 1.5-.6Z"></path><circle cx="16.5" cy="7.5" r="1.3" fill="currentColor" stroke="none"></circle></svg></span>
-<div class="stack-body">
-<p class="stack-text">Oferta</p>
-</div>
+<div class="stack-body"><span class="stack-num">ETAPA 02</span><p class="stack-text">Oferta</p><p class="stack-desc">O que é vendido, a quem e por que vale o preço.</p></div>
 </article>
-<article data-step-card class="stack-card">
+<article data-step-card class="stack-card spot" data-step-name="Público">
 <span class="stack-ico"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"></circle><path d="M3.5 19.5a5.5 5.5 0 0 1 11 0"></path><path d="M16 5.6a3.2 3.2 0 0 1 0 5.8"></path><path d="M17.2 14a5.5 5.5 0 0 1 2.8 5"></path></svg></span>
-<div class="stack-body">
-<p class="stack-text">Público</p>
-</div>
+<div class="stack-body"><span class="stack-num">ETAPA 03</span><p class="stack-text">Público</p><p class="stack-desc">Quem realmente compra e quem só consome atenção.</p></div>
 </article>
-<article data-step-card class="stack-card">
+<article data-step-card class="stack-card spot" data-step-name="Comunicação">
 <span class="stack-ico"><svg viewBox="0 0 24 24"><path d="M3 10v4a1 1 0 0 0 1 1h2l7 4V5l-7 4H4a1 1 0 0 0-1 1Z"></path><path d="M17 9.5a3.5 3.5 0 0 1 0 5"></path><path d="M19.5 7a7 7 0 0 1 0 10"></path></svg></span>
-<div class="stack-body">
-<p class="stack-text">Comunicação</p>
-</div>
+<div class="stack-body"><span class="stack-num">ETAPA 04</span><p class="stack-text">Comunicação</p><p class="stack-desc">Mensagem, criativo e promessa alinhados à oferta.</p></div>
 </article>
-<article data-step-card class="stack-card">
+<article data-step-card class="stack-card spot" data-step-name="Aquisição">
 <span class="stack-ico"><svg viewBox="0 0 24 24"><path d="M4 5h16l-6 7.5V19l-4 2v-8.5L4 5Z"></path></svg></span>
-<div class="stack-body">
-<p class="stack-text">Aquisição</p>
-</div>
+<div class="stack-body"><span class="stack-num">ETAPA 05</span><p class="stack-text">Aquisição</p><p class="stack-desc">Tráfego, canais e custo de cada lead que entra.</p></div>
 </article>
-<article data-step-card class="stack-card">
+<article data-step-card class="stack-card spot" data-step-name="Atendimento">
 <span class="stack-ico"><svg viewBox="0 0 24 24"><path d="M4 13v-1a8 8 0 0 1 16 0v1"></path><rect x="3" y="13" width="4" height="6" rx="1.5"></rect><rect x="17" y="13" width="4" height="6" rx="1.5"></rect><path d="M19 19v1a2 2 0 0 1-2 2h-3"></path></svg></span>
-<div class="stack-body">
-<p class="stack-text">Atendimento</p>
-</div>
+<div class="stack-body"><span class="stack-num">ETAPA 06</span><p class="stack-text">Atendimento</p><p class="stack-desc">Velocidade, qualidade e continuidade da resposta.</p></div>
 </article>
-<article data-step-card class="stack-card">
+<article data-step-card class="stack-card spot" data-step-name="Comercial">
 <span class="stack-ico"><svg viewBox="0 0 24 24"><path d="M4 18 9.5 12l4 3L20 7"></path><path d="M20 12V7h-5"></path></svg></span>
-<div class="stack-body">
-<p class="stack-text">Comercial</p>
-</div>
+<div class="stack-body"><span class="stack-num">ETAPA 07</span><p class="stack-text">Comercial</p><p class="stack-desc">Qualificação, follow-up e condução até a proposta.</p></div>
 </article>
-<article data-step-card class="stack-card">
+<article data-step-card class="stack-card spot" data-step-name="Venda">
 <span class="stack-ico"><svg viewBox="0 0 24 24"><circle cx="9" cy="20" r="1.3" fill="currentColor" stroke="none"></circle><circle cx="17" cy="20" r="1.3" fill="currentColor" stroke="none"></circle><path d="M3 4h2l2.2 11.2a2 2 0 0 0 2 1.6h7.6a2 2 0 0 0 2-1.6L20 8H6.2"></path></svg></span>
-<div class="stack-body">
-<p class="stack-text">Venda</p>
-</div>
+<div class="stack-body"><span class="stack-num">ETAPA 08</span><p class="stack-text">Venda</p><p class="stack-desc">Fechamento real: quantos leads viram cliente.</p></div>
 </article>
-<article data-step-card class="stack-card">
+<article data-step-card class="stack-card spot" data-step-name="Receita">
 <span class="stack-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v10M9.5 9.5c0-1 .9-1.8 2.5-1.8s2.5.8 2.5 1.8c0 2.4-5 1.4-5 3.8 0 1 1 1.8 2.5 1.8s2.5-.8 2.5-1.8"></path></svg></span>
-<div class="stack-body">
-<p class="stack-text">Receita</p>
-</div>
+<div class="stack-body"><span class="stack-num">ETAPA 09</span><p class="stack-text">Receita</p><p class="stack-desc">Ticket, recorrência e o que entra de fato no caixa.</p></div>
 </article>
-<article data-step-card class="stack-card is-hi">
+<article data-step-card class="stack-card is-hi spot" data-step-name="Margem">
 <span class="stack-ico"><svg viewBox="0 0 24 24"><circle cx="7.5" cy="7.5" r="2.3"></circle><circle cx="16.5" cy="16.5" r="2.3"></circle><path d="m5.5 18.5 13-13"></path></svg></span>
-<div class="stack-body">
-<p class="stack-text" style="color:#FFD34F">Margem</p>
-</div>
+<div class="stack-body"><span class="stack-num">ETAPA 10 · ONDE TUDO SE PROVA</span><p class="stack-text">Margem</p><p class="stack-desc">O que sobra depois de pagar tudo, inclusive o tráfego.</p></div>
 </article>
 </div>
+</div>
+<div class="wrap" data-reveal data-mobile-row-center style="display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:14px;margin-top:clamp(36px,5vw,64px)">
+<a href="#inscricao" class="btn-v2 btn-gold btn-block-m">Quero enxergar a minha esteira <span class="btn-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></a>
 </div>
 </section>
 
-<section style="position:relative;padding:clamp(64px,9vw,130px) 0 clamp(40px,5vw,70px);background:#16161A">
-<div style="position:relative;max-width:1240px;margin:0 auto;padding:0 clamp(18px,5vw,72px);display:flex;flex-direction:column;gap:clamp(24px,3vw,40px)">
-<div data-reveal style="display:flex;flex-direction:column;gap:14px;max-width:56ch;align-items:center;text-align:center;align-self:center">
+<section class="sec-dark-2 sec-grid" style="position:relative;padding:clamp(64px,9vw,128px) 0 clamp(40px,5vw,70px);overflow:hidden">
+<div class="orb" style="top:30%;right:-12%;width:44%;height:60%;background:radial-gradient(circle,rgba(245,195,40,.07),transparent 70%)"></div>
+<div class="wrap" style="padding:0 clamp(18px,5vw,72px);display:flex;flex-direction:column;gap:clamp(24px,3vw,40px)">
+<div data-reveal class="sec-head center" style="max-width:56ch">
 <h2 class="sec-h2" style="color:#F3F2EE">Seis ângulos que mudam a leitura da sua operação</h2>
+<p class="sec-sub" style="text-align:center">Role a página e acompanhe a luz: cada ângulo acende quando entra na sua leitura.</p>
 </div>
 </div>
 <div class="timeline" data-timeline style="position:relative;max-width:960px;margin:clamp(24px,3.6vw,44px) auto 0;padding:10px clamp(18px,5vw,72px)">
@@ -388,103 +654,108 @@ a:hover{color:#FFD34F}
 <div class="tl-step" data-step><div class="tl-card"><span class="tl-num">06</span><h3 style="font:600 clamp(16px,1.25vw,19px)/1.3 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE;margin-bottom:6px">Métricas isoladas enganam</h3><p style="font:500 14.5px/1.6 Inter,sans-serif;color:#F3F2EE;text-wrap:pretty">CPL barato não significa operação lucrativa. O lead pode ser barato e não qualificar, não responder, não comprar, gerar CAC ruim e destruir margem.</p></div><div class="tl-node"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="#F5C328" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5h18l-7 8.5V20l-4 2v-8.5L3 5Z"></path></svg></div></div>
 </div>
 </div>
-<div style="position:relative;margin-top:clamp(10px,1.6vw,22px);padding:clamp(16px,1.8vw,24px) 0;border-top:1px solid rgba(243,242,238,.07);border-bottom:1px solid rgba(243,242,238,.07)">
-<div style="display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:clamp(28px,4vw,64px)">
-<img src="assets/meta.png" alt="Meta" style="height:26px;width:auto;opacity:.85">
-<img src="assets/instagram.svg" alt="Instagram" style="height:26px;width:auto;opacity:.85">
-<img src="assets/whatsapp.png" alt="WhatsApp" style="height:26px;width:auto;opacity:.85">
-<img src="assets/google-ads.svg" alt="Google Ads" style="height:26px;width:auto;opacity:.85">
+<div class="wrap" style="padding:0 clamp(18px,5vw,72px);margin-top:clamp(28px,3.6vw,48px)">
+<div data-reveal style="display:flex;flex-direction:column;align-items:center;gap:16px;padding:clamp(20px,2.4vw,30px) 0;border-top:1px solid rgba(243,242,238,.07);border-bottom:1px solid rgba(243,242,238,.07)">
+<span style="font:700 11px/1 Inter,sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#A5A39A">Canais que entram no diagnóstico</span>
+<div class="channels-row" data-stagger>
+<span class="channel-chip"><img src="assets/meta.png" alt="">Meta Ads</span>
+<span class="channel-chip"><img src="assets/instagram.svg" alt="">Instagram</span>
+<span class="channel-chip"><img src="assets/whatsapp.png" alt="">WhatsApp</span>
+<span class="channel-chip"><img src="assets/google-ads.svg" alt="">Google Ads</span>
+</div>
 </div>
 </div>
 </section>
 
-<section style="position:relative;padding:clamp(56px,7.5vw,110px) 0;background:#16161A;overflow:hidden">
-<div style="position:absolute;top:10%;left:-6%;width:46%;height:70%;background:radial-gradient(circle,rgba(245,195,40,.04),transparent 70%);pointer-events:none"></div>
-<div data-reveal style="position:relative;padding:0 clamp(18px,5vw,72px);max-width:1240px;margin:0 auto clamp(30px,3.6vw,50px);text-align:center">
-<h2 class="sec-h2" style="color:#F3F2EE">Frases que você já deveria estar se fazendo</h2>
+<section class="sec-gold on-light" style="position:relative;padding:clamp(56px,7.5vw,110px) 0;overflow:hidden">
+<div data-reveal class="sec-head center" style="position:relative;padding:0 clamp(18px,5vw,72px);max-width:60ch;margin-bottom:clamp(30px,3.6vw,50px)">
+<h2 class="sec-h2" style="color:#141414">Frases que você já deveria estar se fazendo</h2>
 </div>
 <div style="position:relative;display:flex;flex-direction:column;gap:clamp(12px,1.4vw,18px)">
-<div style="position:absolute;inset:0;background:linear-gradient(90deg,#16161A 0%,transparent 10%,transparent 90%,#16161A 100%);z-index:2;pointer-events:none"></div>
-<div style="display:flex;width:max-content;animation:mqA 46s linear infinite">
+<div class="hook-fade"></div>
+<div class="marquee-pause" style="display:flex;width:max-content;animation:mqA 46s linear infinite">
 <div style="display:flex;gap:clamp(12px,1.4vw,18px);padding-right:clamp(12px,1.4vw,18px)">
-<p style="flex:none;padding:18px 26px;border-radius:16px;border:1px solid rgba(243,242,238,.12);background:rgba(243,242,238,.03);font:500 clamp(15px,1.3vw,20px)/1.3 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE">Seu problema pode não estar no tráfego.</p>
-<p style="flex:none;padding:18px 26px;border-radius:16px;border:1px solid rgba(243,242,238,.12);background:rgba(243,242,238,.03);font:500 clamp(15px,1.3vw,20px)/1.3 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE">Mais tráfego não corrige uma estrutura quebrada.</p>
-<p style="flex:none;padding:18px 26px;border-radius:16px;border:1px solid rgba(243,242,238,.12);background:rgba(243,242,238,.03);font:500 clamp(15px,1.3vw,20px)/1.3 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE">Você sabe onde sua empresa perde vendas depois que o lead chega?</p>
-<p style="flex:none;padding:18px 26px;border-radius:16px;border:1px solid rgba(243,242,238,.12);background:rgba(243,242,238,.03);font:500 clamp(15px,1.3vw,20px)/1.3 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE">Marketing gera lead. Mas quem garante que ele vira venda?</p>
-<p style="flex:none;padding:18px 26px;border-radius:16px;border:1px solid rgba(245,195,40,.28);background:linear-gradient(165deg,rgba(245,195,40,.08),rgba(243,242,238,.02));font:500 clamp(15px,1.3vw,20px)/1.3 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#FFD34F">Antes de escalar, descubra onde o dinheiro está vazando.</p>
+<p class="hook">Seu problema pode não estar no tráfego.</p>
+<p class="hook">Mais tráfego não corrige uma estrutura quebrada.</p>
+<p class="hook">Você sabe onde sua empresa perde vendas depois que o lead chega?</p>
+<p class="hook">Marketing gera lead. Mas quem garante que ele vira venda?</p>
+<p class="hook hook-hi">Antes de escalar, descubra onde o dinheiro está vazando.</p>
 </div>
 <div style="display:flex;gap:clamp(12px,1.4vw,18px);padding-right:clamp(12px,1.4vw,18px)">
-<p style="flex:none;padding:18px 26px;border-radius:16px;border:1px solid rgba(243,242,238,.12);background:rgba(243,242,238,.03);font:500 clamp(15px,1.3vw,20px)/1.3 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE">Seu problema pode não estar no tráfego.</p>
-<p style="flex:none;padding:18px 26px;border-radius:16px;border:1px solid rgba(243,242,238,.12);background:rgba(243,242,238,.03);font:500 clamp(15px,1.3vw,20px)/1.3 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE">Mais tráfego não corrige uma estrutura quebrada.</p>
-<p style="flex:none;padding:18px 26px;border-radius:16px;border:1px solid rgba(243,242,238,.12);background:rgba(243,242,238,.03);font:500 clamp(15px,1.3vw,20px)/1.3 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE">Você sabe onde sua empresa perde vendas depois que o lead chega?</p>
-<p style="flex:none;padding:18px 26px;border-radius:16px;border:1px solid rgba(243,242,238,.12);background:rgba(243,242,238,.03);font:500 clamp(15px,1.3vw,20px)/1.3 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE">Marketing gera lead. Mas quem garante que ele vira venda?</p>
-<p style="flex:none;padding:18px 26px;border-radius:16px;border:1px solid rgba(245,195,40,.28);background:linear-gradient(165deg,rgba(245,195,40,.08),rgba(243,242,238,.02));font:500 clamp(15px,1.3vw,20px)/1.3 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#FFD34F">Antes de escalar, descubra onde o dinheiro está vazando.</p>
+<p class="hook">Seu problema pode não estar no tráfego.</p>
+<p class="hook">Mais tráfego não corrige uma estrutura quebrada.</p>
+<p class="hook">Você sabe onde sua empresa perde vendas depois que o lead chega?</p>
+<p class="hook">Marketing gera lead. Mas quem garante que ele vira venda?</p>
+<p class="hook hook-hi">Antes de escalar, descubra onde o dinheiro está vazando.</p>
 </div>
 </div>
-<div style="display:flex;width:max-content;animation:mqB 52s linear infinite">
+<div class="marquee-pause" style="display:flex;width:max-content;animation:mqB 52s linear infinite">
 <div style="display:flex;gap:clamp(12px,1.4vw,18px);padding-right:clamp(12px,1.4vw,18px)">
-<p style="flex:none;padding:18px 26px;border-radius:16px;border:1px solid rgba(243,242,238,.12);background:rgba(243,242,238,.03);font:500 clamp(15px,1.3vw,20px)/1.3 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE">Seu CPL caiu. Mas sua empresa ganhou mais dinheiro?</p>
-<p style="flex:none;padding:18px 26px;border-radius:16px;border:1px solid rgba(245,195,40,.28);background:linear-gradient(165deg,rgba(245,195,40,.08),rgba(243,242,238,.02));font:500 clamp(15px,1.3vw,20px)/1.3 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#FFD34F">Marketing culpa vendas. Vendas culpa marketing. Quem está certo?</p>
-<p style="flex:none;padding:18px 26px;border-radius:16px;border:1px solid rgba(243,242,238,.12);background:rgba(243,242,238,.03);font:500 clamp(15px,1.3vw,20px)/1.3 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE">Você sabe quanto pode pagar para adquirir um cliente?</p>
-<p style="flex:none;padding:18px 26px;border-radius:16px;border:1px solid rgba(243,242,238,.12);background:rgba(243,242,238,.03);font:500 clamp(15px,1.3vw,20px)/1.3 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE">Pare de trocar campanha antes de descobrir o verdadeiro gargalo.</p>
-<p style="flex:none;padding:18px 26px;border-radius:16px;border:1px solid rgba(243,242,238,.12);background:rgba(243,242,238,.03);font:500 clamp(15px,1.3vw,20px)/1.3 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE">Antes de colocar mais dinheiro no tráfego, olhe para isso.</p>
+<p class="hook">Seu CPL caiu. Mas sua empresa ganhou mais dinheiro?</p>
+<p class="hook hook-hi">Marketing culpa vendas. Vendas culpa marketing. Quem está certo?</p>
+<p class="hook">Você sabe quanto pode pagar para adquirir um cliente?</p>
+<p class="hook">Pare de trocar campanha antes de descobrir o verdadeiro gargalo.</p>
+<p class="hook">Antes de colocar mais dinheiro no tráfego, olhe para isso.</p>
 </div>
 <div style="display:flex;gap:clamp(12px,1.4vw,18px);padding-right:clamp(12px,1.4vw,18px)">
-<p style="flex:none;padding:18px 26px;border-radius:16px;border:1px solid rgba(243,242,238,.12);background:rgba(243,242,238,.03);font:500 clamp(15px,1.3vw,20px)/1.3 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE">Seu CPL caiu. Mas sua empresa ganhou mais dinheiro?</p>
-<p style="flex:none;padding:18px 26px;border-radius:16px;border:1px solid rgba(245,195,40,.28);background:linear-gradient(165deg,rgba(245,195,40,.08),rgba(243,242,238,.02));font:500 clamp(15px,1.3vw,20px)/1.3 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#FFD34F">Marketing culpa vendas. Vendas culpa marketing. Quem está certo?</p>
-<p style="flex:none;padding:18px 26px;border-radius:16px;border:1px solid rgba(243,242,238,.12);background:rgba(243,242,238,.03);font:500 clamp(15px,1.3vw,20px)/1.3 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE">Você sabe quanto pode pagar para adquirir um cliente?</p>
-<p style="flex:none;padding:18px 26px;border-radius:16px;border:1px solid rgba(243,242,238,.12);background:rgba(243,242,238,.03);font:500 clamp(15px,1.3vw,20px)/1.3 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE">Pare de trocar campanha antes de descobrir o verdadeiro gargalo.</p>
-<p style="flex:none;padding:18px 26px;border-radius:16px;border:1px solid rgba(243,242,238,.12);background:rgba(243,242,238,.03);font:500 clamp(15px,1.3vw,20px)/1.3 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE">Antes de colocar mais dinheiro no tráfego, olhe para isso.</p>
+<p class="hook">Seu CPL caiu. Mas sua empresa ganhou mais dinheiro?</p>
+<p class="hook hook-hi">Marketing culpa vendas. Vendas culpa marketing. Quem está certo?</p>
+<p class="hook">Você sabe quanto pode pagar para adquirir um cliente?</p>
+<p class="hook">Pare de trocar campanha antes de descobrir o verdadeiro gargalo.</p>
+<p class="hook">Antes de colocar mais dinheiro no tráfego, olhe para isso.</p>
 </div>
 </div>
 </div>
 </section>
 
-<section style="position:relative;padding:clamp(64px,9vw,130px) clamp(18px,5vw,72px);background:#F3EDE2;color:#141414">
+<section class="sec-pad sec-light on-light" style="position:relative;background:var(--cream2)">
 <div style="max-width:1100px;margin:0 auto;display:flex;flex-direction:column;gap:clamp(28px,3.4vw,46px);align-items:center">
-<div data-reveal style="display:flex;flex-direction:column;gap:14px;align-items:center;text-align:center;max-width:60ch">
+<div data-reveal class="sec-head center" style="max-width:60ch">
 <h2 class="sec-h2" style="color:#141414">O tamanho exato da transformação que a imersão entrega hoje</h2>
-<p style="font:500 clamp(15px,1.15vw,18.5px)/1.6 Inter,sans-serif;color:#141414">Duas coisas diferentes, e é importante que fique claro qual delas está à venda nesta página.</p>
+<p class="sec-sub" style="text-align:center">Duas coisas diferentes, e é importante que fique claro qual delas está à venda nesta página.</p>
 </div>
-<div style="width:100%;background:rgba(20,20,20,.035);border:1px solid rgba(20,20,20,.08);border-radius:42px;padding:clamp(18px,2.2vw,30px);display:flex;justify-content:center">
-<article data-reveal style="position:relative;display:flex;flex-direction:column;width:100%;max-width:500px;padding:clamp(22px,5vw,40px);box-sizing:border-box;border-radius:28px;text-align:left;border:1px solid rgba(245,195,40,.28);background:radial-gradient(120% 90% at 24% 0%,rgba(245,195,40,.18),transparent 55%),linear-gradient(165deg,#1c1710 0%,#0a0a0c 78%);box-shadow:0 6px 0 rgba(0,0,0,.3),0 34px 64px -30px rgba(0,0,0,.85),inset 0 1px 0 rgba(255,255,255,.05);transition:transform .4s cubic-bezier(.16,1,.3,1),box-shadow .4s cubic-bezier(.16,1,.3,1)" style-hover="transform:translateY(-8px);box-shadow:0 6px 0 rgba(0,0,0,.3),0 44px 80px -26px rgba(0,0,0,.9),inset 0 1px 0 rgba(255,255,255,.08)">
+<div class="offer-frame">
+<article data-reveal class="offer-card spot">
 <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:clamp(18px,2.2vw,22px)">
 <span style="font:700 11px/1 Inter,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#B9B7AE">Imersão Estrutura 5A</span>
-<span style="flex:none;padding:7px 13px;border-radius:999px;background:linear-gradient(180deg,#FFEFC0,#F5C328 55%,#E0A80D);font:700 11px/1 Inter,sans-serif;letter-spacing:.1em;color:#141414;white-space:nowrap;box-shadow:0 6px 16px -6px rgba(245,195,40,.6)">À VENDA HOJE</span>
+<span class="offer-badge">À VENDA HOJE</span>
 </div>
 <p style="font:500 clamp(15px,1.2vw,17.5px)/1.5 Inter,sans-serif;color:#EDEBE2;text-wrap:pretty;margin-bottom:clamp(20px,2.6vw,26px)">Eu vou ensinar você a enxergar o sistema e identificar os principais gargalos.</p>
-<div style="display:flex;align-items:baseline;gap:8px;margin-bottom:clamp(20px,2.6vw,26px)">
-<span style="font:600 clamp(44px,7vw,58px)/1 'General Sans',Inter,system-ui;letter-spacing:-.03em;font-variant-numeric:tabular-nums;color:#F3F2EE">R$ <span data-count="27">27</span></span>
+<div style="display:flex;align-items:baseline;gap:10px;margin-bottom:clamp(20px,2.6vw,26px)">
+<span style="font:600 clamp(48px,7vw,64px)/1 'General Sans',Inter,system-ui;letter-spacing:-.03em;font-variant-numeric:tabular-nums;background:linear-gradient(180deg,#FFF3C9,#F5C328 55%,#D9A012);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">R$ <span data-count="27">27</span></span>
 <span style="font:500 14.5px/1 Inter,sans-serif;color:#A5A39A">pagamento único</span>
 </div>
-<div style="height:1px;background:rgba(243,242,238,.12);margin-bottom:clamp(20px,2.6vw,26px)"></div>
-<div style="display:flex;flex-direction:column;gap:clamp(13px,1.6vw,16px);margin-bottom:clamp(24px,3vw,30px)">
-<span style="display:flex;align-items:flex-start;gap:11px;font:500 14px/1.45 Inter,sans-serif;color:#EDEBE2"><span style="flex:none;width:20px;height:20px;border-radius:50%;margin-top:1px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#F5C328,#C9930F);box-shadow:0 4px 10px -4px rgba(245,195,40,.55)"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="#121215" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"></circle><path d="M12 7.5v5l3.3 1.9"></path></svg></span>4 horas ao vivo, com você fazendo perguntas</span>
-<span style="display:flex;align-items:flex-start;gap:11px;font:500 14px/1.45 Inter,sans-serif;color:#EDEBE2"><span style="flex:none;width:20px;height:20px;border-radius:50%;margin-top:1px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#F5C328,#C9930F);box-shadow:0 4px 10px -4px rgba(245,195,40,.55)"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="#121215" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4v-4h4v-4h4v-4h4"></path></svg></span>As 10 etapas do diagnóstico, do negócio até a margem</span>
-<span style="display:flex;align-items:flex-start;gap:11px;font:500 14px/1.45 Inter,sans-serif;color:#EDEBE2"><span style="flex:none;width:20px;height:20px;border-radius:50%;margin-top:1px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#F5C328,#C9930F);box-shadow:0 4px 10px -4px rgba(245,195,40,.55)"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="#121215" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V9M9 19V5M14 19v-7M19 19v-3"></path></svg></span>Como ler seus números sem se enganar com CPL</span>
-<span style="display:flex;align-items:flex-start;gap:11px;font:500 14px/1.45 Inter,sans-serif;color:#EDEBE2"><span style="flex:none;width:20px;height:20px;border-radius:50%;margin-top:1px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#F5C328,#C9930F);box-shadow:0 4px 10px -4px rgba(245,195,40,.55)"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="#121215" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"></circle><circle cx="12" cy="12" r="4.5"></circle><circle cx="12" cy="12" r="1" fill="#121215" stroke="none"></circle></svg></span>Identificação do verdadeiro gargalo da operação</span>
-<span style="display:flex;align-items:flex-start;gap:11px;font:500 14px/1.45 Inter,sans-serif;color:#EDEBE2"><span style="flex:none;width:20px;height:20px;border-radius:50%;margin-top:1px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#F5C328,#C9930F);box-shadow:0 4px 10px -4px rgba(245,195,40,.55)"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="#121215" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="16" rx="2"></rect><path d="M8 3v4M16 3v4M3.5 10h17"></path></svg></span>Vaga para a turma de 10 de outubro</span>
+<div style="height:1px;background:linear-gradient(90deg,rgba(245,195,40,.4),rgba(243,242,238,.08));margin-bottom:clamp(10px,1.4vw,14px)"></div>
+<div data-stagger style="display:flex;flex-direction:column;margin-bottom:clamp(24px,3vw,30px)">
+<span class="chk"><span class="chk-ic"><svg viewBox="0 0 24 24" fill="none" stroke="#121215" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg></span>4 horas ao vivo, com você fazendo perguntas</span>
+<span class="chk"><span class="chk-ic"><svg viewBox="0 0 24 24" fill="none" stroke="#121215" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg></span>As 10 etapas do diagnóstico, do negócio até a margem</span>
+<span class="chk"><span class="chk-ic"><svg viewBox="0 0 24 24" fill="none" stroke="#121215" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg></span>Como ler seus números sem se enganar com CPL</span>
+<span class="chk"><span class="chk-ic"><svg viewBox="0 0 24 24" fill="none" stroke="#121215" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg></span>Identificação do verdadeiro gargalo da operação</span>
+<span class="chk"><span class="chk-ic"><svg viewBox="0 0 24 24" fill="none" stroke="#121215" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg></span>Vaga para a turma de 10 de outubro</span>
 </div>
-<a href="#inscricao" class="btn-chique" style="width:100%;box-sizing:border-box;display:inline-flex;align-items:center;justify-content:center;gap:clamp(6px,2vw,10px);padding:clamp(16px,4vw,20px) clamp(10px,3vw,30px);border-radius:16px;background:linear-gradient(135deg,#F5C328 0%,#C9930F 100%);color:#121215;font:700 clamp(12.5px,3.9vw,16.5px)/1.2 'General Sans',Inter,system-ui;letter-spacing:-.01em;white-space:nowrap;box-shadow:0 16px 38px -10px rgba(245,195,40,.55),inset 0 1px 0 rgba(255,255,255,.3)" style-hover="color:#121215;box-shadow:0 20px 46px -10px rgba(245,195,40,.7),inset 0 1px 0 rgba(255,255,255,.35)">Garantir agora minha vaga <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="#121215" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><path d="M4 8.3c0-1.2.9-2.1 2.1-2.1h11.8c1.2 0 2.1.9 2.1 2.1v2c-.9 0-1.6.7-1.6 1.7s.7 1.7 1.6 1.7v2c0 1.2-.9 2.1-2.1 2.1H6.1C4.9 17.8 4 16.9 4 15.7v-2c.9 0 1.6-.7 1.6-1.7S4.9 10.3 4 10.3v-2Z"></path><path d="M10.4 6.4v11.2" stroke-dasharray="1.8 1.8"></path></svg></a>
+<a href="#inscricao" class="btn-v2 btn-gold btn-pulse" style="width:100%">Garantir agora minha vaga <span class="btn-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></a>
+<p style="margin-top:14px;text-align:center;font:500 12.5px/1.5 Inter,sans-serif;color:#A5A39A">Acesso enviado por e-mail após a confirmação · Pagamento seguro</p>
 </article>
 </div>
+<div data-reveal class="offer-note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 8h.01M11 12h1v4h1"></path></svg><span>A <strong>Mentoria 5A</strong> é o próximo passo para quem quiser acompanhamento na aplicação. Ela não está à venda nesta página e não é pré-requisito para nada.</span></div>
 </div>
 </section>
 
-<section style="position:relative;padding:clamp(56px,8vw,110px) clamp(18px,5vw,72px);background:#16161A">
-<div style="max-width:900px;margin:0 auto;display:flex;flex-direction:column;gap:clamp(22px,2.6vw,34px)">
-<div data-reveal style="display:flex;flex-direction:column;gap:12px;align-items:center;text-align:center">
+<section class="sec-pad sec-dark sec-glow-top" style="position:relative;overflow:hidden">
+<div class="orb" style="bottom:-20%;right:-10%;width:46%;height:60%;background:radial-gradient(circle,rgba(245,195,40,.07),transparent 70%)"></div>
+<div style="position:relative;max-width:900px;margin:0 auto;display:flex;flex-direction:column;gap:clamp(22px,2.6vw,34px)">
+<div data-reveal class="sec-head center">
 <h2 class="sec-h2" style="color:#F3F2EE">Antes de você perguntar</h2>
 </div>
-<div data-reveal style="display:flex;flex-direction:column;gap:10px">
+<div data-stagger style="display:flex;flex-direction:column;gap:10px">
 <sc-for list="{{ faqs }}" as="f" hint-placeholder-count="5">
-<div style="border-radius:32px;border:1px solid rgba(20,20,20,.1);background:#F3EDE2;overflow:hidden;transition:border-color .3s cubic-bezier(.22,.9,.3,1)" style-hover="border-color:rgba(184,131,10,.45)">
-<div onClick="{{ f.toggle }}" style="display:flex;align-items:center;justify-content:space-between;gap:16px;padding:clamp(16px,1.7vw,22px) clamp(18px,2vw,26px);cursor:pointer;user-select:none">
-<span style="font:500 clamp(14.5px,1.15vw,17px)/1.36 'General Sans',Inter,system-ui;letter-spacing:-.014em;color:#141414">{{ f.q }}</span>
-<span style="flex:none;display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:999px;border:1px solid rgba(245,195,40,.5);background:radial-gradient(circle at 50% 20%,#332c1c 0%,#171510 58%,#0a0a0c 100%);box-shadow:inset 0 2px 2px rgba(255,239,192,.45),inset 0 -5px 10px -4px rgba(245,195,40,.5),0 6px 14px -5px rgba(0,0,0,.35);font:600 16px/1 Inter,sans-serif;color:#F5C328;transition:transform .34s cubic-bezier(.22,.9,.3,1);transform:rotate({{ f.rot }})">+</span>
+<div class="faq-item {{ f.cls }}">
+<div onClick="{{ f.toggle }}" class="faq-q">
+<span>{{ f.q }}</span>
+<span class="faq-plus" style="transform:rotate({{ f.rot }})">+</span>
 </div>
-<div style="overflow:hidden;transition:max-height .42s cubic-bezier(.22,.9,.3,1),opacity .34s ease;max-height:{{ f.max }};opacity:{{ f.op }}">
-<p style="padding:0 clamp(18px,2vw,26px) clamp(18px,2vw,24px);font:500 15px/1.65 Inter,sans-serif;color:#141414;max-width:70ch;border-top:1px solid rgba(20,20,20,.08);padding-top:14px;margin-top:2px">{{ f.a }}</p>
+<div class="faq-a" style="max-height:{{ f.max }};opacity:{{ f.op }}">
+<p>{{ f.a }}</p>
 </div>
 </div>
 </sc-for>
@@ -492,102 +763,108 @@ a:hover{color:#FFD34F}
 </div>
 </section>
 
-<section style="position:relative;padding:clamp(64px,9vw,120px) clamp(18px,5vw,72px);background:#F3EDE2">
-<div style="max-width:1240px;margin:0 auto;display:flex;flex-direction:column;gap:clamp(30px,4vw,54px)">
-<div data-reveal style="display:flex;flex-direction:column;gap:12px;align-items:center;text-align:center">
+<section class="sec-pad sec-light on-light" style="position:relative">
+<div class="wrap" style="display:flex;flex-direction:column;gap:clamp(30px,4vw,54px)">
+<div data-reveal class="sec-head center">
 <h2 class="sec-h2" style="color:#141414">Os quatro números que importam</h2>
 </div>
-<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr));gap:clamp(18px,2.4vw,32px)">
-<div data-reveal style="display:flex;flex-direction:column;align-items:center;gap:16px;text-align:center">
+<div class="num-grid" data-stagger>
+<div class="num-card spot">
 <div style="position:relative;width:clamp(74px,7vw,94px);height:clamp(74px,7vw,94px);display:flex;align-items:center;justify-content:center">
-<div style="position:absolute;inset:-18%;border-radius:50%;background:radial-gradient(circle,rgba(245,195,40,.22) 0%,rgba(245,195,40,.06) 50%,rgba(245,195,40,0) 75%);filter:blur(10px)"></div>
+<div style="position:absolute;inset:-18%;border-radius:50%;background:radial-gradient(circle,rgba(245,195,40,.26) 0%,rgba(245,195,40,.06) 50%,rgba(245,195,40,0) 75%);filter:blur(10px)"></div>
 <div style="position:relative;width:100%;height:100%;border-radius:50%;border:1px solid rgba(245,195,40,.55);background:radial-gradient(circle at 50% 18%,#242219,#0c0c0e 78%);display:flex;align-items:center;justify-content:center;box-shadow:inset 0 1.5px 1.5px rgba(255,239,192,.34),inset 0 -6px 12px -8px rgba(245,195,40,.5),0 6px 18px -8px rgba(0,0,0,.9)"><div style="position:absolute;left:18%;right:18%;top:8%;height:30%;border-radius:50%;background:linear-gradient(180deg,rgba(255,239,192,.34),rgba(255,239,192,0));pointer-events:none"></div>
 <svg viewBox="0 0 24 24" width="34%" height="34%" fill="none" stroke="#F5C328" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"></rect><path d="M16 2v4M8 2v4M3 10h18"></path></svg>
 </div>
 </div>
-<div style="display:flex;flex-direction:column;gap:5px">
-<span style="font:600 clamp(19px,1.8vw,26px)/1.1 'General Sans',Inter,system-ui;letter-spacing:-.026em;color:#141414;font-variant-numeric:tabular-nums"><span data-count="10">10</span> de outubro</span>
-<span style="font:500 12px/1 Inter,sans-serif;letter-spacing:.16em;color:rgba(20,20,20,.55)">DATA</span>
+<div style="display:flex;flex-direction:column;gap:6px">
+<span class="num-val"><span data-count="10">10</span> de outubro</span>
+<span class="num-lab">DATA</span>
 </div>
 </div>
-<div data-reveal style="display:flex;flex-direction:column;align-items:center;gap:16px;text-align:center">
+<div class="num-card spot">
 <div style="position:relative;width:clamp(74px,7vw,94px);height:clamp(74px,7vw,94px);display:flex;align-items:center;justify-content:center">
-<div style="position:absolute;inset:-18%;border-radius:50%;background:radial-gradient(circle,rgba(245,195,40,.22) 0%,rgba(245,195,40,.06) 50%,rgba(245,195,40,0) 75%);filter:blur(10px)"></div>
+<div style="position:absolute;inset:-18%;border-radius:50%;background:radial-gradient(circle,rgba(245,195,40,.26) 0%,rgba(245,195,40,.06) 50%,rgba(245,195,40,0) 75%);filter:blur(10px)"></div>
 <div style="position:relative;width:100%;height:100%;border-radius:50%;border:1px solid rgba(245,195,40,.55);background:radial-gradient(circle at 50% 18%,#242219,#0c0c0e 78%);display:flex;align-items:center;justify-content:center;box-shadow:inset 0 1.5px 1.5px rgba(255,239,192,.34),inset 0 -6px 12px -8px rgba(245,195,40,.5),0 6px 18px -8px rgba(0,0,0,.9)"><div style="position:absolute;left:18%;right:18%;top:8%;height:30%;border-radius:50%;background:linear-gradient(180deg,rgba(255,239,192,.34),rgba(255,239,192,0));pointer-events:none"></div>
 <svg viewBox="0 0 24 24" width="34%" height="34%" fill="none" stroke="#F5C328" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 8-6 4 6 4V8Z"></path><rect x="2" y="6" width="14" height="12" rx="2" ry="2"></rect></svg>
 </div>
 </div>
-<div style="display:flex;flex-direction:column;gap:5px">
-<span style="font:600 clamp(19px,1.8vw,26px)/1.1 'General Sans',Inter,system-ui;letter-spacing:-.026em;color:#141414">Online e ao vivo</span>
-<span style="font:500 12px/1 Inter,sans-serif;letter-spacing:.16em;color:rgba(20,20,20,.55)">FORMATO</span>
+<div style="display:flex;flex-direction:column;gap:6px">
+<span class="num-val">Online e ao vivo</span>
+<span class="num-lab">FORMATO</span>
 </div>
 </div>
-<div data-reveal style="display:flex;flex-direction:column;align-items:center;gap:16px;text-align:center">
+<div class="num-card spot">
 <div style="position:relative;width:clamp(74px,7vw,94px);height:clamp(74px,7vw,94px);display:flex;align-items:center;justify-content:center">
-<div style="position:absolute;inset:-18%;border-radius:50%;background:radial-gradient(circle,rgba(245,195,40,.22) 0%,rgba(245,195,40,.06) 50%,rgba(245,195,40,0) 75%);filter:blur(10px)"></div>
+<div style="position:absolute;inset:-18%;border-radius:50%;background:radial-gradient(circle,rgba(245,195,40,.26) 0%,rgba(245,195,40,.06) 50%,rgba(245,195,40,0) 75%);filter:blur(10px)"></div>
 <div style="position:relative;width:100%;height:100%;border-radius:50%;border:1px solid rgba(245,195,40,.55);background:radial-gradient(circle at 50% 18%,#242219,#0c0c0e 78%);display:flex;align-items:center;justify-content:center;box-shadow:inset 0 1.5px 1.5px rgba(255,239,192,.34),inset 0 -6px 12px -8px rgba(245,195,40,.5),0 6px 18px -8px rgba(0,0,0,.9)"><div style="position:absolute;left:18%;right:18%;top:8%;height:30%;border-radius:50%;background:linear-gradient(180deg,rgba(255,239,192,.34),rgba(255,239,192,0));pointer-events:none"></div>
 <svg viewBox="0 0 24 24" width="34%" height="34%" fill="none" stroke="#F5C328" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3.5 2"></path></svg>
 </div>
 </div>
-<div style="display:flex;flex-direction:column;gap:5px">
-<span style="font:600 clamp(19px,1.8vw,26px)/1.1 'General Sans',Inter,system-ui;letter-spacing:-.026em;color:#141414;font-variant-numeric:tabular-nums"><span data-count="4">4</span> horas</span>
-<span style="font:500 12px/1 Inter,sans-serif;letter-spacing:.16em;color:rgba(20,20,20,.55)">DURAÇÃO</span>
+<div style="display:flex;flex-direction:column;gap:6px">
+<span class="num-val"><span data-count="4">4</span> horas</span>
+<span class="num-lab">DURAÇÃO</span>
 </div>
 </div>
-<div data-reveal style="display:flex;flex-direction:column;align-items:center;gap:16px;text-align:center">
+<div class="num-card hi spot">
 <div style="position:relative;width:clamp(74px,7vw,94px);height:clamp(74px,7vw,94px);display:flex;align-items:center;justify-content:center">
-<div style="position:absolute;inset:-18%;border-radius:50%;background:radial-gradient(circle,rgba(245,195,40,.38) 0%,rgba(245,195,40,.1) 50%,rgba(245,195,40,0) 75%);filter:blur(10px)"></div>
+<div style="position:absolute;inset:-18%;border-radius:50%;background:radial-gradient(circle,rgba(245,195,40,.42) 0%,rgba(245,195,40,.1) 50%,rgba(245,195,40,0) 75%);filter:blur(10px)"></div>
 <div style="position:relative;width:100%;height:100%;border-radius:50%;border:1px solid rgba(245,195,40,.8);background:radial-gradient(circle at 50% 18%,#302a1a,#0c0c0e 78%);display:flex;align-items:center;justify-content:center;box-shadow:inset 0 1.5px 1.5px rgba(255,239,192,.5),inset 0 -6px 12px -8px rgba(245,195,40,.6),0 0 30px -6px rgba(245,195,40,.55)"><div style="position:absolute;left:18%;right:18%;top:8%;height:30%;border-radius:50%;background:linear-gradient(180deg,rgba(255,239,192,.45),rgba(255,239,192,0));pointer-events:none"></div>
 <svg viewBox="0 0 24 24" width="34%" height="34%" fill="none" stroke="#FFD34F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
 </div>
 </div>
-<div style="display:flex;flex-direction:column;gap:5px">
-<span style="font:700 clamp(19px,1.8vw,26px)/1.1 'General Sans',Inter,system-ui;letter-spacing:-.026em;font-variant-numeric:tabular-nums;color:#8A5C06">R$ <span data-count="27">27</span></span>
-<span style="font:500 12px/1 Inter,sans-serif;letter-spacing:.16em;color:rgba(20,20,20,.55)">INVESTIMENTO</span>
+<div style="display:flex;flex-direction:column;gap:6px">
+<span class="num-val" style="font-weight:700;color:#8A5C06">R$ <span data-count="27">27</span></span>
+<span class="num-lab">INVESTIMENTO</span>
 </div>
 </div>
 </div>
 </div>
 </section>
 
-<section id="inscricao" style="position:relative;padding:clamp(80px,11vw,150px) clamp(18px,5vw,72px);background:#0A0A0C">
-<div style="max-width:820px;margin:0 auto;display:flex;flex-direction:column;align-items:center;text-align:center;gap:clamp(20px,2.6vw,32px)">
-<h2 data-reveal class="sec-h2" style="color:#F3F2EE">Descubra onde sua empresa está perdendo vendas, antes de gastar mais um real em tráfego.</h2>
-<div data-reveal style="display:flex;flex-wrap:wrap;justify-content:center;gap:8px">
-<span class="gh-pill" style="font:500 12.5px/1 Inter,sans-serif;color:#D9D7CE">10 de outubro</span>
-<span class="gh-pill" style="font:500 12.5px/1 Inter,sans-serif;color:#D9D7CE">Online e ao vivo</span>
-<span class="gh-pill" style="font:500 12.5px/1 Inter,sans-serif;color:#D9D7CE">4 horas</span>
-<span style="padding:8px 15px;border-radius:999px;border:1px solid rgba(245,195,40,.45);font:700 12.5px/1 Inter,sans-serif;font-variant-numeric:tabular-nums;color:#FFD34F">R$ 27</span>
+<section id="inscricao" style="position:relative;padding:clamp(88px,12vw,160px) clamp(18px,5vw,72px);background:#0A0A0C;overflow:hidden">
+<div class="cta-orb"></div>
+<div class="cta-ring"></div><div class="cta-ring r2"></div><div class="cta-ring r3"></div>
+<div style="position:relative;max-width:860px;margin:0 auto;display:flex;flex-direction:column;align-items:center;text-align:center;gap:clamp(20px,2.6vw,30px)">
+<h2 data-reveal class="sec-h2" style="color:#F3F2EE">Descubra onde sua empresa está perdendo vendas, <span style="background:linear-gradient(180deg,#FFEFC0,#F5C328 55%,#B8830A);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">antes de gastar mais um real</span> em tráfego.</h2>
+<div data-stagger style="display:flex;flex-wrap:wrap;justify-content:center;gap:8px">
+<span class="cta-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"></rect><path d="M16 2v4M8 2v4M3 10h18"></path></svg>10 de outubro</span>
+<span class="cta-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 8-6 4 6 4V8Z"></path><rect x="2" y="6" width="14" height="12" rx="2"></rect></svg>Online e ao vivo</span>
+<span class="cta-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3.5 2"></path></svg>4 horas</span>
+<span class="cta-chip gold">R$ 27</span>
 </div>
-<a data-reveal href="#inscricao" class="btn-chique" style="display:inline-flex;align-items:center;justify-content:center;gap:clamp(8px,2vw,12px);padding:clamp(16px,4vw,22px) clamp(20px,6vw,40px);border-radius:13px;background:linear-gradient(135deg,#F5C328 0%,#C9930F 100%);color:#0A0A0C;font:600 clamp(14px,4.2vw,18px)/1 'General Sans',Inter,system-ui;letter-spacing:-.015em;white-space:nowrap;box-shadow:0 16px 42px -10px rgba(245,195,40,.6),inset 0 1px 0 rgba(255,255,255,.3)" style-hover="color:#0A0A0C;box-shadow:0 22px 54px -10px rgba(245,195,40,.75),inset 0 1px 0 rgba(255,255,255,.35)">Quero garantir minha vaga <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="#0A0A0C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><path d="M4 8.3c0-1.2.9-2.1 2.1-2.1h11.8c1.2 0 2.1.9 2.1 2.1v2c-.9 0-1.6.7-1.6 1.7s.7 1.7 1.6 1.7v2c0 1.2-.9 2.1-2.1 2.1H6.1C4.9 17.8 4 16.9 4 15.7v-2c.9 0 1.6-.7 1.6-1.7S4.9 10.3 4 10.3v-2Z"></path><path d="M10.4 6.4v11.2" stroke-dasharray="1.8 1.8"></path></svg></a>
-<p data-reveal style="font:500 13.5px/1.6 Inter,sans-serif;color:#EDEBE2;max-width:44ch">Vagas limitadas para manter a imersão aberta a perguntas. Após a confirmação, você recebe o acesso no e-mail cadastrado.</p>
+<a data-reveal href="#inscricao" class="btn-v2 btn-gold btn-lg btn-pulse btn-block-m">Quero garantir minha vaga <span class="btn-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></a>
+<p data-reveal style="font:500 13.5px/1.6 Inter,sans-serif;color:#C9C7BE;max-width:46ch">Vagas limitadas para manter a imersão aberta a perguntas. Após a confirmação, você recebe o acesso no e-mail cadastrado.</p>
 </div>
 </section>
 
-<footer style="position:relative;padding:clamp(40px,5vw,64px) clamp(18px,5vw,72px) clamp(90px,10vw,120px);background:#08080A;border-top:1px solid rgba(243,242,238,.07)">
+<footer style="position:relative;padding:clamp(40px,5vw,64px) clamp(18px,5vw,72px) clamp(96px,10vw,124px);background:#07070A;border-top:1px solid rgba(243,242,238,.07)">
 <div data-mobile-footer style="max-width:1240px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:24px">
 <div data-mobile-center style="display:flex;align-items:center;gap:14px">
-<img src="assets/logo-2h.png" alt="Grupo 2!H" style="height:36px;width:auto;display:block;opacity:.9">
-<div style="display:flex;flex-direction:column;gap:4px">
-<span style="font:600 12px/1 Inter,sans-serif;letter-spacing:.18em;color:#D3D1C8">GRUPO 2!H</span>
-<a href="mailto:contato@grupo2h.com.br" style="font:400 12.5px/1 Inter,sans-serif;color:#C7C5BC" style-hover="color:#F5C328">contato@grupo2h.com.br</a>
+<img src="assets/logo-2h.png" alt="Grupo 2!H" style="height:38px;width:auto;display:block;opacity:.95">
+<div style="display:flex;flex-direction:column;gap:5px">
+<span style="font:700 12px/1 Inter,sans-serif;letter-spacing:.18em;color:#D3D1C8">GRUPO 2!H</span>
+<a href="mailto:contato@grupo2h.com.br" class="foot-link">contato@grupo2h.com.br</a>
 </div>
+</div>
+<div data-mobile-row-center style="display:flex;flex-wrap:wrap;align-items:center;gap:18px">
+<a href="#diagnostico" class="foot-link">O diagnóstico</a>
+<a href="#inscricao" class="foot-link">Inscrição</a>
 </div>
 <div style="display:flex;align-items:center;gap:12px">
-<a href="#inscricao" aria-label="Instagram" style="display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:999px;border:1px solid rgba(245,195,40,.3);background:radial-gradient(circle at 50% 20%,#2a2418 0%,#141310 58%,#0a0a0c 100%);box-shadow:inset 0 1.5px 1.5px rgba(255,239,192,.35),inset 0 -4px 8px -4px rgba(245,195,40,.4),0 6px 14px -6px rgba(0,0,0,.65);transition:border-color .3s,transform .3s cubic-bezier(.22,.9,.3,1),box-shadow .3s" style-hover="border-color:rgba(245,195,40,.7);transform:translateY(-2px)"><img src="assets/instagram.svg" alt="" style="width:18px;height:18px"></a>
-<a href="#inscricao" aria-label="WhatsApp" style="display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:999px;border:1px solid rgba(245,195,40,.3);background:radial-gradient(circle at 50% 20%,#2a2418 0%,#141310 58%,#0a0a0c 100%);box-shadow:inset 0 1.5px 1.5px rgba(255,239,192,.35),inset 0 -4px 8px -4px rgba(245,195,40,.4),0 6px 14px -6px rgba(0,0,0,.65);transition:border-color .3s,transform .3s cubic-bezier(.22,.9,.3,1),box-shadow .3s" style-hover="border-color:rgba(245,195,40,.7);transform:translateY(-2px)"><img src="assets/whatsapp.png" alt="" style="width:18px;height:18px"></a>
+<a href="#inscricao" aria-label="Instagram" class="soc"><img src="assets/instagram.svg" alt=""></a>
+<a href="#inscricao" aria-label="WhatsApp" class="soc"><img src="assets/whatsapp.png" alt=""></a>
 </div>
-<span style="font:400 11.5px/1.5 Inter,sans-serif;color:#B9B7AE">© 2026 Grupo 2!H · Imersão Estrutura 5A</span>
+<span style="font:400 11.5px/1.5 Inter,sans-serif;color:#9d9b92">© 2026 Grupo 2!H · Imersão Estrutura 5A</span>
 </div>
 </footer>
 
-<div ref="{{ barRef }}" style="position:fixed;left:0;bottom:0;width:100%;z-index:40;padding:10px clamp(12px,3vw,26px) max(10px,env(safe-area-inset-bottom));background:linear-gradient(160deg,rgba(40,35,24,.45) 0%,rgba(10,10,12,.45) 100%);backdrop-filter:blur(20px) saturate(160%);-webkit-backdrop-filter:blur(20px) saturate(160%);border-top:1px solid rgba(245,195,40,.22);box-shadow:0 -10px 30px -14px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.07);transform:translateY(115%);transition:transform .5s cubic-bezier(.22,.9,.3,1);pointer-events:none">
+<div ref="{{ barRef }}" class="sticky-bar">
 <div style="max-width:1240px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:14px">
 <div style="display:flex;flex-direction:column;gap:3px;min-width:0">
-<span style="font:500 12px/1.2 Inter,sans-serif;color:#F3F2EE;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Imersão Estrutura 5A · 10 de outubro</span>
-<span style="font:400 11px/1.2 Inter,sans-serif;color:#A5A39A;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Online e ao vivo · 4 horas · <span style="color:#FFD34F;font-weight:700">R$ 27</span></span>
+<span style="font:600 12.5px/1.2 Inter,sans-serif;color:#F3F2EE;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Imersão Estrutura 5A · 10 de outubro</span>
+<span style="font:400 11.5px/1.2 Inter,sans-serif;color:#B9B7AE;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Online e ao vivo · 4 horas · <span style="color:#FFD34F;font-weight:800">R$ 27</span></span>
 </div>
-<a href="#inscricao" class="btn-chique" style="flex:0 0 auto;white-space:nowrap;display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:14px clamp(16px,2.2vw,30px);border-radius:12px;background:linear-gradient(135deg,#F5C328 0%,#C9930F 100%);color:#121215;font:600 13.5px/1 'General Sans',Inter,system-ui;box-shadow:0 10px 26px -8px rgba(245,195,40,.45),inset 0 1px 0 rgba(255,255,255,.3)" style-hover="color:#121215;box-shadow:0 14px 32px -8px rgba(245,195,40,.6),inset 0 1px 0 rgba(255,255,255,.35)">Garantir vaga <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#121215" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><path d="M4 8.3c0-1.2.9-2.1 2.1-2.1h11.8c1.2 0 2.1.9 2.1 2.1v2c-.9 0-1.6.7-1.6 1.7s.7 1.7 1.6 1.7v2c0 1.2-.9 2.1-2.1 2.1H6.1C4.9 17.8 4 16.9 4 15.7v-2c.9 0 1.6-.7 1.6-1.7S4.9 10.3 4 10.3v-2Z"></path><path d="M10.4 6.4v11.2" stroke-dasharray="1.8 1.8"></path></svg></a>
+<a href="#inscricao" class="btn-v2 btn-gold btn-sm" style="flex:0 0 auto">Garantir vaga <span class="btn-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></a>
 </div>
 </div>
 
@@ -603,8 +880,10 @@ const FAQ = [
   { q: "Vai ter venda de outra coisa no final?", a: "A imersão entrega o diagnóstico por si só. A Mentoria 5A existe como próximo passo para quem quiser acompanhamento na aplicação, mas não é o motivo da imersão nem pré-requisito para nada." }
 ];
 
+const EASE = "cubic-bezier(.22,.9,.3,1)";
+const REDUCED = window.matchMedia && window.matchMedia("(prefers-reduced-motion:reduce)").matches;
 
-/* ---- Linha do tempo iluminada no scroll ---- */
+/* ---- Linha do tempo iluminada no scroll (secao "Seis angulos") ---- */
 function initTimeline() {
   var tl = document.querySelector("[data-timeline]");
   var fill = document.querySelector("[data-tl-fill]");
@@ -636,36 +915,53 @@ function initTimeline() {
   onScroll();
 }
 
+/* ---- Esteira de 10 etapas: acende em sequencia quando entra na tela ---- */
+/* ---- Holofote que segue o mouse nos cards (.spot) ---- */
+function initSpotlight() {
+  if (!window.matchMedia("(hover:hover) and (pointer:fine)").matches) return;
+  document.addEventListener("mousemove", function (e) {
+    var t = e.target && e.target.closest ? e.target.closest(".spot") : null;
+    if (!t) return;
+    var r = t.getBoundingClientRect();
+    t.style.setProperty("--mx", (e.clientX - r.left) + "px");
+    t.style.setProperty("--my", (e.clientY - r.top) + "px");
+  }, { passive: true });
+}
+
 class Component extends DCLogic {
   state = { faq: 0 };
   heroRef = React.createRef();
-  photoRef = React.createRef();
   stageRef = React.createRef();
   glowRef = React.createRef();
   svgGlowRef = React.createRef();
   flashRef = React.createRef();
   barRef = React.createRef();
   capsuleTextRef = React.createRef();
+  capsuleBarRef = React.createRef();
 
   componentDidMount() {
-    this._ease = "cubic-bezier(.22,.9,.3,1)";
+    this._ease = EASE;
+    this.setState({ faq: 0 });
     this.setupReveal();
     this.setupFunnel();
-    this.setupBar();
     this.setupCapsule();
     this.setupCursor();
+    this.setupStack();
+    this.setupRail();
     initTimeline();
+    initSpotlight();
+    this._hero = this.heroRef.current;
+    this._heroBg = document.querySelector(".hero-creative-bg");
     this._onScroll = () => {
       if (this._rafScroll) return;
       this._rafScroll = requestAnimationFrame(() => { this._rafScroll = 0; this.onScroll(); });
     };
     this._onResize = () => {
       clearTimeout(this._rt);
-      this._rt = setTimeout(() => { this.fitHero(); this._remeasure && this._remeasure(); this.onScroll(); }, 160);
+      this._rt = setTimeout(() => { this._remeasure && this._remeasure(); this.onScroll(); }, 160);
     };
     window.addEventListener("scroll", this._onScroll, { passive: true });
     window.addEventListener("resize", this._onResize);
-    this.fitHero();
     this.onScroll();
   }
 
@@ -675,39 +971,39 @@ class Component extends DCLogic {
     cancelAnimationFrame(this._raf);
     this._io && this._io.disconnect();
     clearInterval(this._capsuleTimer);
-    cancelAnimationFrame(this._cursorRaf);
-    this._cursorDot && this._cursorDot.remove();
-    this._cursorRing && this._cursorRing.remove();
+    this._cursorArrow && this._cursorArrow.remove();
   }
 
   /* ---------- capsula central fixa: alterna as informacoes-chave ---------- */
   setupCapsule() {
     const el = this.capsuleTextRef.current;
     if (!el) return;
+    const ic = d => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">' + d + "</svg>";
     const items = [
-      { icon: '<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="#F5C328" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3.5 2"></path></svg>', text: "4 horas" },
-      { icon: '<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="#F5C328" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"></rect><path d="M16 2v4M8 2v4M3 10h18"></path></svg>', text: "10 de outubro" },
-      { icon: '<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="#F5C328" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 8-6 4 6 4V8Z"></path><rect x="2" y="6" width="14" height="12" rx="2" ry="2"></rect></svg>', text: "Online e ao vivo" },
-      { icon: '<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="#FFD34F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>', text: "Apenas R$ 27", gold: true },
-      { icon: '<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="#F5C328" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>', text: "Vagas limitadas" }
+      { icon: ic('<circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3.5 2"></path>'), text: "4 horas direto ao ponto" },
+      { icon: ic('<rect x="3" y="4" width="18" height="18" rx="2"></rect><path d="M16 2v4M8 2v4M3 10h18"></path>'), text: "Ao vivo · 10 de outubro" },
+      { icon: ic('<path d="m22 8-6 4 6 4V8Z"></path><rect x="2" y="6" width="14" height="12" rx="2"></rect>'), text: "100% online e ao vivo" },
+      { icon: ic('<line x1="12" y1="2" x2="12" y2="22"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>'), text: "Apenas R$ 27", gold: true },
+      { icon: ic('<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle>'), text: "Vagas limitadas" },
+      { icon: ic('<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"></path><path d="m9 12 2 2 4-4"></path>'), text: "Aplicável no mesmo dia" }
     ];
     let i = 0;
     const render = () => {
-      el.innerHTML = items[i].icon + items[i].text;
-      el.style.color = items[i].gold ? "#FFD34F" : "#F3F2EE";
-      el.style.fontWeight = items[i].gold ? "700" : "600";
+      el.innerHTML = '<span class="cap-ic">' + items[i].icon + '</span><span class="cap-txt">' + items[i].text + "</span>";
+      el.classList.toggle("gold", !!items[i].gold);
+
     };
     render();
     this._capsuleTimer = setInterval(() => {
       el.style.opacity = "0";
-      el.style.transform = "translateY(5px)";
+      el.style.transform = "translateY(6px)";
       setTimeout(() => {
         i = (i + 1) % items.length;
         render();
         el.style.transition = "none";
-        el.style.transform = "translateY(-5px)";
+        el.style.transform = "translateY(-6px)";
         requestAnimationFrame(() => {
-          el.style.transition = "opacity .35s " + this._ease + ", transform .35s " + this._ease;
+          el.style.transition = "";
           el.style.opacity = "1";
           el.style.transform = "translateY(0)";
         });
@@ -715,10 +1011,10 @@ class Component extends DCLogic {
     }, 2600);
   }
 
-  /* ---------- cursor personalizado (ponto + anel dourados) ---------- */
+  /* ---------- cursor personalizado (seta dourada) ---------- */
   setupCursor() {
     if (!window.matchMedia("(hover:hover) and (pointer:fine)").matches) return;
-    if (window.matchMedia("(prefers-reduced-motion:reduce)").matches) return;
+    if (REDUCED) return;
     const arrow = document.createElement("div");
     arrow.className = "cx-arrow";
     arrow.innerHTML = '<div class="cx-arrow-inner"><svg viewBox="0 0 24 24" width="32" height="32">' +
@@ -728,39 +1024,48 @@ class Component extends DCLogic {
       "</svg></div>";
     document.body.appendChild(arrow);
     const inner = arrow.firstElementChild;
-    let on = false, hover = false;
+    let on = false;
     const onMove = e => {
       arrow.style.transform = "translate(" + (e.clientX - 4) + "px," + (e.clientY - 4) + "px)";
       if (!on) { on = true; arrow.classList.add("is-on"); }
     };
     window.addEventListener("mousemove", onMove, { passive: true });
-    const hoverSel = "a,button,[role='button'],input,textarea,[onclick]";
+    const hoverSel = "a,button,[role='button'],input,textarea,[onclick],.faq-q,.page-scroll-rail";
     document.addEventListener("mouseover", e => {
-      if (e.target.closest && e.target.closest(hoverSel)) { hover = true; inner.style.transform = "scale(1.2)"; }
+      if (e.target.closest && e.target.closest(hoverSel)) inner.style.transform = "scale(1.2)";
     });
     document.addEventListener("mouseout", e => {
-      if (e.target.closest && e.target.closest(hoverSel)) { hover = false; inner.style.transform = "scale(1)"; }
+      if (e.target.closest && e.target.closest(hoverSel)) inner.style.transform = "scale(1)";
     });
     document.addEventListener("mouseleave", () => { arrow.classList.remove("is-on"); on = false; });
     this._cursorArrow = arrow;
   }
 
-  /* ---------- entrada progressiva + contadores ---------- */
+  /* ---------- entrada progressiva + stagger + contadores ---------- */
   setupReveal() {
     const els = [...document.querySelectorAll("[data-reveal]")];
+    const stag = [...document.querySelectorAll("[data-stagger]")];
     const counters = [...document.querySelectorAll("[data-count]")];
     counters.forEach(el => { el.dataset.target = el.textContent.trim(); });
-    if (!("IntersectionObserver" in window)) { counters.forEach(el => this.countUp(el)); return; }
+    stag.forEach(el => { [...el.children].forEach((c, i) => c.style.setProperty("--i", i)); });
+    if (!("IntersectionObserver" in window)) {
+      counters.forEach(el => this.countUp(el));
+      stag.forEach(el => el.classList.add("is-in"));
+      els.forEach(el => el.classList.add("is-in"));
+      return;
+    }
     const vh = window.innerHeight;
     const hide = el => {
       el.style.opacity = "0";
       el.style.transform = "translateY(20px)";
       el.style.filter = "blur(6px)";
+      el.classList.remove("is-in");
     };
     const show = el => {
       el.style.opacity = "1";
       el.style.transform = "none";
       el.style.filter = "none";
+      el.classList.add("is-in");
     };
     els.forEach(el => {
       el.style.transition = "opacity .95s " + this._ease + ", transform .95s " + this._ease + ", filter .95s " + this._ease;
@@ -774,10 +1079,15 @@ class Component extends DCLogic {
           if (e.isIntersecting) this.countUp(el);
           return;
         }
-        if (e.isIntersecting) show(el); else hide(el);
+        if (el.hasAttribute("data-stagger")) {
+          if (e.isIntersecting) el.classList.add("is-in");
+          return;
+        }
+        if (e.isIntersecting) show(el); else if (e.boundingClientRect.top > 0) hide(el);
       });
     }, { rootMargin: "0px 0px -8% 0px", threshold: 0.12 });
     els.forEach(el => this._io.observe(el));
+    stag.forEach(el => this._io.observe(el));
     counters.forEach(el => this._io.observe(el));
   }
 
@@ -794,62 +1104,137 @@ class Component extends DCLogic {
     requestAnimationFrame(tick);
   }
 
-  /* ---------- hero cabe na primeira tela ---------- */
-  fitHero() {
-    const hero = this.heroRef.current, photo = this.photoRef.current;
-    if (!hero || !photo) return;
-    if (window.innerWidth > 780) { photo.style.minHeight = ""; return; }
-    photo.style.minHeight = "0px";
-    const rest = hero.scrollHeight;
-    const room = window.innerHeight - rest - 8;
-    photo.style.minHeight = Math.max(170, Math.min(room, window.innerHeight * 0.56)) + "px";
+  /* ---------- cards empilhados: o card de tras encolhe conforme o proximo cobre ---------- */
+  setupStack() {
+    this._stacks = [...document.querySelectorAll("[data-stack]")].map(root => [...root.querySelectorAll(".stack-card")]);
+    const prog = document.querySelector("[data-stack-progress]");
+    this._prog = prog ? { cur: prog.querySelector("[data-stack-cur]"), name: prog.querySelector("[data-stack-name]"), bar: prog.querySelector("[data-stack-bar]"), last: -1 } : null;
+  }
+  updateStackProgress(cards) {
+    const p = this._prog;
+    if (!p || !cards.length) return;
+    const vh = window.innerHeight || 800;
+    let idx = 0;
+    cards.forEach((card, i) => { if (card.getBoundingClientRect().top <= vh * 0.42) idx = i; });
+    if (idx === p.last) return;
+    p.last = idx;
+    p.cur.textContent = String(idx + 1).padStart(2, "0");
+    p.name.textContent = cards[idx].getAttribute("data-step-name") || "";
+    p.bar.style.width = ((idx + 1) / cards.length * 100) + "%";
+  }
+  updateStacks() {
+    if (!this._stacks) return;
+    const mobile = window.innerWidth <= 760;
+    this._stacks.forEach(cards => {
+      if (cards[0] && cards[0].hasAttribute("data-step-card")) this.updateStackProgress(cards);
+      if (REDUCED) return;
+      cards.forEach((card, i) => {
+        const next = cards[i + 1];
+        if (!next) { card.style.transform = ""; card.style.filter = ""; return; }
+        const r = card.getBoundingClientRect(), nr = next.getBoundingClientRect();
+        const overlap = Math.max(0, Math.min(1, (r.bottom - nr.top) / Math.max(1, r.height)));
+        if (overlap <= 0) { card.style.transform = ""; card.style.filter = ""; return; }
+        const sc = 1 - overlap * (mobile ? 0.05 : 0.07);
+        card.style.transform = "scale(" + sc.toFixed(4) + ") translateY(" + (-overlap * 8).toFixed(2) + "px)";
+        card.style.filter = "brightness(" + (1 - overlap * 0.45).toFixed(3) + ")";
+      });
+    });
   }
 
-  /* ---------- funil de leads ---------- */
+  /* ---------- funil de leads v2 ---------- */
   setupFunnel() {
     const stage = this.stageRef.current;
     if (!stage) return;
     const seals = [...stage.querySelectorAll("[data-seal]")];
     if (!seals.length) return;
-    let W = 0, H = 0, size = 0;
-    const S = seals.map(el => ({ el, t: Math.random(), d: 4.4, x0: 0, sway: 0 }));
+    const coins = [...stage.querySelectorAll("[data-coin]")].map(el => ({ el, on: false, t: 0, x: 0 }));
+    const ripples = [...stage.querySelectorAll("[data-ripple]")];
+    const cIn = document.querySelector("[data-cnt-in]");
+    const cLost = document.querySelector("[data-cnt-lost]");
+    const cWin = document.querySelector("[data-cnt-win]");
+    const USER = "data:image/svg+xml;utf8," + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#F5C328" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20.5c0-4.4 3.6-7.5 8-7.5s8 3.1 8 7.5"/></svg>');
+    const ICONS = [USER, USER, USER, "assets/meta.png", "assets/instagram.svg", "assets/whatsapp.png", "assets/google-ads.svg"];
+    const RIM = 120 / 580, EXIT = 452 / 580, DISH = 536 / 580;
+    const stats = { in: 0, lost: 0, win: 0 };
+    let W = 0, H = 0, size = 0, ri = 0;
+    const S = seals.map((el, i) => ({ el, img: el.querySelector("[data-seal-img]"), t: i / seals.length, d: 5, x0: 0, sway: 0, lost: false, tEnd: 1, past: false }));
     const respawn = s => {
-      s.x0 = W * (0.11 + Math.random() * 0.78);
-      s.d = 4.2 + Math.random() * 2.6;
-      s.sway = (Math.random() - 0.5) * W * 0.09;
+      s.x0 = W * (0.12 + Math.random() * 0.76);
+      s.d = 4.6 + Math.random() * 2.8;
+      s.sway = (Math.random() - 0.5) * W * 0.1;
+      s.lost = Math.random() < 0.52;
+      s.tEnd = s.lost ? 0.52 + Math.random() * 0.3 : 1;
+      s.past = false;
+      s.el.classList.remove("is-lost");
+      if (s.img) s.img.src = ICONS[Math.floor(Math.random() * ICONS.length)];
     };
     const measure = () => {
       const r = stage.getBoundingClientRect();
       W = r.width; H = r.height;
-      size = Math.max(22, Math.min(52, W * 0.105));
+      size = Math.max(26, Math.min(54, W * 0.11));
       seals.forEach(el => { el.style.width = size + "px"; el.style.height = size + "px"; });
       const few = W < 300;
-      S.forEach((s, i) => { s.el.style.display = (few && i > 4) ? "none" : "block"; if (!s.x0 || s.x0 > W) respawn(s); });
+      S.forEach((s, i) => { s.el.style.display = (few && i > 5) ? "none" : "block"; if (!s.x0 || s.x0 > W) respawn(s); });
     };
     measure();
-    S.forEach(s => { if (!s.x0) respawn(s); });
+    const bump = (el, v) => { if (el) el.textContent = String(v); };
+    const ripple = () => {
+      const r = ripples[ri++ % ripples.length];
+      if (!r) return;
+      r.classList.remove("go"); void r.offsetWidth; r.classList.add("go");
+    };
+    const dropCoin = () => {
+      const c = coins.find(c => !c.on);
+      if (!c) return;
+      c.on = true; c.t = 0; c.x = W * 0.5 + (Math.random() - 0.5) * W * 0.07;
+    };
     let last = performance.now(), speed = 1, target = 1;
     const frame = now => {
       const dt = Math.min(0.05, (now - last) / 1000); last = now;
       speed += (target - speed) * Math.min(1, dt * 5);
-      const cx = W * 0.5, cy = H * 0.875, y0 = H * 0.012;
+      const cx = W * 0.5, yRim = H * RIM, yExit = H * EXIT - size * 0.15, y0 = -size * 0.4;
       for (const s of S) {
         if (s.el.style.display === "none") continue;
         s.t += dt * speed / s.d;
-        if (s.t >= 1) { s.t -= 1; respawn(s); this.flashSpout(); }
+        if (s.t >= s.tEnd) {
+          s.t = 0;
+          if (s.lost) { stats.lost++; bump(cLost, stats.lost); }
+          else { stats.win++; bump(cWin, stats.win); dropCoin(); this.flashSpout(); }
+          respawn(s);
+        }
         const p = s.t;
         const sm = p * p * (3 - 2 * p);
         const x = s.x0 + (cx - s.x0) * sm + Math.sin(p * Math.PI) * s.sway;
-        const y = y0 + (cy - y0) * Math.pow(p, 1.55);
-        const sc = Math.max(0.12, 1 - 0.88 * Math.pow(p, 1.1));
-        const op = p < 0.1 ? p / 0.1 : (p > 0.9 ? Math.max(0, (1 - p) / 0.1) : 1);
+        const y = y0 + (yExit - y0) * Math.pow(p, 1.55);
+        if (!s.past && y >= yRim) { s.past = true; stats.in++; bump(cIn, stats.in); ripple(); }
+        const sc = Math.max(0.24, 1 - 0.8 * Math.pow(p, 1.1));
+        let op = p < 0.1 ? p / 0.1 : 1;
+        if (s.lost) {
+          const rem = s.tEnd - p;
+          if (rem < 0.16) s.el.classList.add("is-lost");
+          if (rem < 0.12) op = Math.min(op, Math.max(0, rem / 0.12));
+        } else if (p > 0.9) op = Math.min(op, Math.max(0, (1 - p) / 0.1));
         s.el.style.transform = "translate3d(" + (x - size / 2) + "px," + (y - size / 2) + "px,0) scale(" + sc + ")";
         s.el.style.opacity = String(op);
+      }
+      const yA = H * EXIT, yB = H * DISH - 10, cs = Math.max(14, size * 0.5);
+      for (const c of coins) {
+        if (!c.on) continue;
+        c.t += dt * 1.15;
+        if (c.t >= 1) { c.on = false; c.el.style.opacity = "0"; continue; }
+        const t = c.t;
+        let y;
+        if (t < 0.72) y = yA + (yB - yA) * Math.pow(t / 0.72, 1.7);
+        else y = yB - Math.sin((t - 0.72) / 0.28 * Math.PI) * 9;
+        const op = t < 0.08 ? t / 0.08 : (t > 0.86 ? Math.max(0, (1 - t) / 0.14) : 1);
+        c.el.style.width = cs + "px"; c.el.style.height = cs + "px";
+        c.el.style.transform = "translate3d(" + (c.x - cs / 2) + "px," + (y - cs / 2) + "px,0) rotate(" + (t * 40) + "deg)";
+        c.el.style.opacity = String(op);
       }
       this._raf = requestAnimationFrame(frame);
     };
     this._raf = requestAnimationFrame(frame);
-    this._hot = on => { target = on ? 1.85 : 1; };
+    this._hot = on => { target = on ? 1.9 : 1; };
     this._remeasure = measure;
   }
 
@@ -867,44 +1252,82 @@ class Component extends DCLogic {
   funnelHeat(on) {
     this._hot && this._hot(on);
     const g = this.glowRef.current, sg = this.svgGlowRef.current;
-    if (g) { g.style.opacity = on ? "1" : ".5"; g.style.transform = on ? "translate(-50%,-50%) scale(1.16)" : "translate(-50%,-50%) scale(1)"; }
-    if (sg) sg.setAttribute("opacity", on ? "1" : ".55");
+    if (g) { g.style.opacity = on ? "1" : ".55"; g.style.transform = on ? "translate(-50%,-50%) scale(1.14)" : "translate(-50%,-50%) scale(1)"; }
+    if (sg) sg.setAttribute("opacity", on ? "1" : ".6");
   }
 
-  setupBar() { this._barShown = false; }
+  /* ---------- trilha lateral clicavel e arrastavel ---------- */
+  setupRail() {
+    const rail = document.getElementById("page-scroll-rail");
+    if (!rail || !window.matchMedia("(hover:hover) and (pointer:fine)").matches) return;
+    const html = document.documentElement;
+    let dragging = false, prevBehavior = "";
+    const goTo = clientY => {
+      const vh = window.innerHeight || 1;
+      const max = html.scrollHeight - vh;
+      const ratio = Math.min(1, Math.max(0, clientY / vh));
+      window.scrollTo(0, ratio * max);
+    };
+    rail.addEventListener("pointerdown", e => {
+      if (e.button !== 0) return;
+      dragging = true;
+      rail.classList.add("dragging");
+      prevBehavior = html.style.scrollBehavior;
+      html.style.scrollBehavior = "auto";
+      try { rail.setPointerCapture(e.pointerId); } catch (_) {}
+      goTo(e.clientY);
+      e.preventDefault();
+    });
+    rail.addEventListener("pointermove", e => { if (dragging) goTo(e.clientY); });
+    const end = e => {
+      if (!dragging) return;
+      dragging = false;
+      rail.classList.remove("dragging");
+      html.style.scrollBehavior = prevBehavior;
+      try { rail.releasePointerCapture(e.pointerId); } catch (_) {}
+    };
+    rail.addEventListener("pointerup", end);
+    rail.addEventListener("pointercancel", end);
+    this._rail = rail;
+  }
 
   onScroll() {
-    const bar = this.barRef.current, hero = this.heroRef.current;
+    const bar = this.barRef.current, hero = this._hero;
+    const y = window.scrollY;
     if (bar && hero) {
-      const show = window.scrollY > hero.offsetHeight * 0.75;
-      if (show !== this._barShown) {
-        this._barShown = show;
-        bar.style.transform = show ? "translateY(0)" : "translateY(115%)";
-        bar.style.pointerEvents = show ? "auto" : "none";
-      }
+      const show = y > hero.offsetHeight * 0.75;
+      if (show !== this._barShown) { this._barShown = show; bar.classList.toggle("on", show); }
+    }
+    if (this._heroBg && hero && !REDUCED) {
+      const h = hero.offsetHeight || 1;
+      const k = Math.min(1, y / h);
+      this._heroBg.style.transform = "scale(1.03) translateY(" + (k * 30).toFixed(1) + "px)";
     }
     const fill = document.getElementById("page-scroll-fill");
     if (fill) {
       const doc = document.documentElement;
       const max = doc.scrollHeight - window.innerHeight;
-      const pct = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
+      const pct = max > 0 ? Math.min(1, Math.max(0, y / max)) : 0;
       fill.style.height = (pct * 100) + "%";
+      if (this._rail) this._rail.setAttribute("aria-valuenow", String(Math.round(pct * 100)));
     }
+    this.updateStacks();
   }
 
   renderVals() {
     return {
-      heroRef: this.heroRef, photoRef: this.photoRef, stageRef: this.stageRef,
+      heroRef: this.heroRef, stageRef: this.stageRef,
       glowRef: this.glowRef, svgGlowRef: this.svgGlowRef, flashRef: this.flashRef,
-      barRef: this.barRef, capsuleTextRef: this.capsuleTextRef,
-      seals: [0, 1, 2, 3, 4, 5, 6, 7],
+      barRef: this.barRef, capsuleTextRef: this.capsuleTextRef, capsuleBarRef: this.capsuleBarRef,
+      seals: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
       funnelOn: () => this.funnelHeat(true),
       funnelOff: () => this.funnelHeat(false),
       funnelTouch: () => { this.funnelHeat(true); clearTimeout(this._tt); this._tt = setTimeout(() => this.funnelHeat(false), 2600); },
       faqs: FAQ.map((f, i) => ({
         q: f.q, a: f.a,
+        cls: this.state.faq === i ? "open" : "",
         rot: this.state.faq === i ? "45deg" : "0deg",
-        max: this.state.faq === i ? "340px" : "0px",
+        max: this.state.faq === i ? "360px" : "0px",
         op: this.state.faq === i ? 1 : 0,
         toggle: () => this.setState({ faq: this.state.faq === i ? -1 : i })
       }))
