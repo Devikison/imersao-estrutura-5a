@@ -63,7 +63,7 @@ body.rail-dragging{user-select:none;-webkit-user-select:none}
 @keyframes float-bob{0%,100%{transform:translate(50%,-50%) translateY(0)}50%{transform:translate(50%,-50%) translateY(-9px)}}
 @keyframes float-bob-l{0%,100%{transform:translate(-50%,-50%) translateY(0)}50%{transform:translate(-50%,-50%) translateY(-9px)}}
 @media (min-width:901px){
-.hero-creative-bg{display:block;position:absolute;inset:0;background-image:url(assets/hero-creative-1920.jpg);background-size:cover;background-repeat:no-repeat;background-position:right center;z-index:0;pointer-events:none}
+.hero-creative-bg{display:block;position:absolute;inset:0;background-image:url(assets/hero-creative-1920.jpg);background-size:cover;background-repeat:no-repeat;background-position:center center;z-index:0;pointer-events:none}
 .hero-h1{max-width:36ch}
 .hero-sub{max-width:64ch}
 .hero-br{display:block}
@@ -72,8 +72,8 @@ body.rail-dragging{user-select:none;-webkit-user-select:none}
 @media (max-width:900px){
 .hero-capsule{top:8px!important}
 .hero-sec{flex-direction:column;align-items:stretch!important;justify-content:flex-start!important;padding:0 0 clamp(36px,6vh,72px)!important}
-.hero-mobile-creative{display:block;position:relative;width:100%;aspect-ratio:1080/1250;background-image:url(assets/hero-creative-mobile-828.jpg);background-size:cover;background-position:top center;flex:none;z-index:0;overflow:hidden}
-.hero-mobile-creative::after{content:'';position:absolute;left:0;right:0;bottom:0;height:34%;background:linear-gradient(to bottom,rgba(10,10,12,0) 0%,rgba(10,10,12,.6) 60%,#0A0A0C 97%);pointer-events:none}
+.hero-mobile-creative{display:block;position:relative;width:100%;aspect-ratio:2/3;background-image:url(assets/hero-creative-mobile-828.jpg);background-size:cover;background-position:top center;flex:none;z-index:0;overflow:hidden}
+.hero-mobile-creative::after{content:'';position:absolute;left:0;right:0;bottom:0;height:14%;background:linear-gradient(to bottom,rgba(10,10,12,0) 0%,rgba(10,10,12,.55) 55%,#0A0A0C 100%);pointer-events:none}
 .hero-mobile-float-icon{display:block;position:absolute;z-index:1;pointer-events:none}
 .hero-content-wrap{padding:16px clamp(18px,5vw,72px) 0}
 }
