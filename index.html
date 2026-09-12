@@ -63,7 +63,7 @@ body.rail-dragging{user-select:none;-webkit-user-select:none}
 @keyframes float-bob{0%,100%{transform:translate(50%,-50%) translateY(0)}50%{transform:translate(50%,-50%) translateY(-9px)}}
 @keyframes float-bob-l{0%,100%{transform:translate(-50%,-50%) translateY(0)}50%{transform:translate(-50%,-50%) translateY(-9px)}}
 @media (min-width:901px){
-.hero-creative-bg{display:block;position:absolute;inset:0;background-image:url(assets/hero-creative-1920.jpg);background-size:cover;background-repeat:no-repeat;background-position:center center;z-index:0;pointer-events:none}
+.hero-creative-bg{display:block;position:absolute;inset:0;background-image:url(assets/hero-creative-1920.jpg);background-size:cover;background-repeat:no-repeat;background-position:center top;z-index:0;pointer-events:none}
 .hero-h1{max-width:36ch}
 .hero-sub{max-width:64ch}
 .hero-br{display:block}
@@ -1420,7 +1420,7 @@ class Component {
     if (this._heroBg && hero && !REDUCED) {
       const h = hero.offsetHeight || 1;
       const k = Math.min(1, y / h);
-      this._heroBg.style.transform = "scale(1.03) translateY(" + (k * 30).toFixed(1) + "px)";
+      this._heroBg.style.transform = "scale(1.015) translateY(" + (k * 16).toFixed(1) + "px)";
     }
     const fill = document.getElementById("page-scroll-fill");
     if (fill) {
