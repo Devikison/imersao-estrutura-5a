@@ -358,6 +358,12 @@ body.rail-dragging{user-select:none;-webkit-user-select:none}
 /* --- barra fixa --- */
 .sticky-bar{position:fixed;left:0;bottom:0;width:100%;z-index:40;padding:10px clamp(12px,3vw,26px) max(10px,env(safe-area-inset-bottom));background:linear-gradient(160deg,rgba(40,35,24,.6) 0%,rgba(10,10,12,.66) 100%);backdrop-filter:blur(20px) saturate(160%);-webkit-backdrop-filter:blur(20px) saturate(160%);border-top:1px solid rgba(245,195,40,.28);box-shadow:0 -14px 34px -14px rgba(0,0,0,.65),inset 0 1px 0 rgba(255,255,255,.07);transform:translateY(115%);transition:transform .5s var(--ease);pointer-events:none}
 .sticky-bar.on{transform:none;pointer-events:auto}
+.bar-info{display:flex;flex-direction:column;gap:3px;min-width:0;flex:1 1 auto}
+.bar-l1{font:600 12.5px/1.2 Inter,sans-serif;color:#F3F2EE;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bar-l2{font:400 11.5px/1.2 Inter,sans-serif;color:#B9B7AE;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bar-l2 b{color:#FFD34F;font-weight:800}
+.bar-mob{display:none}
+@media (max-width:560px){.bar-desk{display:none}.bar-mob{display:block}.bar-l1{font-size:12px}.bar-l2{font-size:11px}.sticky-bar .btn-sm{height:44px;font-size:13px;padding-left:16px}.sticky-bar .btn-sm .btn-ic{width:32px;height:32px}}
 /* --- reveal por filhos (stagger) --- */
 [data-stagger]>*{opacity:0;transform:translateY(18px);transition:opacity .8s var(--ease),transform .8s var(--ease);transition-delay:calc(var(--i,0)*90ms)}
 [data-stagger].is-in>*{opacity:1;transform:none}
@@ -889,9 +895,11 @@ body.rail-dragging{user-select:none;-webkit-user-select:none}
 
 <div ref="{{ barRef }}" class="sticky-bar">
 <div style="max-width:1240px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:14px">
-<div style="display:flex;flex-direction:column;gap:3px;min-width:0">
-<span style="font:600 12.5px/1.2 Inter,sans-serif;color:#F3F2EE;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Imersão Estrutura 5A · 10 de outubro</span>
-<span style="font:400 11.5px/1.2 Inter,sans-serif;color:#B9B7AE;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Online e ao vivo · 4 horas · <span style="color:#FFD34F;font-weight:800">R$ 27</span></span>
+<div class="bar-info">
+<span class="bar-desk bar-l1">Imersão Estrutura 5A · 10 de outubro</span>
+<span class="bar-desk bar-l2">Online e ao vivo · 4 horas · <b>R$ 27</b></span>
+<span class="bar-mob bar-l1">Vagas limitadas</span>
+<span class="bar-mob bar-l2"><b>R$ 27</b> · 10 de out · Ao vivo</span>
 </div>
 <a href="#inscricao" class="btn-v2 btn-gold btn-sm" style="flex:0 0 auto">Garantir vaga <span class="btn-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></a>
 </div>
