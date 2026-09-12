@@ -136,7 +136,7 @@ body.rail-dragging{user-select:none;-webkit-user-select:none}
 .sec-light{background:var(--cream);color:var(--ink)}
 .sec-gold{background:linear-gradient(180deg,#F8CB3E 0%,#F5C328 55%,#E5AE16 100%);color:var(--ink)}
 .sec-grid::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(243,242,238,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(243,242,238,.035) 1px,transparent 1px);background-size:64px 64px;mask-image:radial-gradient(70% 60% at 50% 30%,#000 20%,transparent 100%);-webkit-mask-image:radial-gradient(70% 60% at 50% 30%,#000 20%,transparent 100%);pointer-events:none}
-.sec-glow-top::after{content:'';position:absolute;left:50%;top:0;width:min(90vw,900px);height:1px;transform:translateX(-50%);background:linear-gradient(90deg,transparent,rgba(245,195,40,.55),transparent);pointer-events:none}
+.sec-glow-top::after{display:none}
 .orb{position:absolute;border-radius:50%;filter:blur(60px);pointer-events:none}
 /* --- cabecalho de secao --- */
 .sec-head{display:flex;flex-direction:column;gap:16px;align-items:flex-start}
@@ -255,7 +255,7 @@ body.rail-dragging{user-select:none;-webkit-user-select:none}
 .quote-v2::before{content:'“';position:absolute;left:18px;top:-6px;font:700 84px/1 'General Sans',Inter,serif;color:rgba(245,195,40,.35);line-height:1;pointer-events:none}
 .quote-v2 blockquote{font:500 clamp(19px,2.1vw,29px)/1.32 'General Sans',Inter,system-ui;letter-spacing:-.02em;color:#F3F2EE;text-wrap:pretty}
 .quote-v2 .quote-kicker{margin-top:18px;display:flex;align-items:center;gap:12px;font:600 clamp(16px,1.5vw,21px)/1.35 'General Sans',Inter,system-ui;letter-spacing:-.01em;color:#FFD34F}
-.quote-v2 .quote-kicker::before{content:'';width:28px;height:2px;border-radius:2px;background:linear-gradient(90deg,#FFEFC0,#F5C328);flex:none}
+.quote-v2 .quote-kicker::before{display:none}
 @media (max-width:760px){.quote-v2 .quote-kicker::before{display:none}.quote-v2{text-align:center;padding-left:clamp(22px,2.6vw,34px)}.quote-v2::before{left:50%;transform:translateX(-50%);top:-14px}.quote-v2 .quote-kicker{justify-content:center}}
 /* --- crencas: stack cards sobre fundo claro --- */
 .stack-card{border-radius:22px;border:1px solid rgba(245,195,40,.24);background:linear-gradient(165deg,#1E1B15 0%,#0C0C0E 70%);box-shadow:0 30px 60px -34px rgba(0,0,0,.9),0 1px 0 rgba(255,255,255,.05) inset;transform-origin:50% 0;will-change:transform,filter;backdrop-filter:none;-webkit-backdrop-filter:none}
@@ -388,7 +388,7 @@ body.rail-dragging{user-select:none;-webkit-user-select:none}
 <div class="hero-content-wrap" style="position:relative;z-index:1;width:100%;max-width:1240px;margin:0 auto;display:flex;flex-wrap:wrap-reverse;align-items:center;gap:clamp(26px,3.6vw,60px)">
 
 <div data-mobile-center style="flex:1 1 330px;min-width:min(100%,320px);display:flex;flex-direction:column;align-items:flex-start;gap:clamp(14px,1.7vw,22px)">
-<h1 data-reveal class="hero-h1" style="font:600 clamp(32px,3.7vw,50px)/1.16 'General Sans',Inter,system-ui;letter-spacing:-.028em;color:#F3F2EE;text-wrap:pretty">Antes de investir mais em tráfego<br class="hero-br"> descubra onde sua empresa<br class="hero-br"> <span class="hero-emph" style="position:relative;white-space:nowrap"><span style="position:relative;z-index:1;background:linear-gradient(180deg,#FFEFC0,#F5C328 55%,#B8830A);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">está perdendo vendas.</span><span style="position:absolute;left:0;right:0;bottom:.06em;height:2px;background:linear-gradient(90deg,transparent,rgba(245,195,40,.7),transparent)"></span></span></h1>
+<h1 data-reveal class="hero-h1" style="font:600 clamp(32px,3.7vw,50px)/1.16 'General Sans',Inter,system-ui;letter-spacing:-.028em;color:#F3F2EE;text-wrap:pretty">Antes de investir mais em tráfego<br class="hero-br"> descubra onde sua empresa<br class="hero-br"> <span class="hero-emph" style="position:relative;white-space:nowrap"><span style="position:relative;z-index:1;background:linear-gradient(180deg,#FFEFC0,#F5C328 55%,#B8830A);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">está perdendo vendas.</span></span></h1>
 <p data-reveal class="hero-sub" style="font:500 clamp(14.5px,1.25vw,19px)/1.55 Inter,sans-serif;color:#EDEBE2;text-wrap:pretty">Em uma imersão online e ao vivo de <strong style="color:#FFFFFF;font-weight:700">4 horas</strong>, você vai aprender<br class="hero-br"> a analisar a estrutura entre marketing, atendimento e comercial<br class="hero-br"> para identificar gargalos, entender seus números e descobrir<br class="hero-br"> o que precisa ser corrigido antes de tentar escalar.</p>
 <div data-reveal data-mobile-row-center style="display:flex;flex-wrap:wrap;align-items:center;gap:clamp(12px,1.6vw,18px);margin-top:clamp(2px,.6vw,8px);width:100%">
 <a href="#inscricao" class="btn-v2 btn-gold btn-pulse btn-block-m">Quero garantir minha vaga <span class="btn-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></a>
@@ -726,7 +726,7 @@ body.rail-dragging{user-select:none;-webkit-user-select:none}
 <span style="font:600 clamp(48px,7vw,64px)/1 'General Sans',Inter,system-ui;letter-spacing:-.03em;font-variant-numeric:tabular-nums;background:linear-gradient(180deg,#FFF3C9,#F5C328 55%,#D9A012);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">R$ <span data-count="27">27</span></span>
 <span style="font:500 14.5px/1 Inter,sans-serif;color:#A5A39A">pagamento único</span>
 </div>
-<div style="height:1px;background:linear-gradient(90deg,rgba(245,195,40,.4),rgba(243,242,238,.08));margin-bottom:clamp(10px,1.4vw,14px)"></div>
+<div style="height:1px;background:rgba(243,242,238,.1);margin-bottom:clamp(10px,1.4vw,14px)"></div>
 <div data-stagger style="display:flex;flex-direction:column;margin-bottom:clamp(24px,3vw,30px)">
 <span class="chk"><span class="chk-ic"><svg viewBox="0 0 24 24" fill="none" stroke="#121215" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg></span>4 horas ao vivo, com você fazendo perguntas</span>
 <span class="chk"><span class="chk-ic"><svg viewBox="0 0 24 24" fill="none" stroke="#121215" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg></span>As 10 etapas do diagnóstico, do negócio até a margem</span>
