@@ -329,6 +329,18 @@ body.rail-dragging{user-select:none;-webkit-user-select:none}
 .lote-barra{width:100%}
 }
 @media (prefers-reduced-motion:reduce){.lote-barra i{transition:none}}
+/* variante dourada da faixa: fundo da marca, plaquinhas escuras por cima */
+.lote.ouro{background:linear-gradient(180deg,#E3AC0B,#D19A06);border-top:1px solid rgba(20,20,20,.22);border-bottom:1px solid rgba(20,20,20,.18)}
+.lote.ouro .lote-tag{border-color:rgba(18,16,21,.2);background:#121215;color:#FFD34F}
+.lote.ouro .lote-tit{color:rgba(20,20,20,.78)}
+.lote.ouro .lote-tit b{color:#121215;font-weight:700}
+.lote.ouro .lote-barra{background:rgba(18,16,21,.18);box-shadow:inset 0 1px 2px rgba(0,0,0,.2)}
+.lote.ouro .lote-barra i{background:linear-gradient(90deg,#1F1F25,#121215);box-shadow:0 1px 0 rgba(255,255,255,.12)}
+.lote.ouro .lote-nota{color:rgba(20,20,20,.6)}
+.lote.ouro .lote-lbl{color:rgba(20,20,20,.62)}
+.lote.ouro .cdown-lbl{color:rgba(20,20,20,.58)}
+.lote.ouro .cdown-box{filter:drop-shadow(0 14px 20px rgba(74,50,0,.4))}
+.lote.ouro .cdown-box::before,.lote.ouro .cdown-box::after{background:#17171C;border-color:rgba(18,16,21,.28)}
 /* --- faixa marquee --- */
 .marquee-pause:hover>div{animation-play-state:paused}
 /* --- funil v2 --- */
@@ -560,7 +572,7 @@ img{height:auto}
 </div>
 </section>
 
-<section data-reveal class="lote" data-countdown data-deadline="2026-10-10T19:00:00-03:00" style="--vagas:36%" aria-label="Vagas do primeiro lote">
+<section data-reveal class="lote ouro" data-countdown data-deadline="2026-10-10T19:00:00-03:00" style="--vagas:36%" aria-label="Vagas do primeiro lote">
 <div class="lote-wrap">
 <div class="lote-esq">
 <span class="lote-tag">1º lote</span>
