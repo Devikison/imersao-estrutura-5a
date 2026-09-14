@@ -44,17 +44,18 @@ git push origin main
 ## 3. Mapa da página (ordem das seções)
 
 1. **Hero** — criativo com foto (fundo no desktop, imagem inteira 2:3 no mobile), logo da imersão (`.hero-logo`) alinhado acima do título, título, subtítulo, pílula de data (`.hero-date`: "10 de outubro, às 19:00, ao vivo e online", logo acima dos botões no desktop e no mobile; `white-space:nowrap` + corpo fluido em `vw` no mobile mantêm tudo em uma linha só, de 320 px para cima), botão dourado "Quero garantir minha vaga" e botão vidro "O que você vai enxergar". Ícones flutuantes (Google Ads, Facebook, seta) posicionados por porcentagem, com valores diferentes para desktop e mobile.
-2. **Faixa dourada** em marquee com os argumentos rápidos.
-3. **A ideia central + Funil** — citação à esquerda, funil animado à direita (SVG + leads em HTML). Leads entram com ícone de canal, parte se perde no meio (fica cinza com X), parte vira moeda que cai no prato de "Receita · Margem". Contadores ao vivo abaixo. Rótulos em maiúsculas (Leads entrando, Atendimento, Comercial, Venda, Receita · Margem) aparecem no desktop e no mobile.
-4. **Seis crenças** — fundo creme, cards escuros **empilhados no scroll** (sticky): cada card gruda no topo e o próximo desliza por cima, o de trás encolhe e escurece.
-5. **O diagnóstico completo** — 10 etapas (Negócio a Margem), **mesmo empilhamento** dos cards das crenças. No desktop a coluna esquerda mostra "Etapa X de 10" com barra de progresso.
-6. **Seis ângulos** — linha do tempo vertical que acende conforme rola. No mobile a linha passa por trás dos ícones. Abaixo, chips dos canais (Meta, Instagram, WhatsApp, Google Ads). Um **divisor de luz** (linha dourada, brilho e feixe correndo) separa esta seção da anterior.
-7. **Frases que doem** — seção inteira dourada com pílulas escuras em marquee duplo. O título quebra em duas linhas no desktop ("Frases que você já deveria" / "estar se fazendo") com `<br class="hook-br">` e o cabeçalho usa `.hook-head` para caber; no mobile a quebra some e o texto flui sozinho.
-8. **A oferta** — título "Tudo o que a imersão entrega por R$ 27" em duas linhas no desktop (`<br class="oferta-br">`, mesmo mecanismo do `.hook-br`). Card escuro com borda animada, logo da imersão (`.offer-logo`) no topo à esquerda, ao lado do selo "À venda hoje", preço R$ 27, checklist, botão e a nota "Pagamento seguro" abaixo dele.
-9. **FAQ** — acordeão em vidro escuro, cada pergunta aparece individualmente ao entrar na tela.
-10. **Ficha técnica** — 4 cards brancos (data, formato, duração, investimento). No desktop lado a lado; no mobile em **duas fileiras de dois que empilham no scroll**.
-11. **Inscrição** — CTA final com anéis e brilho. Entre os chips e o botão fica o **cronômetro** (`.cdown`, estilo flip clock: dias, horas, minutos e segundos) com o título "As inscrições encerram em breve.".
-12. **Rodapé** — logo, e-mail, links, redes, selos pequenos (Compra 100% segura, Dados criptografados) e "© 2026 Grupo 2!H · Imersão Estrutura 5A. Todos os direitos reservados."
+2. **Faixa do 1º lote** (`.lote`) — logo depois do hero: selo "1º lote", "62% das vagas já foram preenchidas", barra de progresso (a porcentagem vem da variável CSS `--vagas` no `style` da própria seção, e a barra enche quando entra na tela) e o cronômetro em versão compacta à direita. No mobile o cronômetro vai para cima e o resto centraliza.
+3. **Faixa dourada** em marquee com os argumentos rápidos.
+4. **A ideia central + Funil** — citação à esquerda, funil animado à direita (SVG + leads em HTML). Leads entram com ícone de canal, parte se perde no meio (fica cinza com X), parte vira moeda que cai no prato de "Receita · Margem". Contadores ao vivo abaixo. Rótulos em maiúsculas (Leads entrando, Atendimento, Comercial, Venda, Receita · Margem) aparecem no desktop e no mobile.
+5. **Seis crenças** — fundo creme, cards escuros **empilhados no scroll** (sticky): cada card gruda no topo e o próximo desliza por cima, o de trás encolhe e escurece.
+6. **O diagnóstico completo** — 10 etapas (Negócio a Margem), **mesmo empilhamento** dos cards das crenças. No desktop a coluna esquerda mostra "Etapa X de 10" com barra de progresso.
+7. **Seis ângulos** — linha do tempo vertical que acende conforme rola. No mobile a linha passa por trás dos ícones. Abaixo, chips dos canais (Meta, Instagram, WhatsApp, Google Ads). Um **divisor de luz** (linha dourada, brilho e feixe correndo) separa esta seção da anterior.
+8. **Frases que doem** — seção inteira dourada com pílulas escuras em marquee duplo. O título quebra em duas linhas no desktop ("Frases que você já deveria" / "estar se fazendo") com `<br class="hook-br">` e o cabeçalho usa `.hook-head` para caber; no mobile a quebra some e o texto flui sozinho.
+9. **A oferta** — título "Tudo o que a imersão entrega por R$ 27" em duas linhas no desktop (`<br class="oferta-br">`, mesmo mecanismo do `.hook-br`). Card escuro com borda animada, logo da imersão (`.offer-logo`) no topo à esquerda, ao lado do selo "À venda hoje", preço R$ 27, checklist, botão e a nota "Pagamento seguro" abaixo dele.
+10. **FAQ** — acordeão em vidro escuro, cada pergunta aparece individualmente ao entrar na tela.
+11. **Ficha técnica** — 4 cards brancos (data, formato, duração, investimento). No desktop lado a lado; no mobile em **duas fileiras de dois que empilham no scroll**.
+12. **Inscrição** — CTA final com anéis e brilho. Entre os chips e o botão fica o **cronômetro** (`.cdown`, estilo flip clock: dias, horas, minutos e segundos) com o título "As inscrições encerram em breve.".
+13. **Rodapé** — logo, e-mail, links, redes, selos pequenos (Compra 100% segura, Dados criptografados) e "© 2026 Grupo 2!H · Imersão Estrutura 5A. Todos os direitos reservados."
 
 Sobre a página inteira: o **popup de captura** (`.lead`, markup logo antes do `<script>`) abre em qualquer um dos 5 botões de CTA, fecha no X, no fundo ou no Esc.
 
@@ -80,7 +81,7 @@ Uma classe `Component` com `mount()` chamado no fim. Métodos principais:
 - `setupFaq` — acordeão (classe `open`, acessível por teclado).
 - `setupFunnel` / `setupFunnelEvents` / `flashSpout` / `funnelHeat` — animação do funil (leads, perdas, moedas, contadores, ondulação).
 - `setupStack` / `updateStacks` / `updateStackProgress` — encolhimento dos cards empilhados e progresso "Etapa X de 10". O seletor dos cards vem do atributo `data-stack` (padrão `.stack-card`; a ficha técnica usa `.num-row`).
-- `setupCountdown` — cronômetro do CTA final. A data-limite vem do atributo `data-deadline` do bloco `[data-countdown]` no HTML (hoje `2026-10-10T19:00:00-03:00`, ou seja, o início da imersão). Ao zerar, o título vira "As inscrições foram encerradas." e o timer para.
+- `setupCountdown` — cronômetros da página (faixa do 1º lote e CTA final). Um só `setInterval` alimenta todos os blocos `[data-countdown]`; cada um tem o seu `data-deadline`. A data-limite vem do atributo `data-deadline` do bloco `[data-countdown]` no HTML (hoje `2026-10-10T19:00:00-03:00`, ou seja, o início da imersão). Ao zerar, o título vira "As inscrições foram encerradas." e o timer para.
 - `setupLead` — popup de captura: abre pelos `[data-cta]`, valida nome/e-mail/WhatsApp, aplica a máscara `(11) 99999-9999`, envia por POST ao `WEBHOOK` (sem `Content-Type` próprio, de propósito: evita o preflight de CORS) e manda a pessoa para a URL que o fluxo devolver, ou para a constante `CHECKOUT`. Se nenhuma existir, mostra a tela de confirmação. As duas constantes ficam no topo do `<script>`.
 - `setupCapsule` — textos rotativos da cápsula.
 - `setupCursor` — cursor dourado (só mouse fino).

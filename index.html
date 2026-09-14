@@ -287,6 +287,31 @@ body.rail-dragging{user-select:none;-webkit-user-select:none}
 .lead-ok b{font:600 19px/1.25 'General Sans',Inter,system-ui;color:#F3F2EE}
 .lead-ok p{font:500 13.5px/1.6 Inter,sans-serif;color:#B9B7AE;text-wrap:pretty}
 @media (max-width:420px){.lead-card{border-radius:20px}.lead-field input{height:48px}}
+/* --- faixa de lote (cronometro compacto + vagas) --- */
+.lote{position:relative;padding:clamp(20px,2.6vw,30px) clamp(18px,5vw,72px);background:#0F0F12;border-top:1px solid rgba(243,242,238,.07);border-bottom:1px solid rgba(243,242,238,.07)}
+.lote-wrap{max-width:1240px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:clamp(18px,2.6vw,42px)}
+.lote-esq{flex:1 1 300px;min-width:min(100%,280px);display:flex;flex-direction:column;gap:9px}
+.lote-tag{align-self:flex-start;padding:4px 10px;border-radius:999px;border:1px solid rgba(245,195,40,.34);background:rgba(245,195,40,.1);font:700 10px/1 Inter,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#FFD34F}
+.lote-tit{font:600 clamp(16px,1.5vw,21px)/1.25 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE}
+.lote-tit b{color:#FFD34F;font-weight:600}
+.lote-barra{position:relative;height:9px;border-radius:999px;background:rgba(243,242,238,.08);overflow:hidden;box-shadow:inset 0 1px 2px rgba(0,0,0,.5)}
+.lote-barra i{display:block;height:100%;width:0;border-radius:999px;background:linear-gradient(90deg,#B8830A,#F5C328 55%,#FFD34F);box-shadow:0 0 14px -2px rgba(245,195,40,.75);transition:width 1.2s var(--ease) .15s}
+.lote.is-in .lote-barra i{width:var(--vagas)}
+.lote-nota{font:500 12px/1.4 Inter,sans-serif;color:#8B8A85}
+.lote-dir{flex:0 0 auto;display:flex;flex-direction:column;align-items:center;gap:9px}
+.lote-lbl{font:700 10px/1 Inter,sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#8B8A85}
+.lote .cdown-grid{gap:clamp(6px,.7vw,10px)}
+.lote .cdown-box{min-width:clamp(54px,4.6vw,68px);padding:clamp(8px,.9vw,11px) clamp(6px,.7vw,10px);border-radius:clamp(11px,.9vw,14px)}
+.lote .cdown-num{font-size:clamp(22px,2.2vw,31px)}
+.lote .cdown-lbl{font-size:9px;letter-spacing:.14em}
+.lote .cdown-unit{gap:6px}
+@media (max-width:760px){
+.lote-wrap{flex-direction:column-reverse;align-items:center;text-align:center}
+.lote-esq{flex:0 0 auto;width:100%;align-items:center}
+.lote-tag{align-self:center}
+.lote-barra{width:100%}
+}
+@media (prefers-reduced-motion:reduce){.lote-barra i{transition:none}}
 /* --- faixa marquee --- */
 .marquee-pause:hover>div{animation-play-state:paused}
 /* --- funil v2 --- */
@@ -497,6 +522,21 @@ img{height:auto}
 </div>
 </div>
 
+</div>
+</section>
+
+<section data-reveal class="lote" data-countdown data-deadline="2026-10-10T19:00:00-03:00" style="--vagas:62%" aria-label="Vagas do primeiro lote">
+<div class="lote-wrap">
+<div class="lote-esq">
+<span class="lote-tag">1º lote</span>
+<p class="lote-tit"><b>62% das vagas</b> já foram preenchidas</p>
+<div class="lote-barra" role="img" aria-label="62 por cento das vagas do primeiro lote preenchidas"><i></i></div>
+<p class="lote-nota">Quando o 1º lote fechar, o preço sobe.</p>
+</div>
+<div class="lote-dir">
+<span class="lote-lbl">Encerra em</span>
+<div class="cdown-grid"><div class="cdown-unit"><div class="cdown-box"><span class="cdown-num" data-cd="dias">00</span></div><span class="cdown-lbl">Dias</span></div><div class="cdown-unit"><div class="cdown-box"><span class="cdown-num" data-cd="horas">00</span></div><span class="cdown-lbl">Horas</span></div><div class="cdown-unit"><div class="cdown-box"><span class="cdown-num" data-cd="minutos">00</span></div><span class="cdown-lbl">Min</span></div><div class="cdown-unit"><div class="cdown-box"><span class="cdown-num" data-cd="segundos">00</span></div><span class="cdown-lbl">Seg</span></div></div>
+</div>
 </div>
 </section>
 
@@ -1581,32 +1621,37 @@ class Component {
   }
 
   setupCountdown() {
-    const root = document.querySelector("[data-countdown]");
-    if (!root) return;
-    const alvo = new Date(root.getAttribute("data-deadline")).getTime();
-    if (!isFinite(alvo)) return;
-    const campos = {};
-    root.querySelectorAll("[data-cd]").forEach(el => { campos[el.getAttribute("data-cd")] = el; });
+    const relogios = [...document.querySelectorAll("[data-countdown]")].map(raiz => {
+      const campos = {};
+      raiz.querySelectorAll("[data-cd]").forEach(el => { campos[el.getAttribute("data-cd")] = el; });
+      return { raiz, alvo: new Date(raiz.getAttribute("data-deadline")).getTime(), campos };
+    }).filter(r => isFinite(r.alvo));
+    if (!relogios.length) return;
+
     const pad = n => String(n).padStart(2, "0");
     const tick = () => {
-      const seg = Math.max(0, Math.floor((alvo - Date.now()) / 1000));
-      const valores = {
-        dias: pad(Math.floor(seg / 86400)),
-        horas: pad(Math.floor(seg % 86400 / 3600)),
-        minutos: pad(Math.floor(seg % 3600 / 60)),
-        segundos: pad(seg % 60)
-      };
-      for (const k in valores) {
-        const el = campos[k];
-        if (!el || el.textContent === valores[k]) continue;
-        el.textContent = valores[k];
-        if (!REDUCED) { el.classList.remove("flip"); void el.offsetWidth; el.classList.add("flip"); }
-      }
-      if (seg === 0) {
-        const t = root.querySelector(".cdown-title");
-        if (t) t.textContent = "As inscrições foram encerradas.";
-        clearInterval(this._cdTimer);
-      }
+      let vivos = 0;
+      relogios.forEach(({ raiz, alvo, campos }) => {
+        const seg = Math.max(0, Math.floor((alvo - Date.now()) / 1000));
+        if (seg > 0) vivos++;
+        const valores = {
+          dias: pad(Math.floor(seg / 86400)),
+          horas: pad(Math.floor(seg % 86400 / 3600)),
+          minutos: pad(Math.floor(seg % 3600 / 60)),
+          segundos: pad(seg % 60)
+        };
+        for (const k in valores) {
+          const el = campos[k];
+          if (!el || el.textContent === valores[k]) continue;
+          el.textContent = valores[k];
+          if (!REDUCED) { el.classList.remove("flip"); void el.offsetWidth; el.classList.add("flip"); }
+        }
+        if (seg === 0) {
+          const t = raiz.querySelector(".cdown-title");
+          if (t) t.textContent = "As inscrições foram encerradas.";
+        }
+      });
+      if (!vivos) clearInterval(this._cdTimer);
     };
     tick();
     this._cdTimer = setInterval(tick, 1000);
