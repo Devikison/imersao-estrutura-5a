@@ -96,6 +96,7 @@ Armadilha conhecida: `.spot` define `position:relative`; os cards empilhados pre
 - Página estática, sem React/Babel (a versão anterior carregava 3 MB de JavaScript do unpkg antes de renderizar).
 - Hero em JPEG com `preload` por faixa de largura (828, 1080, 1366 e 1920 px), qualidade 92/90.
 - Fontes servidas do próprio domínio (`assets/fonts`), com preload de General Sans 600 e Inter. Nenhuma conexão com Fontshare ou Google Fonts.
+- **Eventos no `dataLayer`** (o popup não muda a URL, então sem eles o GTM não enxerga nada entre a visita e a compra): `popup_abriu` quando o popup abre e `lead_enviado` quando o formulário passa na validação, os dois com `origem` dizendo de qual botão veio o clique (`hero`, `esteira`, `oferta`, `cta-final`, `barra-fixa`). O `lead_enviado` dispara **antes** da requisição ao webhook, porque logo depois a página navega para o checkout e a tag não teria tempo de subir. Nenhum dado pessoal vai no `dataLayer`.
 - O **Google Tag Manager** é a única requisição para fora. Ele carrega de forma assíncrona e não segura a renderização, mas o que pesa de verdade são as tags configuradas dentro do contêiner: se a página ficar lenta depois de alguma mudança, olhe lá antes de procurar no `index.html`.
 - Seta neon do hero é SVG inline; logo e ícones de canal em PNG no tamanho exibido; imagens abaixo da dobra com `loading="lazy"`; grupos dos marquees duplicados por JavaScript.
 - `lang="pt-BR"`, meta description, Open Graph, `width`/`height` nas imagens.

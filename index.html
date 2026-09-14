@@ -1121,6 +1121,13 @@ const UTMS = (() => {
   return guardado;
 })();
 
+/* Avisa o GTM do que acontece dentro da página. O popup não muda a URL, então
+   sem isso o funil fica cego entre a visita e a compra. Sem dados pessoais:
+   só o nome do evento e de qual botão veio o clique. */
+const marcar = (evento, extra) => {
+  try { (window.dataLayer = window.dataLayer || []).push(Object.assign({ event: evento }, extra || {})); } catch (_) {}
+};
+
 const FAQ = [
   { q: "A imersão é gravada? Vou ter acesso depois?", a: "A imersão é ao vivo, no dia 10 de outubro, e o formato existe justamente para você perguntar sobre a sua operação em tempo real. O acesso e as orientações sobre a gravação são enviados por e-mail depois da confirmação da inscrição." },
   { q: "Preciso ter uma empresa grande para participar?", a: "Não. Você precisa ter uma operação rodando: alguma coisa entrando de marketing, alguém atendendo e alguém vendendo. Se já existe dinheiro sendo investido em aquisição, existe estrutura para diagnosticar." },
@@ -1592,6 +1599,7 @@ class Component {
       modal.hidden = false;
       document.body.style.overflow = "hidden";
       requestAnimationFrame(() => { modal.classList.add("aberto"); fNome.focus(); });
+      marcar("popup_abriu", { origem });
     };
     const fechar = () => {
       modal.classList.remove("aberto");
@@ -1635,6 +1643,9 @@ class Component {
       erro.hidden = true;
       enviar.disabled = true;
       enviar.innerHTML = "Enviando...";
+      /* dispara antes do envio: a página sai do ar logo em seguida e a tag
+         precisa de tempo para subir */
+      marcar("lead_enviado", { origem });
 
       const dados = new URLSearchParams({ nome, email, whatsapp: zap, origem, pagina: location.href });
       for (const k in UTMS) dados.set(k, UTMS[k]);
