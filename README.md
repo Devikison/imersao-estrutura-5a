@@ -14,7 +14,7 @@ Landing page de venda da **Imersão Estrutura 5A** (Grupo 2!H): imersão online 
 
 | Caminho | O que é |
 |---|---|
-| `index.html` | **A landing page inteira.** HTML estático com CSS no `<style>` do `<head>` e JavaScript no `<script>` no fim do `<body>`. Sem build, sem framework e **sem nenhuma dependência externa** (fontes hospedadas em `assets/fonts`). |
+| `index.html` | **A landing page inteira.** HTML estático com CSS no `<style>` do `<head>` e JavaScript no `<script>` no fim do `<body>`. Sem build e sem framework. A única coisa carregada de fora é o **Google Tag Manager** (`GTM-PDKH7XHJ`), com o script no topo do `<head>` e o `<noscript>` logo depois do `<body>`; fontes e imagens são todas do próprio domínio. |
 | `assets/` | Logos (inclusive `logo-imersao-5a.png`, o letreiro "Imersão Estrutura 5A" recortado da capa do hero com fundo transparente), ícones, imagens e as fontes (`assets/fonts`: General Sans 400-700 e Inter variável, em woff2, declaradas no `<style>` da página). As capas do hero são servidas em JPEG (`hero-creative-*.jpg`); os PNG (`hero-creative.png`, `hero-creative-mobile.png`) ficam só como arquivo-fonte e **não são carregados pela página**. |
 | `tools/serve.ps1` | Servidor local de preview (PowerShell puro, a máquina não tem Python nem Node). |
 | `tools/make-hero-jpg.ps1` | Regenera os JPEG do hero a partir dos PNG. Rodar sempre que trocar uma capa. |
@@ -96,6 +96,7 @@ Armadilha conhecida: `.spot` define `position:relative`; os cards empilhados pre
 - Página estática, sem React/Babel (a versão anterior carregava 3 MB de JavaScript do unpkg antes de renderizar).
 - Hero em JPEG com `preload` por faixa de largura (828, 1080, 1366 e 1920 px), qualidade 92/90.
 - Fontes servidas do próprio domínio (`assets/fonts`), com preload de General Sans 600 e Inter. Nenhuma conexão com Fontshare ou Google Fonts.
+- O **Google Tag Manager** é a única requisição para fora. Ele carrega de forma assíncrona e não segura a renderização, mas o que pesa de verdade são as tags configuradas dentro do contêiner: se a página ficar lenta depois de alguma mudança, olhe lá antes de procurar no `index.html`.
 - Seta neon do hero é SVG inline; logo e ícones de canal em PNG no tamanho exibido; imagens abaixo da dobra com `loading="lazy"`; grupos dos marquees duplicados por JavaScript.
 - `lang="pt-BR"`, meta description, Open Graph, `width`/`height` nas imagens.
 - Se voltar a rodar o PageSpeed, a API pública sem chave estoura cota; use o site pagespeed.web.dev.
