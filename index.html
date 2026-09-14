@@ -242,10 +242,6 @@ body.rail-dragging{user-select:none;-webkit-user-select:none}
 .hero-trust span{display:inline-flex;align-items:center;gap:7px}
 .hero-trust svg{width:15px;height:15px;color:#F5C328;flex:none}
 @media (max-width:760px){.hero-trust{justify-content:center}}
-.hero-date{display:inline-flex;align-items:center;gap:10px;padding:9px 16px 9px 11px;border-radius:999px;border:1px solid rgba(245,195,40,.34);background:linear-gradient(160deg,rgba(245,195,40,.15),rgba(10,10,12,.35));backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);font:600 clamp(11px,.95vw,13px)/1.35 Inter,sans-serif;letter-spacing:.055em;text-transform:uppercase;color:#F3F2EE;white-space:nowrap}
-.hero-date i{flex:none;display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:999px;background:rgba(245,195,40,.16);border:1px solid rgba(245,195,40,.3)}
-.hero-date svg{width:14px;height:14px;color:#FFD34F}
-@media (max-width:560px){.hero-date{padding:8px 13px 8px 8px;gap:7px;font-size:clamp(9px,2.8vw,12px);letter-spacing:.03em}.hero-date i{width:21px;height:21px}.hero-date svg{width:12px;height:12px}}
 .hero-scroll-cue{position:absolute;left:clamp(18px,5vw,72px);bottom:22px;display:none;flex-direction:column;align-items:center;gap:6px;color:#A5A39A;font:600 10.5px/1 Inter,sans-serif;letter-spacing:.2em;text-transform:uppercase;z-index:2}
 .hero-scroll-cue i{width:22px;height:34px;border-radius:12px;border:1.5px solid rgba(243,242,238,.28);position:relative}
 .hero-scroll-cue i::after{content:'';position:absolute;left:50%;top:6px;width:3px;height:7px;border-radius:2px;background:#F5C328;transform:translateX(-50%);animation:cue 1.8s var(--ease) infinite}
@@ -324,6 +320,9 @@ body.rail-dragging{user-select:none;-webkit-user-select:none}
 .lote-tag-m{display:none}
 .lote-tit{font:600 clamp(16px,1.5vw,21px)/1.25 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE}
 .lote-tit b{color:#FFD34F;font-weight:600}
+.lote-data{display:flex;align-items:center;gap:9px;margin-top:3px;font:700 clamp(10px,.82vw,11.5px)/1.4 Inter,sans-serif;letter-spacing:.11em;text-transform:uppercase;color:#FFFFFF}
+.lote-data svg{flex:none;width:15px;height:15px;color:#FFD34F}
+.lote-data i{margin:0 7px;color:rgba(255,255,255,.34);font-style:normal}
 .lote-barra{position:relative;height:9px;border-radius:999px;background:rgba(243,242,238,.08);overflow:hidden;box-shadow:inset 0 1px 2px rgba(0,0,0,.5)}
 .lote-barra i{display:block;height:100%;width:0;border-radius:999px;background:linear-gradient(90deg,#B8830A,#F5C328 55%,#FFD34F);box-shadow:0 0 14px -2px rgba(245,195,40,.75);transition:width 1.2s var(--ease) .15s}
 .lote.is-in .lote-barra i{width:var(--vagas)}
@@ -338,6 +337,8 @@ body.rail-dragging{user-select:none;-webkit-user-select:none}
 .lote-tag-d{display:none}
 .lote-tag-m{display:inline-flex}
 .lote-barra{width:100%}
+.lote-data{display:block;text-align:center}
+.lote-data svg{display:inline-block;vertical-align:-3px;margin-right:8px}
 }
 @media (prefers-reduced-motion:reduce){.lote-barra i{transition:none}}
 /* --- faixa marquee --- */
@@ -547,7 +548,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <img data-reveal class="hero-logo" src="assets/logo-imersao-5a.png" alt="Imersão Estrutura 5A" width="619" height="121" decoding="async">
 <h1 data-reveal class="hero-h1" style="font:600 clamp(32px,3.7vw,50px)/1.16 'General Sans',Inter,system-ui;letter-spacing:-.028em;color:#F3F2EE;text-wrap:pretty">Antes de investir mais em tráfego<br class="hero-br"> descubra onde sua empresa<br class="hero-br"> <span class="hero-emph" style="position:relative;white-space:nowrap"><span style="position:relative;z-index:1;background:linear-gradient(180deg,#FFEFC0,#F5C328 55%,#B8830A);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">está perdendo vendas.</span></span></h1>
 <p data-reveal class="hero-sub" style="font:500 clamp(14.5px,1.25vw,19px)/1.55 Inter,sans-serif;color:#EDEBE2;text-wrap:pretty">Em uma imersão online e ao vivo de <strong style="color:#FFFFFF;font-weight:700">4 horas</strong>, você vai aprender<br class="hero-br"> a analisar a estrutura entre marketing, atendimento e comercial<br class="hero-br"> para identificar gargalos, entender seus números e descobrir<br class="hero-br"> o que precisa ser corrigido antes de tentar escalar.</p>
-<span data-reveal class="hero-date"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"></rect><path d="M16 2v4M8 2v4M3 10h18"></path></svg></i>10 de outubro, às 19:00, ao vivo e online</span>
 <div data-reveal data-mobile-row-center style="display:flex;flex-wrap:wrap;align-items:center;gap:clamp(12px,1.6vw,18px);margin-top:clamp(2px,.6vw,8px);width:100%">
 <a href="#inscricao" data-cta="hero" class="btn-v2 btn-gold btn-pulse btn-block-m">Quero garantir minha vaga <span class="btn-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></a>
 <a href="#diagnostico" class="btn-v2 btn-glass btn-block-m">O que você vai enxergar <span class="btn-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v13M6 13l6 6 6-6"></path></svg></span></a>
@@ -563,6 +563,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <span class="lote-tag lote-tag-d">1º lote</span>
 <p class="lote-tit"><b>36% das vagas</b> já foram preenchidas</p>
 <div class="lote-barra" role="img" aria-label="36 por cento das vagas do primeiro lote preenchidas"><i></i></div>
+<p class="lote-data"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"></rect><path d="M16 2v4M8 2v4M3 10h18"></path></svg><span>10 de outubro, às 19:00<i>·</i>ao vivo e online</span></p>
 </div>
 <div class="lote-dir">
 <span class="lote-tag lote-tag-m">1º lote</span>
