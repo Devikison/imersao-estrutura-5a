@@ -300,11 +300,6 @@ body.rail-dragging{user-select:none;-webkit-user-select:none}
 .lead-erro{font:500 12.5px/1.45 Inter,sans-serif;color:#F09B9B}
 .lead-nota{margin-top:2px;font:500 11.5px/1.5 Inter,sans-serif;color:#7E7D78;text-align:center}
 .lead-form button[type=submit][disabled]{opacity:.65;pointer-events:none}
-.lead-ok{display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px;padding:14px 0 6px}
-.lead-ok i{display:inline-flex;align-items:center;justify-content:center;width:52px;height:52px;border-radius:999px;background:rgba(46,204,113,.14);border:1px solid rgba(46,204,113,.4);color:#7FE3A6}
-.lead-ok i svg{width:24px;height:24px}
-.lead-ok b{font:600 19px/1.25 'General Sans',Inter,system-ui;color:#F3F2EE}
-.lead-ok p{font:500 13.5px/1.6 Inter,sans-serif;color:#B9B7AE;text-wrap:pretty}
 @media (max-width:420px){.lead-card{border-radius:20px}.lead-field input{height:48px}}
 /* plaquinhas douradas, número preto */
 .cdown-grid.dourado .fc-h{border-color:rgba(20,20,20,.18)}
@@ -1085,11 +1080,6 @@ img{height:auto}
 <button type="submit" class="btn-v2 btn-gold" style="width:100%;margin-top:4px">Continuar para o pagamento <span class="btn-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></button>
 <p class="lead-nota">Seus dados são usados só para liberar o acesso à imersão.</p>
 </form>
-<div class="lead-ok" hidden>
-<i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg></i>
-<b>Inscrição registrada</b>
-<p>Recebemos seus dados. Em instantes você recebe as instruções de pagamento no e-mail e no WhatsApp informados.</p>
-</div>
 </div>
 </div>
 <script>
@@ -1097,10 +1087,10 @@ img{height:auto}
    WEBHOOK  : endpoint do n8n que recebe o formulario. Só aceita POST.
    CHECKOUT : para onde mandar a pessoa depois de enviar. Se o próprio fluxo
               responder com a URL (campo url/checkout/link/redirect) ou com um
-              redirect, ela tem prioridade. Enquanto estiver "", o popup mostra
-              a tela de confirmação em vez de seguir para o pagamento.          */
+              redirect, ela tem prioridade. Nome, e-mail e WhatsApp vão junto na
+              URL para o checkout já abrir preenchido.                          */
 const WEBHOOK = "https://n8n-n8n-start.dnjlb7.easypanel.host/webhook/grupo2h";
-const CHECKOUT = "";
+const CHECKOUT = "https://pay.kiwify.com.br/u3dyAhj";
 
 const FAQ = [
   { q: "A imersão é gravada? Vou ter acesso depois?", a: "A imersão é ao vivo, no dia 10 de outubro, e o formato existe justamente para você perguntar sobre a sua operação em tempo real. O acesso e as orientações sobre a gravação são enviados por e-mail depois da confirmação da inscrição." },
@@ -1561,7 +1551,6 @@ class Component {
     if (!modal) return;
     const form = modal.querySelector(".lead-form");
     const erro = modal.querySelector(".lead-erro");
-    const sucesso = modal.querySelector(".lead-ok");
     const enviar = form.querySelector("button[type=submit]");
     const rotulo = enviar.innerHTML;
     const campos = [...form.querySelectorAll("input")];
@@ -1640,9 +1629,18 @@ class Component {
         /* CORS impede ler a resposta, mas o POST é entregue mesmo assim */
       }
 
-      if (destino) { location.href = destino; return; }
-      form.hidden = true;
-      sucesso.hidden = false;
+      /* leva os dados junto, para o checkout abrir já preenchido */
+      if (destino) {
+        const tel = zap.length <= 11 ? "55" + zap : zap;
+        const q = "customer.name=" + encodeURIComponent(nome)
+                + "&customer.email=" + encodeURIComponent(email)
+                + "&customer.phone=" + encodeURIComponent(tel);
+        location.href = destino + (destino.includes("?") ? "&" : "?") + q;
+        return;
+      }
+
+      erro.textContent = "Não foi possível abrir o pagamento. Tente de novo.";
+      erro.hidden = false;
       enviar.disabled = false;
       enviar.innerHTML = rotulo;
     });
