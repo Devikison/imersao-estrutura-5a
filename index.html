@@ -366,9 +366,9 @@ body.rail-dragging{user-select:none;-webkit-user-select:none}
 .hook{flex:none;padding:16px 24px;border-radius:16px;border:1px solid rgba(20,20,20,.14);background:#141416;font:500 clamp(15px,1.3vw,20px)/1.3 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE;box-shadow:0 12px 26px -16px rgba(0,0,0,.7),inset 0 1px 0 rgba(255,255,255,.06);transition:transform .35s var(--ease),box-shadow .35s}
 .hook.hook-hi{background:#0A0A0C;color:#FFD34F;border-color:rgba(255,239,192,.35)}
 @media (hover:hover){.hook:hover{transform:translateY(-3px);box-shadow:0 20px 34px -16px rgba(0,0,0,.8),inset 0 1px 0 rgba(255,255,255,.1)}}
-.hook-br{display:none}
+.hook-br,.oferta-br{display:none}
 .hook-head{max-width:60ch}
-@media (min-width:901px){.hook-br{display:block}.hook-head{max-width:min(940px,100%)}}
+@media (min-width:901px){.hook-br,.oferta-br{display:block}.hook-head{max-width:min(940px,100%)}}
 .hook-fade{position:absolute;inset:0;z-index:2;pointer-events:none;background:linear-gradient(90deg,#F6C733 0%,transparent 10%,transparent 90%,#EDB61C 100%)}
 /* --- oferta --- */
 .offer-frame{width:100%;border-radius:36px;padding:clamp(14px,2vw,26px);background:rgba(20,20,20,.04);border:1px solid rgba(20,20,20,.08);display:flex;justify-content:center}
@@ -795,8 +795,8 @@ img{height:auto}
 <section class="sec-pad sec-light on-light" style="position:relative;background:var(--cream2)">
 <div style="max-width:1100px;margin:0 auto;display:flex;flex-direction:column;gap:clamp(28px,3.4vw,46px);align-items:center">
 <div data-reveal class="sec-head center" style="max-width:60ch">
-<h2 class="sec-h2" style="color:#141414">O tamanho exato da transformação que a imersão entrega hoje</h2>
-<p class="sec-sub" style="text-align:center">Duas coisas diferentes, e é importante que fique claro qual delas está à venda nesta página.</p>
+<h2 class="sec-h2" style="color:#141414">Tudo o que a imersão<br class="oferta-br"> entrega por R$ 27</h2>
+<p class="sec-sub" style="text-align:center">Não é um curso nem uma aula de tráfego. São 4 horas ao vivo diagnosticando a sua operação, do negócio até a margem.</p>
 </div>
 <div class="offer-frame">
 <article data-reveal class="offer-card spot">
