@@ -176,7 +176,7 @@ body.rail-dragging{user-select:none;-webkit-user-select:none}
 .eyebrow b{display:inline-flex;align-items:center;justify-content:center;min-width:22px;height:22px;padding:0 6px;border-radius:999px;background:linear-gradient(135deg,#FFDF7A,#F5C328 45%,#D9A012);color:#121215;font:800 10.5px/1 Inter,sans-serif;letter-spacing:.02em}
 .on-light .eyebrow{border-color:rgba(20,20,20,.16);background:rgba(20,20,20,.05);color:#6B4A05;box-shadow:none}
 .sec-sub{font:500 clamp(15px,1.15vw,18.5px)/1.6 Inter,sans-serif;color:#C9C7BE;max-width:52ch;text-wrap:pretty}
-.on-light .sec-sub{color:rgba(20,20,20,.72)}
+.on-light .sec-sub{color:#141414}
 .h2-line{display:block;width:72px;height:3px;border-radius:3px;background:linear-gradient(90deg,#FFEFC0,#F5C328,#B8830A);transform:scaleX(0);transform-origin:left;transition:transform 1s var(--ease) .25s}
 .center .h2-line{transform-origin:center}
 .is-in .h2-line{transform:scaleX(1)}
@@ -311,6 +311,7 @@ body.rail-dragging{user-select:none;-webkit-user-select:none}
 .cdown-grid.dourado .fc-h b{color:#121215}
 .cdown-grid.dourado .cdown-box{filter:drop-shadow(0 14px 22px rgba(245,195,40,.22))}
 .cdown-grid.dourado .cdown-box::before,.cdown-grid.dourado .cdown-box::after{background:#0C0C0F;border-color:rgba(20,20,20,.45)}
+.cdown-grid.dourado .cdown-lbl{color:#FFFFFF}
 /* --- faixa de lote (cronometro compacto + vagas) --- */
 .lote{position:relative;padding:clamp(20px,2.6vw,30px) clamp(18px,5vw,72px);background:#0F0F12;border-top:1px solid rgba(243,242,238,.07);border-bottom:1px solid rgba(243,242,238,.07)}
 .lote-wrap{max-width:1240px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:clamp(18px,2.6vw,42px)}
@@ -329,7 +330,7 @@ body.rail-dragging{user-select:none;-webkit-user-select:none}
 .lote-dir{flex:0 0 auto;display:flex;flex-direction:column;align-items:center;gap:9px}
 .lote-lbl{font:700 10px/1 Inter,sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#FFFFFF}
 .lote .cdown-grid{gap:clamp(6px,.7vw,10px);--fc-w:clamp(54px,4.6vw,68px);--fc-h:clamp(52px,4.4vw,64px);--fc-f:clamp(22px,2.2vw,31px);--fc-r:clamp(11px,.9vw,14px)}
-.lote .cdown-lbl{font-size:9px;letter-spacing:.14em;color:#FFFFFF}
+.lote .cdown-lbl{font-size:9px;letter-spacing:.14em}
 .lote .cdown-unit{gap:6px}
 @media (max-width:760px){
 .lote-wrap{flex-direction:column-reverse;align-items:center;text-align:center}
@@ -420,9 +421,10 @@ body.rail-dragging{user-select:none;-webkit-user-select:none}
 .hook{flex:none;padding:16px 24px;border-radius:16px;border:1px solid rgba(20,20,20,.14);background:#141416;font:500 clamp(15px,1.3vw,20px)/1.3 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE;box-shadow:0 12px 26px -16px rgba(0,0,0,.7),inset 0 1px 0 rgba(255,255,255,.06);transition:transform .35s var(--ease),box-shadow .35s}
 .hook.hook-hi{background:#0A0A0C;color:#FFD34F;border-color:rgba(255,239,192,.35)}
 @media (hover:hover){.hook:hover{transform:translateY(-3px);box-shadow:0 20px 34px -16px rgba(0,0,0,.8),inset 0 1px 0 rgba(255,255,255,.1)}}
-.hook-br,.oferta-br{display:none}
+.hook-br{display:none}
+.oferta-br{display:block}
 .hook-head{max-width:60ch}
-@media (min-width:901px){.hook-br,.oferta-br{display:block}.hook-head{max-width:min(940px,100%)}}
+@media (min-width:901px){.hook-br{display:block}.hook-head{max-width:min(940px,100%)}}
 .hook-fade{position:absolute;inset:0;z-index:2;pointer-events:none;background:linear-gradient(90deg,#F6C733 0%,transparent 10%,transparent 90%,#EDB61C 100%)}
 /* --- oferta --- */
 .offer-frame{width:100%;border-radius:36px;padding:clamp(14px,2vw,26px);background:rgba(20,20,20,.04);border:1px solid rgba(20,20,20,.08);display:flex;justify-content:center}
@@ -1030,7 +1032,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </div>
 <div data-reveal class="cdown" data-countdown data-deadline="2026-10-10T19:00:00-03:00">
 <p class="cdown-title">As inscrições encerram em breve.</p>
-<div class="cdown-grid"><div class="cdown-unit"><div class="cdown-box" data-cd="dias" data-val="00"><div class="fc-h fc-t"><b>00</b></div><div class="fc-h fc-b"><b>00</b></div><div class="fc-h fc-t fc-a"><b>00</b></div><div class="fc-h fc-b fc-c"><b>00</b></div></div><span class="cdown-lbl">Dias</span></div><div class="cdown-unit"><div class="cdown-box" data-cd="horas" data-val="00"><div class="fc-h fc-t"><b>00</b></div><div class="fc-h fc-b"><b>00</b></div><div class="fc-h fc-t fc-a"><b>00</b></div><div class="fc-h fc-b fc-c"><b>00</b></div></div><span class="cdown-lbl">Horas</span></div><div class="cdown-unit"><div class="cdown-box" data-cd="minutos" data-val="00"><div class="fc-h fc-t"><b>00</b></div><div class="fc-h fc-b"><b>00</b></div><div class="fc-h fc-t fc-a"><b>00</b></div><div class="fc-h fc-b fc-c"><b>00</b></div></div><span class="cdown-lbl">Minutos</span></div><div class="cdown-unit"><div class="cdown-box" data-cd="segundos" data-val="00"><div class="fc-h fc-t"><b>00</b></div><div class="fc-h fc-b"><b>00</b></div><div class="fc-h fc-t fc-a"><b>00</b></div><div class="fc-h fc-b fc-c"><b>00</b></div></div><span class="cdown-lbl">Segundos</span></div></div>
+<div class="cdown-grid dourado"><div class="cdown-unit"><div class="cdown-box" data-cd="dias" data-val="00"><div class="fc-h fc-t"><b>00</b></div><div class="fc-h fc-b"><b>00</b></div><div class="fc-h fc-t fc-a"><b>00</b></div><div class="fc-h fc-b fc-c"><b>00</b></div></div><span class="cdown-lbl">Dias</span></div><div class="cdown-unit"><div class="cdown-box" data-cd="horas" data-val="00"><div class="fc-h fc-t"><b>00</b></div><div class="fc-h fc-b"><b>00</b></div><div class="fc-h fc-t fc-a"><b>00</b></div><div class="fc-h fc-b fc-c"><b>00</b></div></div><span class="cdown-lbl">Horas</span></div><div class="cdown-unit"><div class="cdown-box" data-cd="minutos" data-val="00"><div class="fc-h fc-t"><b>00</b></div><div class="fc-h fc-b"><b>00</b></div><div class="fc-h fc-t fc-a"><b>00</b></div><div class="fc-h fc-b fc-c"><b>00</b></div></div><span class="cdown-lbl">Minutos</span></div><div class="cdown-unit"><div class="cdown-box" data-cd="segundos" data-val="00"><div class="fc-h fc-t"><b>00</b></div><div class="fc-h fc-b"><b>00</b></div><div class="fc-h fc-t fc-a"><b>00</b></div><div class="fc-h fc-b fc-c"><b>00</b></div></div><span class="cdown-lbl">Segundos</span></div></div>
 </div>
 <a data-reveal href="#inscricao" data-cta="cta-final" class="btn-v2 btn-gold btn-lg btn-pulse btn-block-m">Quero garantir minha vaga <span class="btn-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></a>
 <p data-reveal style="font:500 13.5px/1.6 Inter,sans-serif;color:#C9C7BE;max-width:46ch">Vagas limitadas para manter a imersão<br><span style="color:#FFD34F">aberta a perguntas.</span></p>
