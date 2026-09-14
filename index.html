@@ -226,6 +226,9 @@ body.rail-dragging{user-select:none;-webkit-user-select:none}
 @media (max-width:640px){.hero-capsule{top:12px;width:236px;padding:6px 12px 6px 6px;gap:8px}.cap-ic{width:26px;height:26px}.cap-txt{font-size:12px}}
 @media (prefers-reduced-motion:reduce){.hero-capsule::after{animation:none}}
 /* --- hero --- */
+.hero-logo{display:block;width:clamp(210px,21vw,290px);height:auto;margin-bottom:clamp(-14px,-1.1vw,-6px)}
+.offer-logo{display:block;width:clamp(124px,13vw,166px);height:auto}
+@media (max-width:760px){.hero-logo{width:min(74%,262px);margin-left:auto;margin-right:auto}}
 .hero-eyebrow{display:inline-flex;align-items:center;gap:10px;padding:8px 16px 8px 10px;border-radius:999px;border:1px solid rgba(245,195,40,.35);background:linear-gradient(160deg,rgba(245,195,40,.14),rgba(10,10,12,.3));backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);font:600 12px/1 Inter,sans-serif;letter-spacing:.06em;text-transform:uppercase;color:#F3F2EE}
 .hero-eyebrow .live{display:inline-flex;align-items:center;gap:6px;padding:4px 9px;border-radius:999px;background:rgba(46,204,113,.14);color:#7FE3A6;border:1px solid rgba(46,204,113,.35);font-weight:700;letter-spacing:.08em}
 .hero-trust{display:flex;flex-wrap:wrap;align-items:center;gap:10px 18px;font:500 13px/1.4 Inter,sans-serif;color:#CFCDC4}
@@ -455,6 +458,7 @@ img{height:auto}
 <div class="hero-content-wrap" style="position:relative;z-index:1;width:100%;max-width:1240px;margin:0 auto;display:flex;flex-wrap:wrap-reverse;align-items:center;gap:clamp(26px,3.6vw,60px)">
 
 <div data-mobile-center style="flex:1 1 330px;min-width:min(100%,320px);display:flex;flex-direction:column;align-items:flex-start;gap:clamp(14px,1.7vw,22px)">
+<img data-reveal class="hero-logo" src="assets/logo-imersao-5a.png" alt="Imersão Estrutura 5A" width="619" height="121" decoding="async">
 <h1 data-reveal class="hero-h1" style="font:600 clamp(32px,3.7vw,50px)/1.16 'General Sans',Inter,system-ui;letter-spacing:-.028em;color:#F3F2EE;text-wrap:pretty">Antes de investir mais em tráfego<br class="hero-br"> descubra onde sua empresa<br class="hero-br"> <span class="hero-emph" style="position:relative;white-space:nowrap"><span style="position:relative;z-index:1;background:linear-gradient(180deg,#FFEFC0,#F5C328 55%,#B8830A);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">está perdendo vendas.</span></span></h1>
 <p data-reveal class="hero-sub" style="font:500 clamp(14.5px,1.25vw,19px)/1.55 Inter,sans-serif;color:#EDEBE2;text-wrap:pretty">Em uma imersão online e ao vivo de <strong style="color:#FFFFFF;font-weight:700">4 horas</strong>, você vai aprender<br class="hero-br"> a analisar a estrutura entre marketing, atendimento e comercial<br class="hero-br"> para identificar gargalos, entender seus números e descobrir<br class="hero-br"> o que precisa ser corrigido antes de tentar escalar.</p>
 <span data-reveal class="hero-date"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"></rect><path d="M16 2v4M8 2v4M3 10h18"></path></svg></i>10 de outubro, das 19h às 23h, ao vivo e online</span>
@@ -768,7 +772,7 @@ img{height:auto}
 <div class="offer-frame">
 <article data-reveal class="offer-card spot">
 <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:clamp(18px,2.2vw,22px)">
-<span style="font:700 11px/1 Inter,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#B9B7AE">Imersão Estrutura 5A</span>
+<img class="offer-logo" src="assets/logo-imersao-5a.png" alt="Imersão Estrutura 5A" width="619" height="121" loading="lazy" decoding="async">
 <span class="offer-badge">À VENDA HOJE</span>
 </div>
 <p style="font:500 clamp(15px,1.2vw,17.5px)/1.5 Inter,sans-serif;color:#EDEBE2;text-wrap:pretty;margin-bottom:clamp(20px,2.6vw,26px)">Eu vou ensinar você a enxergar o sistema e identificar os principais gargalos.</p>

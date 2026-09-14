@@ -15,7 +15,7 @@ Landing page de venda da **Imersão Estrutura 5A** (Grupo 2!H): imersão online 
 | Caminho | O que é |
 |---|---|
 | `index.html` | **A landing page inteira.** HTML estático com CSS no `<style>` do `<head>` e JavaScript no `<script>` no fim do `<body>`. Sem build, sem framework e **sem nenhuma dependência externa** (fontes hospedadas em `assets/fonts`). |
-| `assets/` | Logos, ícones, imagens e as fontes (`assets/fonts`: General Sans 400-700 e Inter variável, em woff2, declaradas no `<style>` da página). As capas do hero são servidas em JPEG (`hero-creative-*.jpg`); os PNG (`hero-creative.png`, `hero-creative-mobile.png`) ficam só como arquivo-fonte e **não são carregados pela página**. |
+| `assets/` | Logos (inclusive `logo-imersao-5a.png`, o letreiro "Imersão Estrutura 5A" recortado da capa do hero com fundo transparente), ícones, imagens e as fontes (`assets/fonts`: General Sans 400-700 e Inter variável, em woff2, declaradas no `<style>` da página). As capas do hero são servidas em JPEG (`hero-creative-*.jpg`); os PNG (`hero-creative.png`, `hero-creative-mobile.png`) ficam só como arquivo-fonte e **não são carregados pela página**. |
 | `tools/serve.ps1` | Servidor local de preview (PowerShell puro, a máquina não tem Python nem Node). |
 | `tools/make-hero-jpg.ps1` | Regenera os JPEG do hero a partir dos PNG. Rodar sempre que trocar uma capa. |
 | `CNAME` | Domínio do GitHub Pages. Não apagar. |
@@ -43,14 +43,14 @@ git push origin main
 
 ## 3. Mapa da página (ordem das seções)
 
-1. **Hero** — criativo com foto (fundo no desktop, imagem inteira 2:3 no mobile), título, subtítulo, pílula de data (`.hero-date`: "10 de outubro, das 19h às 23h, ao vivo e online", logo acima dos botões no desktop e no mobile), botão dourado "Quero garantir minha vaga" e botão vidro "O que você vai enxergar". Ícones flutuantes (Google Ads, Facebook, seta) posicionados por porcentagem, com valores diferentes para desktop e mobile.
+1. **Hero** — criativo com foto (fundo no desktop, imagem inteira 2:3 no mobile), logo da imersão (`.hero-logo`) alinhado acima do título, título, subtítulo, pílula de data (`.hero-date`: "10 de outubro, das 19h às 23h, ao vivo e online", logo acima dos botões no desktop e no mobile), botão dourado "Quero garantir minha vaga" e botão vidro "O que você vai enxergar". Ícones flutuantes (Google Ads, Facebook, seta) posicionados por porcentagem, com valores diferentes para desktop e mobile.
 2. **Faixa dourada** em marquee com os argumentos rápidos.
 3. **A ideia central + Funil** — citação à esquerda, funil animado à direita (SVG + leads em HTML). Leads entram com ícone de canal, parte se perde no meio (fica cinza com X), parte vira moeda que cai no prato de "Receita · Margem". Contadores ao vivo abaixo. Rótulos em maiúsculas (Leads entrando, Atendimento, Comercial, Venda, Receita · Margem) aparecem no desktop e no mobile.
 4. **Seis crenças** — fundo creme, cards escuros **empilhados no scroll** (sticky): cada card gruda no topo e o próximo desliza por cima, o de trás encolhe e escurece.
 5. **O diagnóstico completo** — 10 etapas (Negócio a Margem), **mesmo empilhamento** dos cards das crenças. No desktop a coluna esquerda mostra "Etapa X de 10" com barra de progresso.
 6. **Seis ângulos** — linha do tempo vertical que acende conforme rola. No mobile a linha passa por trás dos ícones. Abaixo, chips dos canais (Meta, Instagram, WhatsApp, Google Ads). Um **divisor de luz** (linha dourada, brilho e feixe correndo) separa esta seção da anterior.
 7. **Frases que doem** — seção inteira dourada com pílulas escuras em marquee duplo. O título quebra em duas linhas no desktop ("Frases que você já deveria" / "estar se fazendo") com `<br class="hook-br">` e o cabeçalho usa `.hook-head` para caber; no mobile a quebra some e o texto flui sozinho.
-8. **A oferta** — card escuro com borda animada, preço R$ 27, checklist, botão e a nota "Pagamento seguro" abaixo dele.
+8. **A oferta** — card escuro com borda animada, logo da imersão (`.offer-logo`) no topo à esquerda, ao lado do selo "À venda hoje", preço R$ 27, checklist, botão e a nota "Pagamento seguro" abaixo dele.
 9. **FAQ** — acordeão em vidro escuro, cada pergunta aparece individualmente ao entrar na tela.
 10. **Ficha técnica** — 4 cards brancos (data, formato, duração, investimento). No desktop lado a lado; no mobile em **duas fileiras de dois que empilham no scroll**.
 11. **Inscrição** — CTA final com anéis e brilho. Entre os chips e o botão fica o **cronômetro** (`.cdown`, estilo flip clock: dias, horas, minutos e segundos) com o título "As inscrições encerram em breve.".
@@ -99,6 +99,7 @@ Armadilha conhecida: `.spot` define `position:relative`; os cards empilhados pre
 ## 7. Pendências e observações
 
 - **Horário e plataforma:** "das 19h às 23h" (pílula do hero) foi deduzido das 4 horas anunciadas na página e **ainda não foi confirmado pelo cliente**; a plataforma (Zoom, YouTube etc.) não aparece em lugar nenhum. Confirmar os dois e ajustar a pílula do hero e o `data-deadline` do cronômetro juntos.
+- **Logo duplicado no hero (desktop):** a capa `hero-creative.png` ainda traz o mesmo letreiro no canto superior esquerdo, então no desktop ele aparece duas vezes. O cliente sabe: a ideia é trocar a foto do hero por uma sem o letreiro. Ao trocar, rodar `tools\make-hero-jpg.ps1` de novo.
 - **Link de pagamento:** todos os botões apontam para `#inscricao` (âncora da seção final). Quando houver URL de checkout, trocar `href="#inscricao"` nos botões e na barra inferior.
 - As **descrições curtas das 10 etapas** do diagnóstico (ex.: "Modelo, posicionamento e capacidade de entrega") foram escritas pelo assistente e ainda não foram validadas pelo cliente.
 - Redes sociais do rodapé apontam para `#inscricao` por falta dos links reais.
