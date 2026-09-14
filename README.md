@@ -2,7 +2,7 @@
 
 Landing page de venda da **Imersão Estrutura 5A** (Grupo 2!H): imersão online e ao vivo de 4 horas, 10 de outubro, R$ 27.
 
-- **Site no ar:** https://imersao5a.sitepreviavisual.site/ (GitHub Pages, domínio no arquivo `CNAME`)
+- **Site no ar:** https://imersaoestrutura5a.agencia2h.com.br/ (GitHub Pages, domínio no arquivo `CNAME`). O domínio antigo `imersao5a.sitepreviavisual.site` foi aposentado: o GitHub Pages serve um domínio personalizado por vez, então ele para de responder assim que o novo `CNAME` chega na `main`. No Hostinger, o subdomínio é um registro **CNAME** `imersaoestrutura5a` apontando para `devikison.github.io`.
 - **Repositório:** https://github.com/Devikison/imersao-estrutura-5a (branch `main`)
 - **Publicação:** todo `git push` na `main` vai ao ar em cerca de 30 a 60 segundos. Confira com Ctrl+F5 ou aba anônima.
 
