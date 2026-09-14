@@ -49,12 +49,12 @@ git push origin main
 4. **Seis crenças** — fundo creme, cards escuros **empilhados no scroll** (sticky): cada card gruda no topo e o próximo desliza por cima, o de trás encolhe e escurece.
 5. **O diagnóstico completo** — 10 etapas (Negócio a Margem), **mesmo empilhamento** dos cards das crenças. No desktop a coluna esquerda mostra "Etapa X de 10" com barra de progresso.
 6. **Seis ângulos** — linha do tempo vertical que acende conforme rola. No mobile a linha passa por trás dos ícones. Abaixo, chips dos canais (Meta, Instagram, WhatsApp, Google Ads). Um **divisor de luz** (linha dourada, brilho e feixe correndo) separa esta seção da anterior.
-7. **Frases que doem** — seção inteira dourada com pílulas escuras em marquee duplo.
-8. **A oferta** — card escuro com borda animada, preço R$ 27, checklist e botão. Nota abaixo explicando que a Mentoria 5A não está à venda aqui.
+7. **Frases que doem** — seção inteira dourada com pílulas escuras em marquee duplo. O título quebra em duas linhas no desktop ("Frases que você já deveria" / "estar se fazendo") com `<br class="hook-br">` e o cabeçalho usa `.hook-head` para caber; no mobile a quebra some e o texto flui sozinho.
+8. **A oferta** — card escuro com borda animada, preço R$ 27, checklist, botão e a nota "Pagamento seguro" abaixo dele.
 9. **FAQ** — acordeão em vidro escuro, cada pergunta aparece individualmente ao entrar na tela.
 10. **Ficha técnica** — 4 cards brancos (data, formato, duração, investimento). No desktop lado a lado; no mobile em **duas fileiras de dois que empilham no scroll**.
 11. **Inscrição** — CTA final com anéis e brilho.
-12. **Rodapé** — logo, e-mail, links, redes, selos pequenos (Compra 100% segura, Dados criptografados, Acesso por e-mail) e "© 2026 Grupo 2!H · Imersão Estrutura 5A. Todos os direitos reservados."
+12. **Rodapé** — logo, e-mail, links, redes, selos pequenos (Compra 100% segura, Dados criptografados) e "© 2026 Grupo 2!H · Imersão Estrutura 5A. Todos os direitos reservados."
 
 Elementos fixos: **logo do Grupo 2!H** no canto superior esquerdo, **cápsula central** no topo (largura fixa, ícone em selo dourado, texto que alterna a cada 2,6 s, ponto verde pulsando), **barra inferior** com CTA que aparece após o hero (texto curto no mobile), **trilha lateral dourada** de progresso que no desktop é clicável e arrastável (a seta do cursor acompanha o arraste), **cursor dourado** personalizado no desktop.
 

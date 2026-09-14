@@ -316,6 +316,9 @@ body.rail-dragging{user-select:none;-webkit-user-select:none}
 .hook{flex:none;padding:16px 24px;border-radius:16px;border:1px solid rgba(20,20,20,.14);background:#141416;font:500 clamp(15px,1.3vw,20px)/1.3 'General Sans',Inter,system-ui;letter-spacing:-.018em;color:#F3F2EE;box-shadow:0 12px 26px -16px rgba(0,0,0,.7),inset 0 1px 0 rgba(255,255,255,.06);transition:transform .35s var(--ease),box-shadow .35s}
 .hook.hook-hi{background:#0A0A0C;color:#FFD34F;border-color:rgba(255,239,192,.35)}
 @media (hover:hover){.hook:hover{transform:translateY(-3px);box-shadow:0 20px 34px -16px rgba(0,0,0,.8),inset 0 1px 0 rgba(255,255,255,.1)}}
+.hook-br{display:none}
+.hook-head{max-width:60ch}
+@media (min-width:901px){.hook-br{display:block}.hook-head{max-width:min(940px,100%)}}
 .hook-fade{position:absolute;inset:0;z-index:2;pointer-events:none;background:linear-gradient(90deg,#F6C733 0%,transparent 10%,transparent 90%,#EDB61C 100%)}
 /* --- oferta --- */
 .offer-frame{width:100%;border-radius:36px;padding:clamp(14px,2vw,26px);background:rgba(20,20,20,.04);border:1px solid rgba(20,20,20,.08);display:flex;justify-content:center}
@@ -329,8 +332,6 @@ body.rail-dragging{user-select:none;-webkit-user-select:none}
 .chk:last-child{border-bottom:none}
 .chk-ic{flex:none;width:24px;height:24px;border-radius:50%;margin-top:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#FFE28A,#F5C328 45%,#D9A012);box-shadow:0 4px 12px -4px rgba(245,195,40,.65),inset 0 1px 0 rgba(255,255,255,.5)}
 .chk-ic svg{width:13px;height:13px}
-.offer-note{display:flex;align-items:flex-start;gap:10px;padding:12px 14px;border-radius:14px;border:1px dashed rgba(20,20,20,.18);font:500 13.5px/1.5 Inter,sans-serif;color:rgba(20,20,20,.7);max-width:520px}
-.offer-note svg{flex:none;width:16px;height:16px;margin-top:2px;color:#8A5C06}
 /* --- FAQ (glass escuro) --- */
 .faq-item{border-radius:20px;border:1px solid rgba(243,242,238,.1);background:linear-gradient(165deg,rgba(255,255,255,.05),rgba(255,255,255,.015));overflow:hidden;transition:border-color .3s var(--ease),background .3s var(--ease),box-shadow .3s var(--ease)}
 .faq-item.open{border-color:rgba(245,195,40,.4);background:linear-gradient(165deg,rgba(245,195,40,.09),rgba(255,255,255,.015));box-shadow:0 24px 48px -32px rgba(245,195,40,.3)}
@@ -713,8 +714,8 @@ img{height:auto}
 </section>
 
 <section class="sec-gold on-light" style="position:relative;padding:clamp(56px,7.5vw,110px) 0;overflow:hidden">
-<div data-reveal class="sec-head center" style="position:relative;padding:0 clamp(18px,5vw,72px);max-width:60ch;margin-bottom:clamp(30px,3.6vw,50px)">
-<h2 class="sec-h2" style="color:#141414">Frases que você já deveria estar se fazendo</h2>
+<div data-reveal class="sec-head center hook-head" style="position:relative;padding:0 clamp(18px,5vw,72px);margin-bottom:clamp(30px,3.6vw,50px)">
+<h2 class="sec-h2" style="color:#141414">Frases que você já deveria<br class="hook-br"> estar se fazendo</h2>
 </div>
 <div style="position:relative;display:flex;flex-direction:column;gap:clamp(12px,1.4vw,18px)">
 <div class="hook-fade"></div>
@@ -765,10 +766,9 @@ img{height:auto}
 <span class="chk"><span class="chk-ic"><svg viewBox="0 0 24 24" fill="none" stroke="#121215" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg></span>Vaga para a turma de 10 de outubro</span>
 </div>
 <a href="#inscricao" class="btn-v2 btn-gold btn-pulse" style="width:100%">Garantir agora minha vaga <span class="btn-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></a>
-<p style="margin-top:14px;text-align:center;font:500 12.5px/1.5 Inter,sans-serif;color:#A5A39A">Acesso enviado por e-mail após a confirmação · Pagamento seguro</p>
+<p style="margin-top:14px;text-align:center;font:500 12.5px/1.5 Inter,sans-serif;color:#A5A39A">Pagamento seguro</p>
 </article>
 </div>
-<div data-reveal class="offer-note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 8h.01M11 12h1v4h1"></path></svg><span>A <strong>Mentoria 5A</strong> é o próximo passo para quem quiser acompanhamento na aplicação. Ela não está à venda nesta página e não é pré-requisito para nada.</span></div>
 </div>
 </section>
 
@@ -911,7 +911,7 @@ img{height:auto}
 <span class="cta-chip gold">R$ 27</span>
 </div>
 <a data-reveal href="#inscricao" class="btn-v2 btn-gold btn-lg btn-pulse btn-block-m">Quero garantir minha vaga <span class="btn-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></a>
-<p data-reveal style="font:500 13.5px/1.6 Inter,sans-serif;color:#C9C7BE;max-width:46ch">Vagas limitadas para manter a imersão aberta a perguntas. Após a confirmação, você recebe o acesso no e-mail cadastrado.</p>
+<p data-reveal style="font:500 13.5px/1.6 Inter,sans-serif;color:#C9C7BE;max-width:46ch">Vagas limitadas para manter a imersão aberta a perguntas.</p>
 </div>
 </section>
 
@@ -937,7 +937,6 @@ img{height:auto}
 <div class="foot-trust">
 <span class="trust-chip"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="11" rx="2.5"></rect><path d="M8 10V7a4 4 0 0 1 8 0v3"></path><circle cx="12" cy="15.5" r="1.3" fill="currentColor" stroke="none"></circle></svg></i><b>Compra 100% segura</b></span>
 <span class="trust-chip"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"></path><path d="m9 12 2 2 4-4"></path></svg></i><b>Dados criptografados</b></span>
-<span class="trust-chip"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2.5"></rect><path d="M3 10h18M7 15h4"></path></svg></i><b>Acesso por e-mail</b></span>
 </div>
 <p class="foot-copy">© 2026 Grupo 2!H · Imersão Estrutura 5A. Todos os direitos reservados.</p>
 </div>
