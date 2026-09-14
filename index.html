@@ -1104,6 +1104,23 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 const WEBHOOK = "https://n8n-n8n-start.dnjlb7.easypanel.host/webhook/grupo2h";
 const CHECKOUT = "https://pay.kiwify.com.br/u3dyAhj";
 
+/* Rastreio: guarda o que veio na URL da primeira visita e segura pela sessão,
+   senão um F5 ou uma volta pelo histórico apaga a origem do lead. Vai junto
+   para o webhook e para o checkout. */
+const UTMS = (() => {
+  const chaves = ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term", "utm_id", "src", "gclid", "fbclid"];
+  let guardado = {};
+  try { guardado = JSON.parse(sessionStorage.getItem("rastreio5a") || "{}"); } catch (_) {}
+  const agora = new URLSearchParams(location.search);
+  let novo = false;
+  chaves.forEach(k => {
+    const v = agora.get(k);
+    if (v && guardado[k] !== v) { guardado[k] = v; novo = true; }
+  });
+  if (novo) { try { sessionStorage.setItem("rastreio5a", JSON.stringify(guardado)); } catch (_) {} }
+  return guardado;
+})();
+
 const FAQ = [
   { q: "A imersão é gravada? Vou ter acesso depois?", a: "A imersão é ao vivo, no dia 10 de outubro, e o formato existe justamente para você perguntar sobre a sua operação em tempo real. O acesso e as orientações sobre a gravação são enviados por e-mail depois da confirmação da inscrição." },
   { q: "Preciso ter uma empresa grande para participar?", a: "Não. Você precisa ter uma operação rodando: alguma coisa entrando de marketing, alguém atendendo e alguém vendendo. Se já existe dinheiro sendo investido em aquisição, existe estrutura para diagnosticar." },
@@ -1620,9 +1637,7 @@ class Component {
       enviar.innerHTML = "Enviando...";
 
       const dados = new URLSearchParams({ nome, email, whatsapp: zap, origem, pagina: location.href });
-      new URLSearchParams(location.search).forEach((v, k) => {
-        if (/^utm_/i.test(k) || k === "gclid" || k === "fbclid") dados.set(k, v);
-      });
+      for (const k in UTMS) dados.set(k, UTMS[k]);
 
       let destino = CHECKOUT;
       try {
@@ -1641,12 +1656,14 @@ class Component {
         /* CORS impede ler a resposta, mas o POST é entregue mesmo assim */
       }
 
-      /* leva os dados junto, para o checkout abrir já preenchido */
+      /* leva os dados e o rastreio junto, para o checkout abrir preenchido
+         e a venda continuar atribuída à campanha que trouxe a pessoa */
       if (destino) {
         const tel = zap.length <= 11 ? "55" + zap : zap;
-        const q = "customer.name=" + encodeURIComponent(nome)
-                + "&customer.email=" + encodeURIComponent(email)
-                + "&customer.phone=" + encodeURIComponent(tel);
+        let q = "customer.name=" + encodeURIComponent(nome)
+              + "&customer.email=" + encodeURIComponent(email)
+              + "&customer.phone=" + encodeURIComponent(tel);
+        for (const k in UTMS) q += "&" + encodeURIComponent(k) + "=" + encodeURIComponent(UTMS[k]);
         location.href = destino + (destino.includes("?") ? "&" : "?") + q;
         return;
       }
