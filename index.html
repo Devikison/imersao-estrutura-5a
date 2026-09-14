@@ -244,20 +244,39 @@ body.rail-dragging{user-select:none;-webkit-user-select:none}
 .hero-scroll-cue i::after{content:'';position:absolute;left:50%;top:6px;width:3px;height:7px;border-radius:2px;background:#F5C328;transform:translateX(-50%);animation:cue 1.8s var(--ease) infinite}
 @keyframes cue{0%{opacity:0;transform:translate(-50%,0)}30%{opacity:1}100%{opacity:0;transform:translate(-50%,12px)}}
 @media (min-width:901px){.hero-scroll-cue{display:flex}}
-/* --- cronometro (flip clock) --- */
+/* --- cronometro (split-flap) --- */
 .cdown{display:flex;flex-direction:column;align-items:center;gap:clamp(14px,1.8vw,22px);width:100%}
 .cdown-title{font:600 clamp(19px,2.3vw,32px)/1.18 'General Sans',Inter,system-ui;letter-spacing:-.022em;color:#F3F2EE;text-align:center;text-wrap:pretty}
-.cdown-grid{display:flex;align-items:flex-start;justify-content:center;gap:clamp(8px,1.1vw,16px)}
+.cdown-grid{display:flex;align-items:flex-start;justify-content:center;gap:clamp(8px,1.1vw,16px);--fc-w:clamp(70px,8.4vw,124px);--fc-h:clamp(70px,8.2vw,106px);--fc-f:clamp(30px,4.3vw,58px);--fc-r:clamp(14px,1.4vw,20px)}
 .cdown-unit{display:flex;flex-direction:column;align-items:center;gap:clamp(7px,.85vw,11px)}
-.cdown-box{position:relative;display:flex;align-items:center;justify-content:center;min-width:clamp(70px,8.4vw,124px);padding:clamp(13px,1.6vw,22px) clamp(10px,1.2vw,16px);border-radius:clamp(14px,1.4vw,20px);border:1px solid rgba(243,242,238,.07);background:linear-gradient(180deg,#1E1E23 0 calc(50% - 1px),rgba(0,0,0,.6) calc(50% - 1px) calc(50% + 1px),#131317 calc(50% + 1px) 100%);box-shadow:0 20px 38px -24px rgba(0,0,0,.95),inset 0 1px 0 rgba(255,255,255,.05)}
-.cdown-box::before,.cdown-box::after{content:'';position:absolute;top:50%;width:6px;height:11px;border-radius:3px;background:#0A0A0C;border:1px solid rgba(243,242,238,.07);transform:translateY(-50%)}
+.cdown-box{position:relative;width:var(--fc-w);height:var(--fc-h);perspective:340px;filter:drop-shadow(0 18px 24px rgba(0,0,0,.6))}
+.cdown-box::before,.cdown-box::after{content:'';position:absolute;top:50%;width:6px;height:11px;border-radius:3px;background:#0A0A0C;border:1px solid rgba(243,242,238,.07);transform:translateY(-50%);z-index:6}
 .cdown-box::before{left:-4px}
 .cdown-box::after{right:-4px}
-.cdown-num{font:700 clamp(30px,4.3vw,58px)/1 'General Sans',Inter,system-ui;letter-spacing:-.02em;color:#F3F2EE;font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1}
-.cdown-num.flip{animation:cd-flip .4s var(--ease)}
-@keyframes cd-flip{0%{transform:translateY(-16%) scaleY(.82);opacity:.5}100%{transform:none;opacity:1}}
+.fc-h{position:absolute;left:0;right:0;height:50%;overflow:hidden;border:1px solid rgba(243,242,238,.07);backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.fc-h b{position:absolute;left:0;right:0;height:200%;display:flex;align-items:center;justify-content:center;font:700 var(--fc-f)/1 'General Sans',Inter,system-ui;letter-spacing:-.02em;color:#F3F2EE;font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1}
+.fc-t{top:0;border-bottom:none;border-radius:var(--fc-r) var(--fc-r) 0 0;background:linear-gradient(180deg,#26262C,#1B1B21);box-shadow:inset 0 -1px 0 rgba(0,0,0,.65)}
+.fc-t b{top:0}
+.fc-b{bottom:0;border-top:none;border-radius:0 0 var(--fc-r) var(--fc-r);background:linear-gradient(180deg,#17171C,#101014);box-shadow:inset 0 1px 0 rgba(255,255,255,.05)}
+.fc-b b{bottom:0}
+.fc-a,.fc-c{display:none;z-index:4}
+.fc-a{transform-origin:bottom}
+.fc-c{transform-origin:top}
+.fc-a::after,.fc-c::after{content:'';position:absolute;inset:0;pointer-events:none}
+.cdown-box.virando .fc-a{display:block;animation:fc-cai .3s cubic-bezier(.45,0,.85,.45) forwards}
+.cdown-box.virando .fc-c{display:block;animation:fc-sobe .3s cubic-bezier(.2,.62,.55,1) .3s both}
+.cdown-box.virando .fc-a::after{animation:fc-sombra-cai .3s ease-in forwards}
+.cdown-box.virando .fc-c::after{animation:fc-sombra-sobe .3s ease-out .3s both}
+@keyframes fc-cai{from{transform:rotateX(0)}to{transform:rotateX(-90deg)}}
+@keyframes fc-sobe{from{transform:rotateX(90deg)}to{transform:rotateX(0)}}
+@keyframes fc-sombra-cai{from{background:rgba(0,0,0,0)}to{background:rgba(0,0,0,.5)}}
+@keyframes fc-sombra-sobe{from{background:rgba(0,0,0,.6)}to{background:rgba(0,0,0,0)}}
 .cdown-lbl{font:600 clamp(9px,.78vw,11px)/1 Inter,sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#8B8A85}
-@media (max-width:420px){.cdown-grid{gap:6px}.cdown-box{min-width:0;flex:1 1 0;padding:12px 6px}.cdown-unit{flex:1 1 0;min-width:0}.cdown-grid{width:100%}}
+@media (prefers-reduced-motion:reduce){.cdown-box.virando .fc-a,.cdown-box.virando .fc-c{display:none}}
+@media (max-width:420px){
+.cdown-grid{gap:6px;--fc-w:clamp(56px,16vw,72px);--fc-h:clamp(54px,15vw,70px);--fc-f:clamp(24px,7vw,32px);--fc-r:12px}
+.lote .cdown-grid{--fc-w:clamp(50px,14vw,64px);--fc-h:clamp(48px,13vw,60px);--fc-f:clamp(21px,6vw,28px)}
+}
 /* --- popup de captura (lead) --- */
 .lead{position:fixed;inset:0;z-index:120;display:flex;align-items:center;justify-content:center;padding:clamp(14px,3vw,28px)}
 .lead[hidden],.lead [hidden]{display:none!important}
@@ -300,9 +319,7 @@ body.rail-dragging{user-select:none;-webkit-user-select:none}
 .lote-nota{font:500 12px/1.4 Inter,sans-serif;color:#8B8A85}
 .lote-dir{flex:0 0 auto;display:flex;flex-direction:column;align-items:center;gap:9px}
 .lote-lbl{font:700 10px/1 Inter,sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#8B8A85}
-.lote .cdown-grid{gap:clamp(6px,.7vw,10px)}
-.lote .cdown-box{min-width:clamp(54px,4.6vw,68px);padding:clamp(8px,.9vw,11px) clamp(6px,.7vw,10px);border-radius:clamp(11px,.9vw,14px)}
-.lote .cdown-num{font-size:clamp(22px,2.2vw,31px)}
+.lote .cdown-grid{gap:clamp(6px,.7vw,10px);--fc-w:clamp(54px,4.6vw,68px);--fc-h:clamp(52px,4.4vw,64px);--fc-f:clamp(22px,2.2vw,31px);--fc-r:clamp(11px,.9vw,14px)}
 .lote .cdown-lbl{font-size:9px;letter-spacing:.14em}
 .lote .cdown-unit{gap:6px}
 @media (max-width:760px){
@@ -525,21 +542,6 @@ img{height:auto}
 </div>
 </section>
 
-<section data-reveal class="lote" data-countdown data-deadline="2026-10-10T19:00:00-03:00" style="--vagas:62%" aria-label="Vagas do primeiro lote">
-<div class="lote-wrap">
-<div class="lote-esq">
-<span class="lote-tag">1º lote</span>
-<p class="lote-tit"><b>62% das vagas</b> já foram preenchidas</p>
-<div class="lote-barra" role="img" aria-label="62 por cento das vagas do primeiro lote preenchidas"><i></i></div>
-<p class="lote-nota">Quando o 1º lote fechar, o preço sobe.</p>
-</div>
-<div class="lote-dir">
-<span class="lote-lbl">Encerra em</span>
-<div class="cdown-grid"><div class="cdown-unit"><div class="cdown-box"><span class="cdown-num" data-cd="dias">00</span></div><span class="cdown-lbl">Dias</span></div><div class="cdown-unit"><div class="cdown-box"><span class="cdown-num" data-cd="horas">00</span></div><span class="cdown-lbl">Horas</span></div><div class="cdown-unit"><div class="cdown-box"><span class="cdown-num" data-cd="minutos">00</span></div><span class="cdown-lbl">Min</span></div><div class="cdown-unit"><div class="cdown-box"><span class="cdown-num" data-cd="segundos">00</span></div><span class="cdown-lbl">Seg</span></div></div>
-</div>
-</div>
-</section>
-
 <section style="position:relative;padding:clamp(13px,1.6vw,18px) 0;background:#F5C328;box-shadow:0 2px 0 rgba(0,0,0,.2),0 14px 30px -12px rgba(245,195,40,.55);overflow:hidden">
 <div style="position:absolute;inset:0;background:linear-gradient(90deg,#F5C328 0%,transparent 8%,transparent 92%,#F5C328 100%);z-index:2;pointer-events:none"></div>
 <div data-marquee style="display:flex;width:max-content;animation:mqA 20s linear infinite">
@@ -557,6 +559,22 @@ img{height:auto}
 </div>
 </div>
 </section>
+
+<section data-reveal class="lote" data-countdown data-deadline="2026-10-10T19:00:00-03:00" style="--vagas:36%" aria-label="Vagas do primeiro lote">
+<div class="lote-wrap">
+<div class="lote-esq">
+<span class="lote-tag">1º lote</span>
+<p class="lote-tit"><b>36% das vagas</b> já foram preenchidas</p>
+<div class="lote-barra" role="img" aria-label="36 por cento das vagas do primeiro lote preenchidas"><i></i></div>
+<p class="lote-nota">Quando o 1º lote fechar, o preço sobe.</p>
+</div>
+<div class="lote-dir">
+<span class="lote-lbl">Encerra em</span>
+<div class="cdown-grid"><div class="cdown-unit"><div class="cdown-box" data-cd="dias" data-val="00"><div class="fc-h fc-t"><b>00</b></div><div class="fc-h fc-b"><b>00</b></div><div class="fc-h fc-t fc-a"><b>00</b></div><div class="fc-h fc-b fc-c"><b>00</b></div></div><span class="cdown-lbl">Dias</span></div><div class="cdown-unit"><div class="cdown-box" data-cd="horas" data-val="00"><div class="fc-h fc-t"><b>00</b></div><div class="fc-h fc-b"><b>00</b></div><div class="fc-h fc-t fc-a"><b>00</b></div><div class="fc-h fc-b fc-c"><b>00</b></div></div><span class="cdown-lbl">Horas</span></div><div class="cdown-unit"><div class="cdown-box" data-cd="minutos" data-val="00"><div class="fc-h fc-t"><b>00</b></div><div class="fc-h fc-b"><b>00</b></div><div class="fc-h fc-t fc-a"><b>00</b></div><div class="fc-h fc-b fc-c"><b>00</b></div></div><span class="cdown-lbl">Min</span></div><div class="cdown-unit"><div class="cdown-box" data-cd="segundos" data-val="00"><div class="fc-h fc-t"><b>00</b></div><div class="fc-h fc-b"><b>00</b></div><div class="fc-h fc-t fc-a"><b>00</b></div><div class="fc-h fc-b fc-c"><b>00</b></div></div><span class="cdown-lbl">Seg</span></div></div>
+</div>
+</div>
+</section>
+
 
 <section class="sec-pad sec-dark sec-grid sec-glow-top" style="position:relative;overflow:hidden">
 <div class="orb" style="top:-10%;right:-8%;width:46%;height:70%;background:radial-gradient(circle,rgba(245,195,40,.09),transparent 70%)"></div>
@@ -995,7 +1013,7 @@ img{height:auto}
 </div>
 <div data-reveal class="cdown" data-countdown data-deadline="2026-10-10T19:00:00-03:00">
 <p class="cdown-title">As inscrições encerram em breve.</p>
-<div class="cdown-grid"><div class="cdown-unit"><div class="cdown-box"><span class="cdown-num" data-cd="dias">00</span></div><span class="cdown-lbl">Dias</span></div><div class="cdown-unit"><div class="cdown-box"><span class="cdown-num" data-cd="horas">00</span></div><span class="cdown-lbl">Horas</span></div><div class="cdown-unit"><div class="cdown-box"><span class="cdown-num" data-cd="minutos">00</span></div><span class="cdown-lbl">Minutos</span></div><div class="cdown-unit"><div class="cdown-box"><span class="cdown-num" data-cd="segundos">00</span></div><span class="cdown-lbl">Segundos</span></div></div>
+<div class="cdown-grid"><div class="cdown-unit"><div class="cdown-box" data-cd="dias" data-val="00"><div class="fc-h fc-t"><b>00</b></div><div class="fc-h fc-b"><b>00</b></div><div class="fc-h fc-t fc-a"><b>00</b></div><div class="fc-h fc-b fc-c"><b>00</b></div></div><span class="cdown-lbl">Dias</span></div><div class="cdown-unit"><div class="cdown-box" data-cd="horas" data-val="00"><div class="fc-h fc-t"><b>00</b></div><div class="fc-h fc-b"><b>00</b></div><div class="fc-h fc-t fc-a"><b>00</b></div><div class="fc-h fc-b fc-c"><b>00</b></div></div><span class="cdown-lbl">Horas</span></div><div class="cdown-unit"><div class="cdown-box" data-cd="minutos" data-val="00"><div class="fc-h fc-t"><b>00</b></div><div class="fc-h fc-b"><b>00</b></div><div class="fc-h fc-t fc-a"><b>00</b></div><div class="fc-h fc-b fc-c"><b>00</b></div></div><span class="cdown-lbl">Minutos</span></div><div class="cdown-unit"><div class="cdown-box" data-cd="segundos" data-val="00"><div class="fc-h fc-t"><b>00</b></div><div class="fc-h fc-b"><b>00</b></div><div class="fc-h fc-t fc-a"><b>00</b></div><div class="fc-h fc-b fc-c"><b>00</b></div></div><span class="cdown-lbl">Segundos</span></div></div>
 </div>
 <a data-reveal href="#inscricao" data-cta="cta-final" class="btn-v2 btn-gold btn-lg btn-pulse btn-block-m">Quero garantir minha vaga <span class="btn-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></a>
 <p data-reveal style="font:500 13.5px/1.6 Inter,sans-serif;color:#C9C7BE;max-width:46ch">Vagas limitadas para manter a imersão aberta a perguntas.</p>
@@ -1628,7 +1646,26 @@ class Component {
     }).filter(r => isFinite(r.alvo));
     if (!relogios.length) return;
 
+    /* vira a plaquinha: a metade de cima tomba e revela o número novo por baixo */
+    const virar = (caixa, valor, semAnimar) => {
+      if (caixa.dataset.val === valor) return;
+      const antigo = caixa.dataset.val;
+      caixa.dataset.val = valor;
+      const [topo, base, folhaCai, folhaSobe] = caixa.querySelectorAll(".fc-h b");
+      if (semAnimar || REDUCED) { topo.textContent = base.textContent = valor; return; }
+      topo.textContent = valor;        // já é o novo: aparece quando a folha tomba
+      base.textContent = antigo;       // ainda o velho embaixo
+      folhaCai.textContent = antigo;
+      folhaSobe.textContent = valor;
+      caixa.classList.remove("virando");
+      void caixa.offsetWidth;
+      caixa.classList.add("virando");
+      clearTimeout(caixa._t);
+      caixa._t = setTimeout(() => { base.textContent = valor; caixa.classList.remove("virando"); }, 620);
+    };
+
     const pad = n => String(n).padStart(2, "0");
+    let primeira = true;
     const tick = () => {
       let vivos = 0;
       relogios.forEach(({ raiz, alvo, campos }) => {
@@ -1640,17 +1677,13 @@ class Component {
           minutos: pad(Math.floor(seg % 3600 / 60)),
           segundos: pad(seg % 60)
         };
-        for (const k in valores) {
-          const el = campos[k];
-          if (!el || el.textContent === valores[k]) continue;
-          el.textContent = valores[k];
-          if (!REDUCED) { el.classList.remove("flip"); void el.offsetWidth; el.classList.add("flip"); }
-        }
+        for (const k in valores) if (campos[k]) virar(campos[k], valores[k], primeira);
         if (seg === 0) {
           const t = raiz.querySelector(".cdown-title");
           if (t) t.textContent = "As inscrições foram encerradas.";
         }
       });
+      primeira = false;
       if (!vivos) clearInterval(this._cdTimer);
     };
     tick();
