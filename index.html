@@ -306,6 +306,13 @@ body.rail-dragging{user-select:none;-webkit-user-select:none}
 .lead-ok b{font:600 19px/1.25 'General Sans',Inter,system-ui;color:#F3F2EE}
 .lead-ok p{font:500 13.5px/1.6 Inter,sans-serif;color:#B9B7AE;text-wrap:pretty}
 @media (max-width:420px){.lead-card{border-radius:20px}.lead-field input{height:48px}}
+/* plaquinhas douradas, número preto */
+.cdown-grid.dourado .fc-h{border-color:rgba(20,20,20,.18)}
+.cdown-grid.dourado .fc-t{background:linear-gradient(180deg,#FFD84F,#F3C01F);box-shadow:inset 0 -1px 0 rgba(0,0,0,.3)}
+.cdown-grid.dourado .fc-b{background:linear-gradient(180deg,#E2AA0D,#C9930A);box-shadow:inset 0 1px 0 rgba(255,255,255,.24)}
+.cdown-grid.dourado .fc-h b{color:#121215}
+.cdown-grid.dourado .cdown-box{filter:drop-shadow(0 14px 22px rgba(245,195,40,.22))}
+.cdown-grid.dourado .cdown-box::before,.cdown-grid.dourado .cdown-box::after{background:#0C0C0F;border-color:rgba(20,20,20,.45)}
 /* --- faixa de lote (cronometro compacto + vagas) --- */
 .lote{position:relative;padding:clamp(20px,2.6vw,30px) clamp(18px,5vw,72px);background:#0F0F12;border-top:1px solid rgba(243,242,238,.07);border-bottom:1px solid rgba(243,242,238,.07)}
 .lote-wrap{max-width:1240px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:clamp(18px,2.6vw,42px)}
@@ -329,18 +336,6 @@ body.rail-dragging{user-select:none;-webkit-user-select:none}
 .lote-barra{width:100%}
 }
 @media (prefers-reduced-motion:reduce){.lote-barra i{transition:none}}
-/* variante dourada da faixa: fundo da marca, plaquinhas escuras por cima */
-.lote.ouro{background:linear-gradient(180deg,#E3AC0B,#D19A06);border-top:1px solid rgba(20,20,20,.22);border-bottom:1px solid rgba(20,20,20,.18)}
-.lote.ouro .lote-tag{border-color:rgba(18,16,21,.2);background:#121215;color:#FFD34F}
-.lote.ouro .lote-tit{color:rgba(20,20,20,.78)}
-.lote.ouro .lote-tit b{color:#121215;font-weight:700}
-.lote.ouro .lote-barra{background:rgba(18,16,21,.18);box-shadow:inset 0 1px 2px rgba(0,0,0,.2)}
-.lote.ouro .lote-barra i{background:linear-gradient(90deg,#1F1F25,#121215);box-shadow:0 1px 0 rgba(255,255,255,.12)}
-.lote.ouro .lote-nota{color:rgba(20,20,20,.6)}
-.lote.ouro .lote-lbl{color:rgba(20,20,20,.62)}
-.lote.ouro .cdown-lbl{color:rgba(20,20,20,.58)}
-.lote.ouro .cdown-box{filter:drop-shadow(0 14px 20px rgba(74,50,0,.4))}
-.lote.ouro .cdown-box::before,.lote.ouro .cdown-box::after{background:#17171C;border-color:rgba(18,16,21,.28)}
 /* --- faixa marquee --- */
 .marquee-pause:hover>div{animation-play-state:paused}
 /* --- funil v2 --- */
@@ -572,7 +567,7 @@ img{height:auto}
 </div>
 </section>
 
-<section data-reveal class="lote ouro" data-countdown data-deadline="2026-10-10T19:00:00-03:00" style="--vagas:36%" aria-label="Vagas do primeiro lote">
+<section data-reveal class="lote" data-countdown data-deadline="2026-10-10T19:00:00-03:00" style="--vagas:36%" aria-label="Vagas do primeiro lote">
 <div class="lote-wrap">
 <div class="lote-esq">
 <span class="lote-tag">1º lote</span>
@@ -582,7 +577,7 @@ img{height:auto}
 </div>
 <div class="lote-dir">
 <span class="lote-lbl">Encerra em</span>
-<div class="cdown-grid"><div class="cdown-unit"><div class="cdown-box" data-cd="dias" data-val="00"><div class="fc-h fc-t"><b>00</b></div><div class="fc-h fc-b"><b>00</b></div><div class="fc-h fc-t fc-a"><b>00</b></div><div class="fc-h fc-b fc-c"><b>00</b></div></div><span class="cdown-lbl">Dias</span></div><div class="cdown-unit"><div class="cdown-box" data-cd="horas" data-val="00"><div class="fc-h fc-t"><b>00</b></div><div class="fc-h fc-b"><b>00</b></div><div class="fc-h fc-t fc-a"><b>00</b></div><div class="fc-h fc-b fc-c"><b>00</b></div></div><span class="cdown-lbl">Horas</span></div><div class="cdown-unit"><div class="cdown-box" data-cd="minutos" data-val="00"><div class="fc-h fc-t"><b>00</b></div><div class="fc-h fc-b"><b>00</b></div><div class="fc-h fc-t fc-a"><b>00</b></div><div class="fc-h fc-b fc-c"><b>00</b></div></div><span class="cdown-lbl">Min</span></div><div class="cdown-unit"><div class="cdown-box" data-cd="segundos" data-val="00"><div class="fc-h fc-t"><b>00</b></div><div class="fc-h fc-b"><b>00</b></div><div class="fc-h fc-t fc-a"><b>00</b></div><div class="fc-h fc-b fc-c"><b>00</b></div></div><span class="cdown-lbl">Seg</span></div></div>
+<div class="cdown-grid dourado"><div class="cdown-unit"><div class="cdown-box" data-cd="dias" data-val="00"><div class="fc-h fc-t"><b>00</b></div><div class="fc-h fc-b"><b>00</b></div><div class="fc-h fc-t fc-a"><b>00</b></div><div class="fc-h fc-b fc-c"><b>00</b></div></div><span class="cdown-lbl">Dias</span></div><div class="cdown-unit"><div class="cdown-box" data-cd="horas" data-val="00"><div class="fc-h fc-t"><b>00</b></div><div class="fc-h fc-b"><b>00</b></div><div class="fc-h fc-t fc-a"><b>00</b></div><div class="fc-h fc-b fc-c"><b>00</b></div></div><span class="cdown-lbl">Horas</span></div><div class="cdown-unit"><div class="cdown-box" data-cd="minutos" data-val="00"><div class="fc-h fc-t"><b>00</b></div><div class="fc-h fc-b"><b>00</b></div><div class="fc-h fc-t fc-a"><b>00</b></div><div class="fc-h fc-b fc-c"><b>00</b></div></div><span class="cdown-lbl">Min</span></div><div class="cdown-unit"><div class="cdown-box" data-cd="segundos" data-val="00"><div class="fc-h fc-t"><b>00</b></div><div class="fc-h fc-b"><b>00</b></div><div class="fc-h fc-t fc-a"><b>00</b></div><div class="fc-h fc-b fc-c"><b>00</b></div></div><span class="cdown-lbl">Seg</span></div></div>
 </div>
 </div>
 </section>
