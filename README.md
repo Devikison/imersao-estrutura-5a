@@ -43,7 +43,7 @@ git push origin main
 
 ## 3. Mapa da página (ordem das seções)
 
-1. **Hero** — criativo com foto (fundo no desktop, imagem inteira 2:3 no mobile), logo da imersão (`.hero-logo`) alinhado acima do título, título, subtítulo, pílula de data (`.hero-date`: "10 de outubro, das 19h às 23h, ao vivo e online", logo acima dos botões no desktop e no mobile), botão dourado "Quero garantir minha vaga" e botão vidro "O que você vai enxergar". Ícones flutuantes (Google Ads, Facebook, seta) posicionados por porcentagem, com valores diferentes para desktop e mobile.
+1. **Hero** — criativo com foto (fundo no desktop, imagem inteira 2:3 no mobile), logo da imersão (`.hero-logo`) alinhado acima do título, título, subtítulo, pílula de data (`.hero-date`: "10 de outubro, às 19:00, ao vivo e online", logo acima dos botões no desktop e no mobile; `white-space:nowrap` + corpo fluido em `vw` no mobile mantêm tudo em uma linha só, de 320 px para cima), botão dourado "Quero garantir minha vaga" e botão vidro "O que você vai enxergar". Ícones flutuantes (Google Ads, Facebook, seta) posicionados por porcentagem, com valores diferentes para desktop e mobile.
 2. **Faixa dourada** em marquee com os argumentos rápidos.
 3. **A ideia central + Funil** — citação à esquerda, funil animado à direita (SVG + leads em HTML). Leads entram com ícone de canal, parte se perde no meio (fica cinza com X), parte vira moeda que cai no prato de "Receita · Margem". Contadores ao vivo abaixo. Rótulos em maiúsculas (Leads entrando, Atendimento, Comercial, Venda, Receita · Margem) aparecem no desktop e no mobile.
 4. **Seis crenças** — fundo creme, cards escuros **empilhados no scroll** (sticky): cada card gruda no topo e o próximo desliza por cima, o de trás encolhe e escurece.
@@ -98,7 +98,7 @@ Armadilha conhecida: `.spot` define `position:relative`; os cards empilhados pre
 
 ## 7. Pendências e observações
 
-- **Horário e plataforma:** "das 19h às 23h" (pílula do hero) foi deduzido das 4 horas anunciadas na página e **ainda não foi confirmado pelo cliente**; a plataforma (Zoom, YouTube etc.) não aparece em lugar nenhum. Confirmar os dois e ajustar a pílula do hero e o `data-deadline` do cronômetro juntos.
+- **Plataforma:** a pílula do hero termina em "ao vivo e online" porque a plataforma (Zoom, YouTube etc.) não foi informada. Quando houver, trocar para "ao vivo no X". O horário de início (19:00, confirmado pelo cliente) aparece na pílula e no `data-deadline` do cronômetro: os dois andam juntos.
 - **Logo duplicado no hero (desktop):** a capa `hero-creative.png` ainda traz o mesmo letreiro no canto superior esquerdo, então no desktop ele aparece duas vezes. O cliente sabe: a ideia é trocar a foto do hero por uma sem o letreiro. Ao trocar, rodar `tools\make-hero-jpg.ps1` de novo.
 - **Link de pagamento:** todos os botões apontam para `#inscricao` (âncora da seção final). Quando houver URL de checkout, trocar `href="#inscricao"` nos botões e na barra inferior.
 - As **descrições curtas das 10 etapas** do diagnóstico (ex.: "Modelo, posicionamento e capacidade de entrega") foram escritas pelo assistente e ainda não foram validadas pelo cliente.
