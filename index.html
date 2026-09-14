@@ -422,7 +422,10 @@ body.rail-dragging{user-select:none;-webkit-user-select:none}
 .hook.hook-hi{background:#0A0A0C;color:#FFD34F;border-color:rgba(255,239,192,.35)}
 @media (hover:hover){.hook:hover{transform:translateY(-3px);box-shadow:0 20px 34px -16px rgba(0,0,0,.8),inset 0 1px 0 rgba(255,255,255,.1)}}
 .hook-br{display:none}
-.oferta-br{display:block}
+.oferta-head{max-width:min(920px,100%)}
+/* duas linhas sempre: cada metade é um bloco que o navegador não pode partir */
+.oferta-h2 span{display:block;white-space:nowrap}
+@media (max-width:359px){.oferta-h2 span{display:inline;white-space:normal}}
 .hook-head{max-width:60ch}
 @media (min-width:901px){.hook-br{display:block}.hook-head{max-width:min(940px,100%)}}
 .hook-fade{position:absolute;inset:0;z-index:2;pointer-events:none;background:linear-gradient(90deg,#F6C733 0%,transparent 10%,transparent 90%,#EDB61C 100%)}
@@ -871,8 +874,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <section class="sec-pad sec-light on-light" style="position:relative;background:var(--cream2)">
 <div style="max-width:1100px;margin:0 auto;display:flex;flex-direction:column;gap:clamp(28px,3.4vw,46px);align-items:center">
-<div data-reveal class="sec-head center" style="max-width:60ch">
-<h2 class="sec-h2" style="color:#141414">Tudo o que a imersão<br class="oferta-br"> entrega por R$ 27</h2>
+<div data-reveal class="sec-head center oferta-head">
+<h2 class="sec-h2 oferta-h2" style="color:#141414"><span>Tudo o que a imersão</span> <span>entrega por R$ 27</span></h2>
 <p class="sec-sub" style="text-align:center">Você entra achando que o problema é o tráfego e sai sabendo qual etapa está travando o seu dinheiro.</p>
 </div>
 <div class="offer-frame">
