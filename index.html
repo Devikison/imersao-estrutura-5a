@@ -236,6 +236,22 @@ body.rail-dragging{user-select:none;-webkit-user-select:none}
 .hero-logo{display:block;width:clamp(210px,21vw,290px);height:auto;margin-bottom:clamp(-14px,-1.1vw,-6px)}
 .offer-logo{display:block;width:clamp(124px,13vw,166px);height:auto}
 @media (max-width:760px){.hero-logo{width:min(74%,262px);margin-left:auto;margin-right:auto}}
+/* Hero no desktop: logo maior e o texto mais alto, com os botoes parados.
+   Vem depois da regra base do .hero-logo porque a especificidade e a mesma.
+   Tudo sob min-width:901px, entao mobile e tablet (<=900px) nao mudam.
+
+   A coluna e centralizada na seccao, entao o topo dela sobe metade do que ela
+   cresce e a base desce a outra metade. Crescendo a coluna em --hero-lift e
+   subindo a coluna em metade disso, os botoes ficam parados e o texto sobe
+   --hero-lift inteiro. A logo maior tambem cresce a coluna, o que empurraria os
+   botoes para baixo, por isso --logo-extra desconta essa altura da folga dos
+   botoes. O 5.1157 e a proporcao do arquivo da logo (619/121): se a arte trocar
+   de proporcao, esse numero acompanha. */
+@media (min-width:901px){
+.hero-text-col{--hero-logo-w:clamp(300px,27vw,400px);--logo-extra:calc((var(--hero-logo-w) - clamp(210px,21vw,290px))/5.1157);--hero-lift:clamp(28px,6vh,72px);transform:translateY(calc(var(--hero-lift) * -.5))}
+.hero-text-col .hero-logo{width:var(--hero-logo-w)}
+.hero-cta-row{margin-top:calc(clamp(2px,.6vw,8px) + var(--hero-lift) - var(--logo-extra))!important}
+}
 .hero-eyebrow{display:inline-flex;align-items:center;gap:10px;padding:8px 16px 8px 10px;border-radius:999px;border:1px solid rgba(245,195,40,.35);background:linear-gradient(160deg,rgba(245,195,40,.14),rgba(10,10,12,.3));backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);font:600 12px/1 Inter,sans-serif;letter-spacing:.06em;text-transform:uppercase;color:#F3F2EE}
 .hero-eyebrow .live{display:inline-flex;align-items:center;gap:6px;padding:4px 9px;border-radius:999px;background:rgba(46,204,113,.14);color:#7FE3A6;border:1px solid rgba(46,204,113,.35);font-weight:700;letter-spacing:.08em}
 .hero-trust{display:flex;flex-wrap:wrap;align-items:center;gap:10px 18px;font:500 13px/1.4 Inter,sans-serif;color:#CFCDC4}
@@ -549,11 +565,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div class="orb" style="bottom:-20%;left:-10%;width:55%;height:60%;background:radial-gradient(circle,rgba(245,195,40,.07),transparent 70%)"></div>
 <div class="hero-content-wrap" style="position:relative;z-index:1;width:100%;max-width:1240px;margin:0 auto;display:flex;flex-wrap:wrap-reverse;align-items:center;gap:clamp(26px,3.6vw,60px)">
 
-<div data-mobile-center style="flex:1 1 330px;min-width:min(100%,320px);display:flex;flex-direction:column;align-items:flex-start;gap:clamp(14px,1.7vw,22px)">
+<div data-mobile-center class="hero-text-col" style="flex:1 1 330px;min-width:min(100%,320px);display:flex;flex-direction:column;align-items:flex-start;gap:clamp(14px,1.7vw,22px)">
 <img data-reveal class="hero-logo" src="assets/logo-imersao-5a.png" alt="Imersão Estrutura 5A" width="619" height="121" decoding="async">
 <h1 data-reveal class="hero-h1" style="font:600 clamp(32px,3.7vw,50px)/1.16 'General Sans',Inter,system-ui;letter-spacing:-.028em;color:#F3F2EE;text-wrap:pretty">Antes de investir mais em tráfego<br class="hero-br"> descubra onde sua empresa<br class="hero-br"> <span class="hero-emph" style="position:relative;white-space:nowrap"><span style="position:relative;z-index:1;background:linear-gradient(180deg,#FFEFC0,#F5C328 55%,#B8830A);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">está perdendo vendas.</span></span></h1>
 <p data-reveal class="hero-sub" style="font:500 clamp(14.5px,1.25vw,19px)/1.55 Inter,sans-serif;color:#EDEBE2;text-wrap:pretty">Em uma imersão online e ao vivo de <strong style="color:#FFFFFF;font-weight:700">4 horas</strong>, você vai aprender<br class="hero-br"> a analisar a estrutura entre marketing, atendimento e comercial<br class="hero-br"> para identificar gargalos, entender seus números e descobrir<br class="hero-br"> o que precisa ser corrigido antes de tentar escalar.</p>
-<div data-reveal data-mobile-row-center style="display:flex;flex-wrap:wrap;align-items:center;gap:clamp(12px,1.6vw,18px);margin-top:clamp(2px,.6vw,8px);width:100%">
+<div data-reveal data-mobile-row-center class="hero-cta-row" style="display:flex;flex-wrap:wrap;align-items:center;gap:clamp(12px,1.6vw,18px);margin-top:clamp(2px,.6vw,8px);width:100%">
 <a href="#inscricao" data-cta="hero" class="btn-v2 btn-gold btn-pulse btn-block-m">Quero garantir minha vaga <span class="btn-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span></a>
 <a href="#diagnostico" class="btn-v2 btn-glass btn-block-m">O que você vai enxergar <span class="btn-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v13M6 13l6 6 6-6"></path></svg></span></a>
 </div>
