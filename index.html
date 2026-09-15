@@ -233,9 +233,9 @@ body.rail-dragging{user-select:none;-webkit-user-select:none}
 @media (max-width:640px){.hero-capsule{top:12px;width:236px;padding:6px 12px 6px 6px;gap:8px}.cap-ic{width:26px;height:26px}.cap-txt{font-size:12px}}
 @media (prefers-reduced-motion:reduce){.hero-capsule::after{animation:none}}
 /* --- hero --- */
-.hero-logo{display:block;width:clamp(210px,21vw,290px);height:auto;margin-bottom:clamp(-14px,-1.1vw,-6px)}
+.hero-logo{display:block;width:clamp(300px,42vw,325px);height:auto;margin-bottom:clamp(-14px,-1.1vw,-6px)}
 .offer-logo{display:block;width:clamp(124px,13vw,166px);height:auto}
-@media (max-width:760px){.hero-logo{width:min(74%,262px);margin-left:auto;margin-right:auto}}
+@media (max-width:760px){.hero-logo{width:min(88%,325px);margin-left:auto;margin-right:auto}}
 /* Hero no desktop: logo maior e o texto mais alto, com os botoes parados.
    Vem depois da regra base do .hero-logo porque a especificidade e a mesma.
    Tudo sob min-width:901px, entao mobile e tablet (<=900px) nao mudam.
@@ -246,7 +246,10 @@ body.rail-dragging{user-select:none;-webkit-user-select:none}
    --hero-lift inteiro. A logo maior tambem cresce a coluna, o que empurraria os
    botoes para baixo, por isso --logo-extra desconta essa altura da folga dos
    botoes. O 5.1157 e a proporcao do arquivo da logo (619/121): se a arte trocar
-   de proporcao, esse numero acompanha. */
+   de proporcao, esse numero acompanha. O clamp(210px,21vw,290px) dentro do
+   --logo-extra e a largura historica da logo, de quando os botoes foram
+   posicionados; nao e mais a largura de nenhuma faixa, e um ponto de
+   referencia fixo, entao nao troque por outro valor achando que desatualizou. */
 @media (min-width:901px){
 .hero-text-col{--hero-logo-w:clamp(300px,27vw,400px);--logo-extra:calc((var(--hero-logo-w) - clamp(210px,21vw,290px))/5.1157);--hero-lift:clamp(28px,6vh,72px);transform:translateY(calc(var(--hero-lift) * -.5))}
 .hero-text-col .hero-logo{width:var(--hero-logo-w)}
